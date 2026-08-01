@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MOCKTEST | Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e8e8e8",
+                    "surface-dim": "#dadada",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-primary-container": "#848484",
+                    "on-primary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-tint": "#5e5e5e",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-primary": "#ffffff",
+                    "secondary": "#5e5e5f",
+                    "on-surface-variant": "#4c4546",
+                    "on-secondary-container": "#626363",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e2e2e2",
+                    "secondary-container": "#e0dfdf",
+                    "primary-container": "#1b1b1b",
+                    "on-tertiary-container": "#848484",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#e3e2e2",
+                    "outline-variant": "#cfc4c5",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-container-low": "#f3f3f3",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c7c6c6",
+                    "primary": "#000000",
+                    "on-secondary-fixed-variant": "#464747",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-background": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1b1b1b",
+                    "inverse-primary": "#c6c6c6",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-surface": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e2e2",
+                    "surface-container": "#eeeeee",
+                    "inverse-on-surface": "#f1f1f1",
+                    "background": "#f9f9f9",
+                    "surface-bright": "#f9f9f9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "ui-header": ["Work Sans"],
+                    "sub-header": ["Work Sans"],
+                    "page-title": ["Work Sans"],
+                    "body": ["Work Sans"],
+                    "body-bold": ["Work Sans"]
+            },
+            "fontSize": {
+                    "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .rank-medal {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1b1b1b;
+            font-family: 'Work Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            transition: all 0.2s ease;
+        }
+        .bento-card:hover {
+            border-color: #c0c0c0;
+        }
+        .sticky-header {
+            backdrop-filter: blur(8px);
+            background-color: rgba(249, 249, 249, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-surface-variant h-16 flex items-center">
+<div class="flex justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto h-full">
+<div class="flex items-center gap-xl">
+<span class="font-page-title text-page-title font-black text-primary uppercase tracking-tighter">MOCKTEST</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Exams</a>
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-ui-header text-ui-header text-primary border-b-2 border-primary pb-1" href="#">Performance</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="pl-xl pr-md py-xs border border-surface-variant bg-surface-container-low rounded-lg text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none w-64" placeholder="Search exams..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-all">notifications</button>
+<div class="w-8 h-8 rounded-full border border-outline overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional corporate headshot of a student in a minimalist setting. The lighting is crisp and academic, using high-contrast black and white tones. The student wears a clean charcoal blazer, looking directly into the camera with focus and determination, reflecting the authoritative and scholarly brand of a premium mock test platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9V6XsSYjnL_R1CLNnIyXbR6LKT_mKyWef-qWv4gxR1zGKr-DlG_o6GgTXkVhwW2Bsf36Hu-NUvDvq9bWj0BPWkw6Acp0gQ9NZ5s7q-XbwnEzw2IoYryXFBXzAy8OKfxOJsdpKie1h6mPz5_iz9AoC7sgcW9ELt1MmUul5ZLTVzUOc2jUGhDq-mbRBknJ9IDDi37YgS6HJwoKQLfey51xbXl5LiVPRpZFA4Gjj14SJB_SQoL4Vj-DjcMRCmBuja-jSdemeMTa0z4o"/>
+</div>
+</div>
+</div>
+</header>
+<main class="mt-16 flex-grow">
+<!-- Hero Section / Title -->
+<section class="w-full max-w-[1200px] mx-auto px-container-margin pt-xl pb-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<span class="text-secondary font-body uppercase tracking-widest text-[12px]">Global Performance Ranking</span>
+<h1 class="font-page-title text-page-title text-primary mt-xs">Advanced Quantum Mechanics Mock #04</h1>
+</div>
+<div class="flex items-center gap-sm">
+<div class="bg-surface-container-low px-md py-sm rounded-lg border border-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">groups</span>
+<span class="font-body-bold text-primary">1,284 Participants</span>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm font-body-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all">
+                        View My Score
+                    </button>
+</div>
+</div>
+</section>
+<!-- Top 3 Podium (Asymmetric Bento Grid Style) -->
+<section class="w-full max-w-[1200px] mx-auto px-container-margin grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<!-- Rank 2 -->
+<div class="bento-card p-xl rounded-xl flex flex-col items-center justify-center text-center order-2 md:order-1 border-b-4 border-b-secondary-container">
+<div class="relative mb-md">
+<div class="w-20 h-20 rounded-full border-4 border-secondary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist studio portrait of a serious young scholar with glasses, shot in monochrome. The lighting highlights sharp features and a thoughtful expression. The background is a flat, clean metallic silver, creating a sense of technological sophistication and academic focus. The overall aesthetic is modern and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe61gQ5U-lWxlK4L9GMgBBZNE2Pz2bmT4aLfhVxtZlV205Aag_B_0WIITPH_xsDLw2f0ouqik03PLaQOAMEq9ibrA5lAi9H3FjcnxXz0z0BldabPmiQL-vt7vLec6mYfyqwwK4vSdoqXmQM8y-7h-HgZGZVhP5uJFgQ9ZJZi6yFCWtZIdk-l0lKoZbSV29i1sCNQ-jNYWE0uhgRsQqAKCPbJFoujPsBbVW50L5rZxIK-o-8rwwFjhELQPQewLG2uAZnJ3vSQTSHKw"/>
+</div>
+<span class="material-symbols-outlined absolute -bottom-2 -right-2 bg-surface text-[32px] rank-medal text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="text-secondary font-body-bold">RANK 2</span>
+<h3 class="font-ui-header text-ui-header text-primary">Alexander Sterling</h3>
+<div class="mt-md pt-md border-t border-surface-variant w-full grid grid-cols-2">
+<div>
+<p class="text-[10px] text-secondary uppercase font-body-bold">Score</p>
+<p class="font-ui-header text-primary">94.5%</p>
+</div>
+<div>
+<p class="text-[10px] text-secondary uppercase font-body-bold">Time</p>
+<p class="font-ui-header text-primary">42:15</p>
+</div>
+</div>
+</div>
+<!-- Rank 1 (The Anchor) -->
+<div class="bento-card p-xl rounded-xl flex flex-col items-center justify-center text-center order-1 md:order-2 border-b-4 border-b-primary shadow-lg scale-105 z-10 bg-surface-container-lowest">
+<div class="relative mb-md">
+<div class="w-24 h-24 rounded-full border-4 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-key, professional portrait of a successful young woman in a clean white shirt, smiling confidently. The lighting is bright and modern, creating a paper-like digital environment. The style is scholarly and minimalist, with a focus on her expression of achievement and excellence in a scholarly setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1BItg68yuKFhZ0C8t9IwOsA-ghEp1YIWXITQUxxgz48ZzJgSIxzDiq6yxxqWzf7Ro7ok7ofxuAiNHWsEdP_K23wbo--aGWhrs0sXVjvW2gMBNG9Y6y0s0s4CQkCxXr8yqOnF0SYXCEWqX7rdhesRrXs4mzgNeDj2PqZYg13DWRJiAZ7vZ7G-yWG3PPBn2qHDORzHVYEkMk9WUydFQjNIYSmza84p4dsbrPFLXAPaHvURQQBOmdJHM1ybHjWbeksvarg1zqmVvVs"/>
+</div>
+<span class="material-symbols-outlined absolute -bottom-3 -right-3 bg-surface text-[40px] rank-medal text-primary" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<span class="text-primary font-body-bold">RANK 1</span>
+<h2 class="font-sub-header text-sub-header text-primary">Dr. Elena Vance</h2>
+<p class="text-secondary font-body mt-xs italic">Oxford Scholar Fellowship</p>
+<div class="mt-md pt-md border-t border-primary w-full grid grid-cols-2">
+<div>
+<p class="text-[10px] text-primary uppercase font-body-bold">Score</p>
+<p class="font-sub-header text-primary">99.8%</p>
+</div>
+<div>
+<p class="text-[10px] text-primary uppercase font-body-bold">Time</p>
+<p class="font-sub-header text-primary">38:02</p>
+</div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="bento-card p-xl rounded-xl flex flex-col items-center justify-center text-center order-3 border-b-4 border-b-outline-variant">
+<div class="relative mb-md">
+<div class="w-20 h-20 rounded-full border-4 border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up studio shot of a young male student looking intently at the camera. The image uses a monochromatic color palette with deep blacks and bright whites. The lighting is dramatic and clean, emphasizing a look of focus and intellectual intensity, perfect for a scholarly leaderboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhzA4Zt40046qDdSLZU5TQUgVsbZH1uthhQaslpou7dlpufBKTueLa8gd7V65zxKHHNkidvYECwIe7mVaVB4us4v8uLPgFeT1RLRTLmcbLgtmWYn9WMOTwkSQd2PuFuLZSAL72QRAxgmfQUyvsB5-yqa56-CUWEl2UEyX2hfohQ4CnstpAENLsJQF16xcQ-qyovsJH6wi26EvoGY349h61H4i6CtEeKgx6r8uCXqHW1Omq9WGJfSyWw2ZMfJNa6HXwKjsWxmQidM8"/>
+</div>
+<span class="material-symbols-outlined absolute -bottom-2 -right-2 bg-surface text-[32px] rank-medal text-outline" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<span class="text-secondary font-body-bold">RANK 3</span>
+<h3 class="font-ui-header text-ui-header text-primary">Julian Thorne</h3>
+<div class="mt-md pt-md border-t border-surface-variant w-full grid grid-cols-2">
+<div>
+<p class="text-[10px] text-secondary uppercase font-body-bold">Score</p>
+<p class="font-ui-header text-primary">92.1%</p>
+</div>
+<div>
+<p class="text-[10px] text-secondary uppercase font-body-bold">Time</p>
+<p class="font-ui-header text-primary">45:50</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Search and Filter Bar -->
+<section class="w-full max-w-[1200px] mx-auto px-container-margin mb-md">
+<div class="flex items-center justify-between border-b border-surface-variant pb-sm">
+<div class="flex items-center gap-md">
+<button class="font-body-bold text-primary border-b-2 border-primary pb-sm px-xs">Top Performance</button>
+<button class="font-body text-secondary hover:text-primary pb-sm px-xs transition-colors">Global percentile</button>
+<button class="font-body text-secondary hover:text-primary pb-sm px-xs transition-colors">By Region</button>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+<span class="text-body">Sorted by Score</span>
+</div>
+</div>
+</section>
+<!-- Ranked List Table -->
+<section class="w-full max-w-[1200px] mx-auto px-container-margin mb-xl overflow-hidden">
+<div class="bg-surface-container-lowest rounded-xl border border-surface-variant overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-surface-variant">
+<tr>
+<th class="px-lg py-md font-body-bold text-secondary uppercase text-[12px]">Rank</th>
+<th class="px-lg py-md font-body-bold text-secondary uppercase text-[12px]">Student Name</th>
+<th class="px-lg py-md font-body-bold text-secondary uppercase text-[12px]">Institute</th>
+<th class="px-lg py-md font-body-bold text-secondary uppercase text-[12px] text-center">Score</th>
+<th class="px-lg py-md font-body-bold text-secondary uppercase text-[12px] text-right">Time Taken</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<!-- Iterative rows -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md font-body-bold text-primary">04</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant rounded-lg flex items-center justify-center font-body-bold text-secondary">MP</div>
+<span class="font-body-bold text-primary group-hover:underline underline-offset-4 cursor-pointer">Marcus Pierce</span>
+</div>
+</td>
+<td class="px-lg py-md text-secondary font-body">MIT Applied Sciences</td>
+<td class="px-lg py-md text-center">
+<span class="bg-secondary-container text-primary font-body-bold px-sm py-xs rounded">90.8%</span>
+</td>
+<td class="px-lg py-md text-right font-body text-secondary">46:12</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md font-body-bold text-primary">05</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant rounded-lg flex items-center justify-center font-body-bold text-secondary">SL</div>
+<span class="font-body-bold text-primary group-hover:underline underline-offset-4 cursor-pointer">Sarah Lim</span>
+</div>
+</td>
+<td class="px-lg py-md text-secondary font-body">Stanford Engineering</td>
+<td class="px-lg py-md text-center">
+<span class="bg-secondary-container text-primary font-body-bold px-sm py-xs rounded">89.5%</span>
+</td>
+<td class="px-lg py-md text-right font-body text-secondary">47:45</td>
+</tr>
+<tr class="bg-primary text-on-primary">
+<td class="px-lg py-md font-body-bold">84</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 bg-on-primary text-primary rounded-lg flex items-center justify-center font-body-bold">ME</div>
+<span class="font-body-bold">You (Michael Edwards)</span>
+</div>
+</td>
+<td class="px-lg py-md font-body">Imperial College</td>
+<td class="px-lg py-md text-center">
+<span class="bg-surface-container-lowest text-primary font-body-bold px-sm py-xs rounded">76.2%</span>
+</td>
+<td class="px-lg py-md text-right font-body">51:04</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md font-body-bold text-primary">06</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant rounded-lg flex items-center justify-center font-body-bold text-secondary">CH</div>
+<span class="font-body-bold text-primary group-hover:underline underline-offset-4 cursor-pointer">Caleb Hoffman</span>
+</div>
+</td>
+<td class="px-lg py-md text-secondary font-body">Caltech Physics</td>
+<td class="px-lg py-md text-center">
+<span class="bg-secondary-container text-primary font-body-bold px-sm py-xs rounded">88.2%</span>
+</td>
+<td class="px-lg py-md text-right font-body text-secondary">48:30</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md font-body-bold text-primary">07</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant rounded-lg flex items-center justify-center font-body-bold text-secondary">AW</div>
+<span class="font-body-bold text-primary group-hover:underline underline-offset-4 cursor-pointer">Amara Williams</span>
+</div>
+</td>
+<td class="px-lg py-md text-secondary font-body">ETH Zurich</td>
+<td class="px-lg py-md text-center">
+<span class="bg-secondary-container text-primary font-body-bold px-sm py-xs rounded">87.9%</span>
+</td>
+<td class="px-lg py-md text-right font-body text-secondary">49:15</td>
+</tr>
+</tbody>
+</table>
+<div class="p-md flex justify-center border-t border-surface-variant">
+<button class="font-body-bold text-secondary hover:text-primary transition-all flex items-center gap-xs">
+                        Load More Performers
+                        <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Side Callout / Performance Context -->
+<section class="w-full max-w-[1200px] mx-auto px-container-margin grid grid-cols-1 md:grid-cols-2 gap-xl mb-xl">
+<div class="bg-surface-container-low p-xl rounded-xl border border-surface-variant relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-ui-header text-ui-header text-primary mb-sm">Performance Analysis</h3>
+<p class="font-body text-secondary mb-lg">The average score for this mock exam session was 64.2%. Only 5% of participants scored above 90%.</p>
+<div class="space-y-md">
+<div>
+<div class="flex justify-between mb-xs">
+<span class="font-body-bold text-primary">Difficulty Rating</span>
+<span class="font-body text-secondary">Expert (8.4/10)</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[84%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-5">
+<span class="material-symbols-outlined text-[120px]">leaderboard</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-xl rounded-xl border border-surface-variant flex flex-col justify-between">
+<div>
+<h3 class="font-ui-header text-ui-header text-primary mb-sm">Review Questions</h3>
+<p class="font-body text-secondary mb-lg">Access a detailed breakdown of the most challenging questions from this test to improve your ranking.</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-primary text-on-primary px-lg py-sm font-body-bold rounded-lg hover:opacity-90 transition-all flex-1">
+                        View Solution Keys
+                    </button>
+<button class="border border-outline-variant text-primary px-lg py-sm font-body-bold rounded-lg hover:bg-surface-variant transition-all flex-1">
+                        Retry Mock
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-xl bg-surface-container-highest border-t border-surface-variant">
+<div class="flex flex-col items-center justify-center gap-md w-full px-container-margin max-w-[1200px] mx-auto">
+<span class="font-ui-header text-ui-header uppercase tracking-widest text-primary">MOCKTEST PLATFORM</span>
+<div class="flex gap-lg flex-wrap justify-center">
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">FAQ</a>
+</div>
+<p class="font-body text-secondary opacity-60 text-center">© 2024 MOCKTEST PLATFORM. AUTHORITATIVE PRACTICE.</p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.style.transform = 'scale(0.998)';
+                row.style.transition = 'transform 0.1s';
+            });
+            row.addEventListener('mouseup', () => {
+                row.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple Fade In Observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+            observer.observe(card);
+        });
+    </script>
+</body></html>

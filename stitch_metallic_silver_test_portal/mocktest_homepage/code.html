@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MOCKTEST | Authoritative Exam Practice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-bright": "#f9f9f9",
+                    "secondary": "#5e5e5f",
+                    "surface-variant": "#e2e2e2",
+                    "primary-container": "#1b1b1b",
+                    "surface-tint": "#5e5e5e",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474747",
+                    "tertiary-container": "#1b1b1b",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary-fixed-dim": "#c7c6c6",
+                    "on-secondary-fixed-variant": "#464747",
+                    "on-primary-container": "#848484",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-background": "#1b1b1b",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#e8e8e8",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-highest": "#e2e2e2",
+                    "secondary-container": "#e0dfdf",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#cfc4c5",
+                    "on-primary-fixed": "#1b1b1b",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#303030",
+                    "secondary-fixed": "#e3e2e2",
+                    "primary": "#000000",
+                    "on-secondary-container": "#626363",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#4c4546",
+                    "background": "#f9f9f9",
+                    "outline": "#7e7576",
+                    "on-surface": "#1b1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "unit": "8px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "page-title": ["Work Sans"],
+                    "sub-header": ["Work Sans"],
+                    "body-bold": ["Work Sans"],
+                    "body": ["Work Sans"],
+                    "ui-header": ["Work Sans"]
+            },
+            "fontSize": {
+                    "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9f9; color: #1b1b1b; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .nav-active { border-bottom: 2px solid #000000; padding-bottom: 4px; }
+        .mask-pattern {
+            mask-image: linear-gradient(to bottom, black, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface docked full-width top-0 border-b border-surface-variant z-50 sticky">
+<div class="flex justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto h-16">
+<div class="font-page-title text-page-title font-black text-primary">MOCKTEST</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="font-ui-header text-ui-header text-primary border-b-2 border-primary pb-1 hover:text-primary transition-colors" href="#">Exams</a>
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Performance</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-all duration-200">notifications</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-all duration-200">account_circle</button>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-container-margin">
+<!-- Hero Section -->
+<section class="py-xl md:py-20 flex flex-col items-center text-center gap-xl">
+<div class="space-y-md max-w-2xl">
+<h1 class="font-page-title text-page-title md:text-5xl md:leading-[1.1] text-primary">Master Your Ambitions with Precision Practice.</h1>
+<p class="font-body text-body text-secondary max-w-xl mx-auto">Access the world's most authoritative mock test library. Designed by subject matter experts to mirror the exact rigor of your upcoming exams.</p>
+</div>
+<!-- Search Bar -->
+<div class="w-full max-w-2xl relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full pl-12 pr-md py-md bg-surface-container-lowest border border-surface-variant rounded-lg focus:border-primary focus:ring-0 transition-all font-body" placeholder="Search for Engineering, Medical, or Civil Services tests..." type="text"/>
+</div>
+<div class="flex gap-md">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-body-bold hover:scale-[0.98] transition-transform">Start Your Success Journey</button>
+<button class="border border-outline-variant text-primary px-xl py-md rounded-lg font-body-bold hover:bg-surface-container transition-all">Explore Categories</button>
+</div>
+</section>
+<!-- Exam Categories Bento Grid -->
+<section class="py-xl">
+<div class="flex items-center justify-between mb-xl">
+<h2 class="font-sub-header text-sub-header text-primary">Featured Exam Sectors</h2>
+<a class="font-body-bold text-primary flex items-center gap-xs" href="#">View all <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md h-auto md:h-[480px]">
+<!-- Engineering Card -->
+<div class="md:col-span-8 bg-surface-container-low border border-surface-variant rounded-xl p-xl flex flex-col justify-between overflow-hidden relative group">
+<div class="relative z-10 space-y-sm">
+<span class="bg-surface-container-highest px-md py-xs rounded-full font-body text-[12px] uppercase tracking-wider">Engineering</span>
+<h3 class="font-sub-header text-sub-header text-primary">Technical Excellence</h3>
+<p class="font-body text-secondary max-w-md">Comprehensive mock series for GATE, JEE Advanced, and ESE. 15,000+ targeted questions with detailed video solutions.</p>
+<button class="mt-md bg-primary text-on-primary px-md py-sm rounded-lg font-body-bold flex items-center gap-xs">Explore Track <span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 h-full opacity-20 group-hover:opacity-40 transition-opacity">
+<img class="w-full h-full object-cover grayscale" data-alt="A professional, high-contrast digital illustration of complex blueprint schematics and geometric engineering diagrams. The style is minimalist with thin black lines on a metallic silver background, reflecting a scholarly and technological atmosphere. Soft diffuse lighting creates a clean, academic mood for a mock test platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDERCIi99Gt4uIK01jhAFzOCkE8rCA3NzAsFAj237PPDs3piQUm6FBQWqoCIh_0gzVYyNHd3DM0v7reAMh1QNy3-myQXETFno9JlgSF2dWxZpwhB-AmU_03OTtSlIwFlikWvvUXbCTR3Ec3APfNwsY37AhXOC-EOB4dTfByR7_eD3DEkRkbCYbGbUfpEBb4Q8uVEupL1Kzcm6q-hxX2U7JCrK_DAVG8yGOKndisaV_qgW5DNhjnyOKyRrC9Z1r60u8_gARAk2ZnVfs"/>
+</div>
+</div>
+<!-- Medical Card -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-surface-variant rounded-xl p-lg flex flex-col gap-md">
+<div class="h-40 w-full rounded-lg overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A minimalist laboratory setting with clean glass equipment and a professional medical microscope. The color palette is strictly white, metallic silver, and black. High-key lighting emphasizes a sterile, focused environment for medical exam preparation. The image feels authoritative and scientifically precise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGmrD0mZoZrOaY_-wq8I0AN3L81vMQDlRjWv1ZebOv6yZvY8R_fEJ5A_8RwmnGstaPt112rWJNu3R7vZ04vlwXCpMRVsOk8_-pv2EAImBK4fiIXHT86AO-82mjy-2j2RJFqFTlmD10xc2div30AA2XECGJ7JCEpTG72jyVGckzD5SVcdkfd6G4QI6fj68_UOx1_inUEaJ9brFo_bYPfrq5qGoQ6gK2ImmRPQfPwZdfE3IhcbP_dQJKY4b4W2T6k2q2Ukh1TPu-oKo"/>
+</div>
+<div class="space-y-xs">
+<h3 class="font-ui-header text-ui-header text-primary">Medical Sciences</h3>
+<p class="font-body text-secondary">NEET, AIIMS, and USMLE preparation with real-time analytics.</p>
+<div class="pt-sm border-t border-surface-variant mt-sm">
+<span class="font-body-bold text-[12px] text-secondary">2.4k Students Active Now</span>
+</div>
+</div>
+</div>
+<!-- Civil Services Card -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-surface-variant rounded-xl p-lg flex flex-col gap-md">
+<div class="h-40 w-full rounded-lg overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="An authoritative scholarly library setting with neatly arranged law books and official documents. The lighting is soft and focused, creating an atmosphere of serious study and civil service dedication. The style is professional and corporate, using high-contrast black and white with metallic silver accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-auTj_iWyeLPS9nKT6yNW6vYaY0NzOoJnRKEZ_lR-uST-3eySTOo7BVdFHT31qvPpUuDHx1lsZyiDd_uun8YV2ykge1mGrYP7UUP9Wfe__gQepdpVZpiuoUHfqJYkPxLX4CEhJDW0-ksYJpOdJOyXTZyimiIfDOEWJ-LSFRetCm_jjaWsuY-BODBvoa36KFAlOD98kbY0I4ANrjygwA_NL72LqeeY2mdn5fUnnJduoMjNzZ_JAzpd9HPwtPs3Etyo4UxY7bdPt8M"/>
+</div>
+<div class="space-y-xs">
+<h3 class="font-ui-header text-ui-header text-primary">Civil Services</h3>
+<p class="font-body text-secondary">UPSC &amp; State PSC mains preparation with subjective evaluation modules.</p>
+<div class="pt-sm border-t border-surface-variant mt-sm">
+<span class="font-body-bold text-[12px] text-secondary">New Tests Added Daily</span>
+</div>
+</div>
+</div>
+<!-- Management Card -->
+<div class="md:col-span-8 bg-surface-container-high border border-surface-variant rounded-xl p-xl flex items-center justify-between group">
+<div class="space-y-sm">
+<h3 class="font-sub-header text-sub-header text-primary">Management &amp; Aptitude</h3>
+<p class="font-body text-secondary max-w-sm">CAT, GMAT, and GRE simulators. Master the art of time management under high-pressure scenarios.</p>
+<div class="flex gap-md pt-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">timer</span>
+<span class="font-body-bold">Adaptive Timers</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="font-body-bold">Percentile Ranking</span>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-32 h-32 bg-primary rounded-full flex items-center justify-center text-on-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1">trending_up</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-xl border-y border-surface-variant my-xl">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-xl">
+<div class="text-center space-y-xs">
+<div class="font-page-title text-page-title text-primary">1M+</div>
+<div class="font-body text-secondary">Tests Taken</div>
+</div>
+<div class="text-center space-y-xs">
+<div class="font-page-title text-page-title text-primary">98.2%</div>
+<div class="font-body text-secondary">Accuracy in Pattern</div>
+</div>
+<div class="text-center space-y-xs">
+<div class="font-page-title text-page-title text-primary">50k+</div>
+<div class="font-body text-secondary">Success Stories</div>
+</div>
+<div class="text-center space-y-xs">
+<div class="font-page-title text-page-title text-primary">150+</div>
+<div class="font-body text-secondary">Exam Categories</div>
+</div>
+</div>
+</section>
+<!-- CTA Canvas -->
+<section class="py-xl mb-20 relative rounded-xl overflow-hidden bg-primary text-on-primary p-xl md:p-20 text-center">
+
+<div class="relative z-10 space-y-xl max-w-3xl mx-auto">
+<h2 class="font-page-title text-page-title md:text-4xl">Ready to transform your preparation into success?</h2>
+<p class="font-body text-inverse-primary">Join the elite community of students who choose authority over convenience. Your career deserves the highest standard of practice.</p>
+<div class="flex justify-center gap-md">
+<button class="bg-surface text-primary px-xl py-md rounded-lg font-body-bold hover:bg-surface-variant transition-all">Create Free Account</button>
+<button class="border border-inverse-primary text-on-primary px-xl py-md rounded-lg font-body-bold hover:bg-white/10 transition-all">View Premium Plans</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-xl border-t border-surface-variant">
+<div class="flex flex-col items-center justify-center gap-md w-full px-container-margin max-w-[1200px] mx-auto">
+<div class="font-ui-header text-ui-header uppercase tracking-widest text-primary">MOCKTEST</div>
+<div class="flex flex-wrap justify-center gap-xl">
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">FAQ</a>
+</div>
+<div class="text-secondary text-[12px] font-body mt-md">
+                © 2024 MOCKTEST PLATFORM. AUTHORITATIVE PRACTICE.
+            </div>
+</div>
+</footer>
+<!-- Side Navigation (Mobile Drawer Mockup logic) -->
+<div class="fixed inset-0 bg-black/50 z-[100] hidden transition-opacity duration-300 opacity-0" id="mobile-menu">
+<aside class="bg-surface-container-low h-full w-64 fixed left-0 top-0 border-r border-surface-variant flex flex-col p-md gap-sm -translate-x-full transition-transform duration-300 shadow-xl">
+<div class="flex items-center justify-between mb-md">
+<div class="font-ui-header text-ui-header font-bold text-primary">Student Portal</div>
+<button class="material-symbols-outlined" onclick="toggleMenu()">close</button>
+</div>
+<div class="flex items-center gap-md p-md bg-surface-container rounded-lg mb-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container"></div>
+<div>
+<div class="font-body-bold text-primary">Profile Name</div>
+<div class="text-[12px] text-secondary">Exam Mode: Active</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-md px-md py-sm bg-primary text-on-primary font-body-bold rounded-lg" href="#">
+<span class="material-symbols-outlined">home</span> Home
+                </a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-variant rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span> My Tests
+                </a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-variant rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">leaderboard</span> Analysis
+                </a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-variant rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span> Resources
+                </a>
+<a class="flex items-center gap-md px-md py-sm text-secondary hover:bg-surface-variant rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+                </a>
+</nav>
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-body-bold mt-auto">Upgrade to Pro</button>
+</aside>
+</div>
+<script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const aside = menu.querySelector('aside');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.add('opacity-100');
+                    aside.classList.remove('-translate-x-full');
+                }, 10);
+            } else {
+                menu.classList.remove('opacity-100');
+                aside.classList.add('-translate-x-full');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
+</body></html>

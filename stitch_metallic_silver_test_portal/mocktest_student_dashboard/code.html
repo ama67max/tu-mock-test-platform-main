@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Dashboard | MOCKTEST</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-bright": "#f9f9f9",
+                    "secondary": "#5e5e5f",
+                    "surface-variant": "#e2e2e2",
+                    "primary-container": "#1b1b1b",
+                    "surface-tint": "#5e5e5e",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474747",
+                    "tertiary-container": "#1b1b1b",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary-fixed-dim": "#c7c6c6",
+                    "on-secondary-fixed-variant": "#464747",
+                    "on-primary-container": "#848484",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-background": "#1b1b1b",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#e8e8e8",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-highest": "#e2e2e2",
+                    "secondary-container": "#e0dfdf",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#cfc4c5",
+                    "on-primary-fixed": "#1b1b1b",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#303030",
+                    "secondary-fixed": "#e3e2e2",
+                    "primary": "#000000",
+                    "on-secondary-container": "#626363",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#4c4546",
+                    "background": "#f9f9f9",
+                    "outline": "#7e7576",
+                    "on-surface": "#1b1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "unit": "8px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "page-title": ["Work Sans"],
+                    "sub-header": ["Work Sans"],
+                    "body-bold": ["Work Sans"],
+                    "body": ["Work Sans"],
+                    "ui-header": ["Work Sans"]
+            },
+            "fontSize": {
+                    "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; background-color: #f9f9f9; }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+        .chart-container { position: relative; height: 180px; }
+        .bar-anim { transition: height 1s ease-out; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface docked full-width top-0 border-b border-surface-variant z-50 sticky">
+<div class="flex justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto h-16">
+<div class="flex items-center gap-xl">
+<span class="font-page-title text-page-title font-black text-primary">MOCKTEST</span>
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Exams</a>
+<a class="font-ui-header text-ui-header text-primary border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="font-ui-header text-ui-header text-secondary hover:text-primary transition-colors" href="#">Performance</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center bg-surface-container-low border border-surface-variant rounded-lg px-sm py-xs">
+<span class="material-symbols-outlined text-secondary mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body outline-none w-48" placeholder="Search tests..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_circle</button>
+</div>
+</div>
+</header>
+<div class="flex max-w-[1200px] mx-auto min-h-screen">
+<!-- Side Navigation Bar -->
+<aside class="hidden lg:flex flex-col h-screen p-md gap-sm w-64 border-r border-surface-variant bg-surface-container-low sticky top-16">
+<div class="mb-xl px-sm">
+<p class="font-ui-header text-ui-header font-bold text-primary">Student Portal</p>
+<p class="font-body text-secondary text-xs">Exam Mode: Active</p>
+</div>
+<nav class="flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-md p-sm text-secondary hover:bg-surface-variant transition-all rounded-lg font-body" href="#">
+<span class="material-symbols-outlined">home</span> Home
+                </a>
+<a class="flex items-center gap-md p-sm text-secondary hover:bg-surface-variant transition-all rounded-lg font-body" href="#">
+<span class="material-symbols-outlined">assignment</span> My Tests
+                </a>
+<a class="flex items-center gap-md p-sm bg-primary text-on-primary font-body-bold rounded-lg scale-[0.98]" href="#">
+<span class="material-symbols-outlined">leaderboard</span> Analysis
+                </a>
+<a class="flex items-center gap-md p-sm text-secondary hover:bg-surface-variant transition-all rounded-lg font-body" href="#">
+<span class="material-symbols-outlined">menu_book</span> Resources
+                </a>
+<a class="flex items-center gap-md p-sm text-secondary hover:bg-surface-variant transition-all rounded-lg font-body mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+                </a>
+</nav>
+<button class="w-full py-md mt-xl bg-primary text-on-primary font-body-bold rounded-lg hover:opacity-90 transition-opacity">
+                Upgrade to Pro
+            </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-xl overflow-x-hidden">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h1 class="font-page-title text-page-title text-primary">Welcome back, Alex.</h1>
+<p class="font-body text-secondary mt-xs">Your performance is up by 12% this week. Keep the momentum.</p>
+</div>
+<div class="bg-surface-container-highest px-md py-sm rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-ui-header text-ui-header text-primary">14:22:05</span>
+<span class="font-body text-secondary text-xs uppercase tracking-wider">Next Exam</span>
+</div>
+</div>
+<!-- Bento Grid Dashboard -->
+<div class="bento-grid">
+<!-- Performance Overview: Bar Chart -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-surface-variant p-lg rounded-xl">
+<div class="flex justify-between items-center mb-xl">
+<h2 class="font-ui-header text-ui-header text-primary">Score Trends</h2>
+<div class="flex gap-sm">
+<span class="flex items-center gap-xs font-body text-xs text-secondary"><div class="w-2 h-2 rounded-full bg-primary"></div> SAT Prep</span>
+<span class="flex items-center gap-xs font-body text-xs text-secondary"><div class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></div> Mock Exams</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-[200px] px-md">
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-primary rounded-t-sm bar-anim h-[60%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">MON</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-primary rounded-t-sm bar-anim h-[45%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">TUE</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-primary rounded-t-sm bar-anim h-[85%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">WED</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-primary rounded-t-sm bar-anim h-[70%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">THU</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-primary rounded-t-sm bar-anim h-[95%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">FRI</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-secondary-fixed-dim rounded-t-sm bar-anim h-[50%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">SAT</span>
+</div>
+<div class="flex flex-col items-center gap-sm group">
+<div class="w-12 bg-secondary-fixed-dim rounded-t-sm bar-anim h-[30%] group-hover:opacity-80"></div>
+<span class="font-body text-[10px] text-secondary">SUN</span>
+</div>
+</div>
+</div>
+<!-- Weakness Distribution: Pie/Circle Chart -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-surface-variant p-lg rounded-xl flex flex-col items-center justify-center">
+<h2 class="font-ui-header text-ui-header text-primary mb-xl self-start">Subject Distribution</h2>
+<div class="relative w-40 h-40 mb-lg">
+<svg class="w-full h-full transform -rotate-90">
+<circle cx="80" cy="80" fill="transparent" r="70" stroke="#e2e2e2" stroke-width="20"></circle>
+<circle class="transition-all duration-1000" cx="80" cy="80" fill="transparent" r="70" stroke="#000000" stroke-dasharray="440" stroke-dashoffset="150" stroke-width="20"></circle>
+<circle class="transition-all duration-1000" cx="80" cy="80" fill="transparent" r="70" stroke="#848484" stroke-dasharray="440" stroke-dashoffset="380" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-page-title text-sub-header">84%</span>
+<span class="font-body text-[10px] text-secondary uppercase">Accuracy</span>
+</div>
+</div>
+<div class="w-full space-y-sm">
+<div class="flex justify-between font-body text-xs">
+<span class="flex items-center gap-xs"><div class="w-2 h-2 rounded-full bg-primary"></div> Quantitative</span>
+<span class="font-body-bold">62%</span>
+</div>
+<div class="flex justify-between font-body text-xs">
+<span class="flex items-center gap-xs"><div class="w-2 h-2 rounded-full bg-on-primary-container"></div> Verbal</span>
+<span class="font-body-bold">22%</span>
+</div>
+<div class="flex justify-between font-body text-xs">
+<span class="flex items-center gap-xs"><div class="w-2 h-2 rounded-full bg-surface-variant"></div> Logic</span>
+<span class="font-body-bold">16%</span>
+</div>
+</div>
+</div>
+<!-- Recommended Tests -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest border border-surface-variant p-lg rounded-xl">
+<h2 class="font-ui-header text-ui-header text-primary mb-md">Tailored Practice</h2>
+<div class="space-y-md">
+<div class="group flex items-center gap-md p-md border border-surface-variant rounded-lg hover:border-primary transition-all cursor-pointer">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">functions</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-bold text-primary">Advanced Calculus Review</h3>
+<p class="font-body text-xs text-secondary">Focus: Derivatives &amp; Integration (Based on last week's error)</p>
+</div>
+<button class="px-md py-sm border border-secondary text-primary font-body-bold rounded hover:bg-primary hover:text-white transition-all">Start</button>
+</div>
+<div class="group flex items-center gap-md p-md border border-surface-variant rounded-lg hover:border-primary transition-all cursor-pointer">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-bold text-primary">Logical Reasoning Mastery</h3>
+<p class="font-body text-xs text-secondary">Focus: Deduction Patterns (Time management drill)</p>
+</div>
+<button class="px-md py-sm border border-secondary text-primary font-body-bold rounded hover:bg-primary hover:text-white transition-all">Start</button>
+</div>
+</div>
+</div>
+<!-- Upcoming Scheduled Exams -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest border border-surface-variant p-lg rounded-xl">
+<h2 class="font-ui-header text-ui-header text-primary mb-md">Upcoming Schedule</h2>
+<div class="space-y-sm">
+<div class="flex items-center gap-md py-sm border-b border-surface-variant last:border-0">
+<div class="flex flex-col items-center bg-surface-container-low px-sm py-xs rounded min-w-[50px]">
+<span class="font-body-bold text-primary">12</span>
+<span class="font-body text-[10px] uppercase text-secondary">Oct</span>
+</div>
+<div>
+<h4 class="font-body-bold text-primary">National Scholarship Mock</h4>
+<p class="font-body text-xs text-secondary">09:00 AM • 180 Minutes</p>
+</div>
+</div>
+<div class="flex items-center gap-md py-sm border-b border-surface-variant last:border-0">
+<div class="flex flex-col items-center bg-surface-container-low px-sm py-xs rounded min-w-[50px]">
+<span class="font-body-bold text-primary">15</span>
+<span class="font-body text-[10px] uppercase text-secondary">Oct</span>
+</div>
+<div>
+<h4 class="font-body-bold text-primary">Standardized Aptitude Test</h4>
+<p class="font-body text-xs text-secondary">11:30 AM • 60 Minutes</p>
+</div>
+</div>
+<div class="flex items-center gap-md py-sm border-b border-surface-variant last:border-0">
+<div class="flex flex-col items-center bg-surface-container-low px-sm py-xs rounded min-w-[50px]">
+<span class="font-body-bold text-primary">21</span>
+<span class="font-body text-[10px] uppercase text-secondary">Oct</span>
+</div>
+<div>
+<h4 class="font-body-bold text-primary">University Entrance Simulation</h4>
+<p class="font-body text-xs text-secondary">02:00 PM • 240 Minutes</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="col-span-12 bg-surface-container-lowest border border-surface-variant p-lg rounded-xl">
+<h2 class="font-ui-header text-ui-header text-primary mb-md">Activity Logs</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-surface-variant font-body text-xs text-secondary uppercase tracking-widest">
+<th class="py-md font-normal">Test Name</th>
+<th class="py-md font-normal">Date</th>
+<th class="py-md font-normal text-right">Score</th>
+<th class="py-md font-normal text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr class="font-body text-sm text-primary">
+<td class="py-md">Global Mathematics Olympiad Prep</td>
+<td class="py-md">Yesterday, 14:20</td>
+<td class="py-md text-right font-body-bold">88/100</td>
+<td class="py-md text-right">
+<span class="bg-surface-container-low px-sm py-xs rounded text-[10px] font-body-bold text-secondary">COMPLETED</span>
+</td>
+</tr>
+<tr class="font-body text-sm text-primary">
+<td class="py-md">Biology Core Fundamentals</td>
+<td class="py-md">Oct 08, 2023</td>
+<td class="py-md text-right font-body-bold">72/100</td>
+<td class="py-md text-right">
+<span class="bg-surface-container-low px-sm py-xs rounded text-[10px] font-body-bold text-secondary">COMPLETED</span>
+</td>
+</tr>
+<tr class="font-body text-sm text-primary">
+<td class="py-md">Physics Mock III</td>
+<td class="py-md">Oct 05, 2023</td>
+<td class="py-md text-right font-body-bold">- -</td>
+<td class="py-md text-right">
+<span class="bg-error-container text-on-error-container px-sm py-xs rounded text-[10px] font-body-bold">EXPIRED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-xl border-t border-surface-variant mt-xl">
+<div class="flex flex-col items-center justify-center gap-md w-full px-container-margin max-w-[1200px] mx-auto">
+<span class="font-ui-header text-ui-header uppercase tracking-widest text-primary">MOCKTEST PLATFORM</span>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="font-body text-secondary hover:text-primary transition-colors" href="#">FAQ</a>
+</div>
+<p class="font-body text-xs text-secondary mt-md opacity-70">© 2024 MOCKTEST PLATFORM. AUTHORITATIVE PRACTICE.</p>
+</div>
+</footer>
+<!-- Interactive script for chart and micro-interactions -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate bars on load
+            const bars = document.querySelectorAll('.bar-anim');
+            bars.forEach(bar => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = targetHeight;
+                }, 100);
+            });
+
+            // Smooth scale effect for active side nav
+            const navItems = document.querySelectorAll('aside nav a');
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    navItems.forEach(i => {
+                        i.classList.remove('bg-primary', 'text-on-primary', 'font-body-bold', 'scale-[0.98]');
+                        i.classList.add('text-secondary', 'font-body');
+                    });
+                    item.classList.remove('text-secondary', 'font-body');
+                    item.classList.add('bg-primary', 'text-on-primary', 'font-body-bold', 'scale-[0.98]');
+                });
+            });
+        });
+    </script>
+</body></html>

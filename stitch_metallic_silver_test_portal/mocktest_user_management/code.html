@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MOCKTEST | Admin User Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-high": "#e8e8e8",
+                "surface-dim": "#dadada",
+                "surface": "#f9f9f9",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#e2e2e2",
+                "on-primary-container": "#848484",
+                "on-primary-fixed-variant": "#474747",
+                "tertiary-fixed-dim": "#c6c6c6",
+                "on-secondary-fixed": "#1a1c1c",
+                "surface-tint": "#5e5e5e",
+                "on-tertiary-fixed": "#1b1b1b",
+                "on-primary": "#ffffff",
+                "secondary": "#5e5e5f",
+                "on-surface-variant": "#4c4546",
+                "on-secondary-container": "#626363",
+                "tertiary": "#000000",
+                "tertiary-fixed": "#e2e2e2",
+                "secondary-container": "#e0dfdf",
+                "primary-container": "#1b1b1b",
+                "on-tertiary-container": "#848484",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#303030",
+                "error": "#ba1a1a",
+                "secondary-fixed": "#e3e2e2",
+                "outline-variant": "#cfc4c5",
+                "outline": "#7e7576",
+                "on-tertiary-fixed-variant": "#474747",
+                "surface-container-low": "#f3f3f3",
+                "primary-fixed": "#e2e2e2",
+                "on-error": "#ffffff",
+                "secondary-fixed-dim": "#c7c6c6",
+                "primary": "#000000",
+                "on-secondary-fixed-variant": "#464747",
+                "on-primary-fixed": "#1b1b1b",
+                "on-background": "#1b1b1b",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "tertiary-container": "#1b1b1b",
+                "inverse-primary": "#c6c6c6",
+                "primary-fixed-dim": "#c6c6c6",
+                "on-surface": "#1b1b1b",
+                "on-error-container": "#93000a",
+                "surface-variant": "#e2e2e2",
+                "surface-container": "#eeeeee",
+                "inverse-on-surface": "#f1f1f1",
+                "background": "#f9f9f9",
+                "surface-bright": "#f9f9f9"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "unit": "8px",
+                "container-margin": "24px",
+                "xs": "4px",
+                "lg": "24px",
+                "sm": "8px",
+                "md": "16px",
+                "gutter": "16px",
+                "xl": "32px"
+            },
+            "fontFamily": {
+                "ui-header": ["Work Sans"],
+                "sub-header": ["Work Sans"],
+                "page-title": ["Work Sans"],
+                "body": ["Work Sans"],
+                "body-bold": ["Work Sans"]
+            },
+            "fontSize": {
+                "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1b1b1b;
+        }
+        /* Custom Table Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f3f3f3;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="font-body text-body">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 border-r border-surface-container-highest bg-surface-container-low flex flex-col py-md px-sm sticky top-0 shrink-0">
+<div class="px-md mb-xl">
+<h1 class="font-ui-header text-ui-header font-bold text-primary tracking-tight">Admin Suite</h1>
+<p class="text-[12px] text-secondary opacity-70">Management Portal</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<!-- User Management (ACTIVE) -->
+<a class="flex items-center gap-md px-md py-sm bg-primary text-on-primary font-body-bold rounded-lg cursor-pointer transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-body hover:bg-surface-container-high transition-all cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Exam Creator</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-body hover:bg-surface-container-high transition-all cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-body hover:bg-surface-container-high transition-all cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Question Bank</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-body hover:bg-surface-container-high transition-all cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-surface-container-highest">
+<div class="flex items-center gap-md px-md mb-lg">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior administrator with a neutral expression, wearing formal scholarly attire. The background is a clean, minimalist grey office setting with soft, diffused studio lighting to maintain a serious and authoritative corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW4reCBGBfcfXdHoca4OylGG88-1chZitV1TU6V9hEDHCPAwx27jkQmDpuwtDDe97I1q7yH7oMRvieiznCPgVzRcSD_qU29uhDFIojCFD0W7UXpgCzAe6RgPc4DWAVpGWOpfJlWYhtAHT27gghSXS43XNJimqF_G95CqH436vTlJWBxlYzL47bxYIT4L43mSw_20zzHi2aOKOHtuR2cV5Cr-zUg2YtiiFFGKIN-eInbl_Op156bEeWDa098RIfbz4tnjqMGew4wVU"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-body-bold text-[13px] truncate">Admin User</p>
+</div>
+</div>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-body hover:bg-surface-container-high transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-w-0 bg-surface">
+<!-- Top Header -->
+<header class="h-16 w-full flex justify-between items-center px-lg bg-surface-container-lowest border-b border-surface-container-highest sticky top-0 z-10">
+<div class="flex items-center gap-sm">
+<span class="font-body text-secondary">Dashboard</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">chevron_right</span>
+<span class="font-body-bold text-primary">User Management</span>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary opacity-60">search</span>
+<input class="h-9 w-64 bg-surface-container-low border border-surface-container-highest rounded px-10 text-body focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search students..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">account_circle</button>
+</div>
+</div>
+</header>
+<div class="max-w-[1200px] mx-auto w-full p-xl">
+<!-- Page Title Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<h2 class="font-page-title text-page-title text-primary">User Management</h2>
+<p class="font-body text-secondary mt-xs">Monitor, edit, and manage administrative access for all platform students.</p>
+</div>
+<button class="h-10 px-lg bg-primary text-on-primary font-body-bold rounded flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+                        Add New User
+                    </button>
+</div>
+<!-- Stats Overview (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-xl">
+<div class="bg-surface-container-lowest border border-surface-container-highest p-lg rounded-xl">
+<p class="text-secondary text-[12px] uppercase tracking-wider font-body-bold">Total Students</p>
+<p class="text-sub-header font-page-title mt-xs">1,248</p>
+</div>
+<div class="bg-surface-container-lowest border border-surface-container-highest p-lg rounded-xl">
+<p class="text-secondary text-[12px] uppercase tracking-wider font-body-bold">Active Today</p>
+<p class="text-sub-header font-page-title mt-xs">312</p>
+</div>
+<div class="bg-surface-container-lowest border border-surface-container-highest p-lg rounded-xl">
+<p class="text-secondary text-[12px] uppercase tracking-wider font-body-bold">Exams Taken</p>
+<p class="text-sub-header font-page-title mt-xs">8,490</p>
+</div>
+<div class="bg-surface-container-lowest border border-surface-container-highest p-lg rounded-xl">
+<p class="text-secondary text-[12px] uppercase tracking-wider font-body-bold">Avg. Performance</p>
+<p class="text-sub-header font-page-title mt-xs">74%</p>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container-highest">
+<th class="px-lg py-md font-body-bold text-secondary text-[12px] uppercase tracking-wider">Student Name</th>
+<th class="px-lg py-md font-body-bold text-secondary text-[12px] uppercase tracking-wider">Email</th>
+<th class="px-lg py-md font-body-bold text-secondary text-[12px] uppercase tracking-wider">Enrolled Exams</th>
+<th class="px-lg py-md font-body-bold text-secondary text-[12px] uppercase tracking-wider text-center">Status</th>
+<th class="px-lg py-md font-body-bold text-secondary text-[12px] uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[12px] font-body-bold">AH</div>
+<span class="font-body-bold text-primary">Alexander Hamilton</span>
+</div>
+</td>
+<td class="px-lg py-md font-body text-secondary">a.hamilton@academy.edu</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">SAT Prep</span>
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">Advanced Calc</span>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-[#f1fcf1] text-[#1e4620] text-[12px] font-body-bold border border-[#d3f9d8]">Active</span>
+</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-md">
+<button class="text-primary hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                                Edit
+                                            </button>
+<button class="text-error hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+                                                Deactivate
+                                            </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[12px] font-body-bold">EB</div>
+<span class="font-body-bold text-primary">Elizabeth Blackwell</span>
+</div>
+</td>
+<td class="px-lg py-md font-body text-secondary">e.blackwell@academy.edu</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">MCAT Simulation</span>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-[#f1fcf1] text-[#1e4620] text-[12px] font-body-bold border border-[#d3f9d8]">Active</span>
+</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-md">
+<button class="text-primary hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                                Edit
+                                            </button>
+<button class="text-error hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+                                                Deactivate
+                                            </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[12px] font-body-bold text-secondary opacity-50">MT</div>
+<span class="font-body-bold text-primary opacity-60 text-surface-dim">Mark Twain</span>
+</div>
+</td>
+<td class="px-lg py-md font-body text-secondary opacity-60">m.twain@academy.edu</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-xs opacity-60">
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">Literature GRE</span>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-surface-container-high text-secondary text-[12px] font-body-bold border border-surface-container-highest">Inactive</span>
+</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-md">
+<button class="text-primary hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                                Edit
+                                            </button>
+<button class="text-on-secondary-container hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                                                Activate
+                                            </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[12px] font-body-bold">AL</div>
+<span class="font-body-bold text-primary">Ada Lovelace</span>
+</div>
+</td>
+<td class="px-lg py-md font-body text-secondary">ada.l@comp-sci.org</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">Algo Mastery</span>
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">Python Exam</span>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-[#f1fcf1] text-[#1e4620] text-[12px] font-body-bold border border-[#d3f9d8]">Active</span>
+</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-md">
+<button class="text-primary hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                                Edit
+                                            </button>
+<button class="text-error hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+                                                Deactivate
+                                            </button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors duration-150">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[12px] font-body-bold">IE</div>
+<span class="font-body-bold text-primary">Isaac Everett</span>
+</div>
+</td>
+<td class="px-lg py-md font-body text-secondary">isaac.e@physics.edu</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-low border border-surface-container-highest px-xs py-[2px] rounded text-[11px] font-body text-on-secondary-container">Classical Mechanics</span>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="inline-flex items-center px-sm py-[2px] rounded-full bg-[#f1fcf1] text-[#1e4620] text-[12px] font-body-bold border border-[#d3f9d8]">Active</span>
+</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-md">
+<button class="text-primary hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                                Edit
+                                            </button>
+<button class="text-error hover:opacity-60 transition-opacity flex items-center gap-xs font-body-bold text-[13px]">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+                                                Deactivate
+                                            </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-lg py-md border-t border-surface-container-highest bg-surface-container-lowest flex items-center justify-between">
+<p class="text-[13px] text-secondary">Showing <span class="font-body-bold text-primary">5</span> of <span class="font-body-bold text-primary">1,248</span> students</p>
+<div class="flex gap-sm">
+<button class="p-xs border border-surface-container-highest rounded hover:bg-surface-container-low disabled:opacity-30 disabled:cursor-not-allowed transition-colors" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="h-8 w-8 rounded flex items-center justify-center font-body-bold text-[13px] bg-primary text-on-primary">1</button>
+<button class="h-8 w-8 rounded flex items-center justify-center font-body-bold text-[13px] hover:bg-surface-container-low transition-colors">2</button>
+<button class="h-8 w-8 rounded flex items-center justify-center font-body-bold text-[13px] hover:bg-surface-container-low transition-colors">3</button>
+<button class="p-xs border border-surface-container-highest rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Hint -->
+<div class="mt-xl p-lg bg-surface-container-low rounded-lg border border-dashed border-surface-container-highest flex items-start gap-md">
+<span class="material-symbols-outlined text-secondary">info</span>
+<div>
+<p class="font-body-bold text-primary">Administrator Tip</p>
+<p class="text-secondary text-[13px] leading-relaxed mt-xs">
+                            Deactivating a user will immediately suspend their access to the MockTest portal and pause any active timers. 
+                            Users can be reactivated at any time without loss of exam progress data.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Notification Micro-interaction Layer -->
+<div class="fixed bottom-lg right-lg translate-y-20 opacity-0 bg-primary text-on-primary px-lg py-md rounded shadow-xl flex items-center gap-md transition-all duration-300 pointer-events-none z-50" id="toast">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-body-bold">User Deactivated Successfully</span>
+</div>
+<script>
+        // Simple micro-interaction for demo
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Deactivate')) {
+                btn.onclick = () => {
+                    const toast = document.getElementById('toast');
+                    toast.classList.remove('translate-y-20', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+                    
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-20', 'opacity-0');
+                        toast.classList.remove('translate-y-0', 'opacity-100');
+                    }, 3000);
+                };
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,232 @@
+// ── Generator ─────────────────────────────────────────────────────────────────
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ── Datasource ────────────────────────────────────────────────────────────────
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Enums ─────────────────────────────────────────────────────────────────────
+enum UserRole {
+  STUDENT
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+  TIME_UP
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// ── Models ────────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  passwordHash String @map("password_hash")
+  fullName  String   @map("full_name")
+  role      UserRole @default(STUDENT)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  profile        UserProfile?
+  attempts       UserAttempt[]
+  refreshTokens  RefreshToken[]
+  leaderboardEntries Leaderboard[]
+
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+model UserProfile {
+  id          String  @id @default(cuid())
+  userId      String  @unique @map("user_id")
+  avatarUrl   String? @map("avatar_url")
+  phone       String?
+  institution String?
+  targetExam  String? @map("target_exam")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  questions Question[]
+  exams     Exam[]
+
+  @@map("categories")
+}
+
+model Question {
+  id            String          @id @default(cuid())
+  categoryId    String          @map("category_id")
+  questionText  String          @map("question_text")
+  options       Json
+  correctAnswer String          @map("correct_answer")
+  explanation   String?
+  difficulty    DifficultyLevel @default(MEDIUM)
+  marks         Int             @default(1)
+  isActive      Boolean         @default(true) @map("is_active")
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  category       Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  examQuestions  ExamQuestion[]
+  media          QuestionMedia[]
+  attemptAnswers AttemptAnswer[]
+
+  @@index([categoryId])
+  @@index([difficulty])
+  @@index([isActive])
+  @@map("questions")
+}
+
+model QuestionMedia {
+  id         String   @id @default(cuid())
+  questionId String   @map("question_id")
+  mediaType  String   @map("media_type")
+  mediaUrl   String   @map("media_url")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
+  @@map("question_media")
+}
+
+model Exam {
+  id              String    @id @default(cuid())
+  categoryId      String    @map("category_id")
+  title           String
+  description     String?
+  durationMinutes Int       @map("duration_minutes")
+  totalMarks      Int       @map("total_marks")
+  passingMarks    Int?      @map("passing_marks")
+  isPublished     Boolean   @default(false) @map("is_published")
+  startTime       DateTime? @map("start_time") @db.Timestamptz(6)
+  endTime         DateTime? @map("end_time") @db.Timestamptz(6)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  category      Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  examQuestions ExamQuestion[]
+  attempts      UserAttempt[]
+  leaderboard   Leaderboard[]
+
+  @@index([categoryId])
+  @@index([isPublished])
+  @@index([startTime, endTime])
+  @@map("exams")
+}
+
+model ExamQuestion {
+  id         String @id @default(cuid())
+  examId     String @map("exam_id")
+  questionId String @map("question_id")
+  orderIndex Int    @map("order_index")
+
+  exam     Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@unique([examId, questionId])
+  @@index([examId])
+  @@index([questionId])
+  @@map("exam_questions")
+}
+
+model UserAttempt {
+  id              String        @id @default(cuid())
+  userId          String        @map("user_id")
+  examId          String        @map("exam_id")
+  startedAt       DateTime      @default(now()) @map("started_at") @db.Timestamptz(6)
+  submittedAt     DateTime?     @map("submitted_at") @db.Timestamptz(6)
+  score           Int?
+  totalCorrect    Int?          @map("total_correct")
+  totalWrong      Int?          @map("total_wrong")
+  totalUnanswered Int?          @map("total_unanswered")
+  status          AttemptStatus @default(IN_PROGRESS)
+  timeTakenSec    Int?          @map("time_taken_sec")
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exam    Exam            @relation(fields: [examId], references: [id], onDelete: Restrict)
+  answers AttemptAnswer[]
+
+  @@index([userId])
+  @@index([examId])
+  @@index([status])
+  @@index([userId, examId, status])
+  @@map("user_attempts")
+}
+
+model AttemptAnswer {
+  id             String  @id @default(cuid())
+  attemptId      String  @map("attempt_id")
+  questionId     String  @map("question_id")
+  selectedOption String? @map("selected_option")
+  isCorrect      Boolean @map("is_correct")
+  timeTakenSec   Int?    @map("time_taken_sec")
+  marksObtained  Int     @default(0) @map("marks_obtained")
+
+  attempt  UserAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@unique([attemptId, questionId])
+  @@index([attemptId])
+  @@index([questionId])
+  @@map("attempt_answers")
+}
+
+model Leaderboard {
+  id          String   @id @default(cuid())
+  examId      String   @map("exam_id")
+  userId      String   @map("user_id")
+  score       Int
+  rank        Int?
+  completedAt DateTime @default(now()) @map("completed_at") @db.Timestamptz(6)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  exam Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([examId, userId])
+  @@index([examId, score])
+  @@index([examId, rank])
+  @@map("leaderboard")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  tokenHash String   @unique @map("token_hash")
+  expiresAt DateTime @map("expires_at") @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}

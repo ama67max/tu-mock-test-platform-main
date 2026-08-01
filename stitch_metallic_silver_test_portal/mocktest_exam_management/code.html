@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam Creator | MOCKTEST Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8e8",
+                        "surface-dim": "#dadada",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-container": "#848484",
+                        "on-primary-fixed-variant": "#474747",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "surface-tint": "#5e5e5e",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5e5e5f",
+                        "on-surface-variant": "#4c4546",
+                        "on-secondary-container": "#626363",
+                        "tertiary": "#000000",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary-container": "#e0dfdf",
+                        "primary-container": "#1b1b1b",
+                        "on-tertiary-container": "#848484",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e3e2e2",
+                        "outline-variant": "#cfc4c5",
+                        "outline": "#7e7576",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-low": "#f3f3f3",
+                        "primary-fixed": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "primary": "#000000",
+                        "on-secondary-fixed-variant": "#464747",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#1b1b1b",
+                        "inverse-primary": "#c6c6c6",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-surface": "#1b1b1b",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "inverse-on-surface": "#f1f1f1",
+                        "background": "#f9f9f9",
+                        "surface-bright": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "ui-header": ["Work Sans"],
+                        "sub-header": ["Work Sans"],
+                        "page-title": ["Work Sans"],
+                        "body": ["Work Sans"],
+                        "body-bold": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e2e2; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8E8E8E; }
+        
+        /* Stepper Animation */
+        .step-transition { transition: all 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<div class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 border-r border-surface-container-highest bg-surface-container-low flex flex-col py-md px-sm sticky top-0 shrink-0">
+<div class="px-md py-lg mb-xl">
+<h1 class="font-ui-header text-ui-header font-bold text-primary tracking-tight">Admin Suite</h1>
+<p class="text-xs text-secondary opacity-70">Management Portal</p>
+</div>
+<nav class="flex-grow space-y-1">
+<!-- User Management -->
+<div class="flex items-center gap-md px-md py-sm cursor-pointer text-secondary font-body hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">group</span>
+<span>User Management</span>
+</div>
+<!-- Exam Creator (Active) -->
+<div class="flex items-center gap-md px-md py-sm cursor-pointer bg-primary text-on-primary font-body-bold rounded-lg active:scale-[0.98]">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Exam Creator</span>
+</div>
+<!-- Analytics -->
+<div class="flex items-center gap-md px-md py-sm cursor-pointer text-secondary font-body hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</div>
+<!-- Question Bank -->
+<div class="flex items-center gap-md px-md py-sm cursor-pointer text-secondary font-body hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">database</span>
+<span>Question Bank</span>
+</div>
+<!-- Settings -->
+<div class="flex items-center gap-md px-md py-sm cursor-pointer text-secondary font-body hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</div>
+</nav>
+<div class="mt-auto border-t border-surface-container-highest pt-md">
+<div class="flex items-center gap-md px-md py-sm cursor-pointer text-secondary font-body hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center py-xl px-lg">
+<div class="w-full max-w-[800px]">
+<!-- Page Header -->
+<div class="mb-xl text-center md:text-left">
+<h2 class="font-page-title text-page-title text-primary mb-xs">Create New Exam</h2>
+<p class="text-secondary">Define test parameters and organize your question structure.</p>
+</div>
+<!-- Stepper Progress -->
+<div class="mb-xl flex items-center justify-between px-md relative">
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-surface-container-highest -z-10"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-on-primary font-body-bold" id="step-node-1">1</div>
+<span class="text-[10px] font-body-bold tracking-wider uppercase">Details</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full flex items-center justify-center bg-surface-container-highest text-secondary font-body border border-surface-container-highest" id="step-node-2">2</div>
+<span class="text-[10px] font-body tracking-wider uppercase opacity-50">Questions</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full flex items-center justify-center bg-surface-container-highest text-secondary font-body border border-surface-container-highest" id="step-node-3">3</div>
+<span class="text-[10px] font-body tracking-wider uppercase opacity-50">Review</span>
+</div>
+</div>
+<!-- Form Container -->
+<div class="bg-surface-container-lowest border border-surface-container-highest p-xl rounded-lg shadow-sm">
+<!-- Step 1: Basic Details -->
+<div class="step-transition" id="step-content-1">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div class="col-span-2">
+<label class="block text-xs font-body-bold uppercase tracking-widest text-secondary mb-sm">Exam Title</label>
+<input class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 rounded p-md font-body text-on-surface transition-all" placeholder="e.g. Graduate Aptitude Test 2024" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-body-bold uppercase tracking-widest text-secondary mb-sm">Category</label>
+<select class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 rounded p-md font-body text-on-surface transition-all appearance-none">
+<option>Engineering</option>
+<option>Medical</option>
+<option>Civil Services</option>
+<option>Law &amp; Ethics</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-body-bold uppercase tracking-widest text-secondary mb-sm">Complexity</label>
+<select class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 rounded p-md font-body text-on-surface transition-all appearance-none">
+<option>Foundation</option>
+<option>Intermediate</option>
+<option>Advanced</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-body-bold uppercase tracking-widest text-secondary mb-sm">Duration (Minutes)</label>
+<input class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 rounded p-md font-body text-on-surface transition-all" type="number" value="120"/>
+</div>
+<div>
+<label class="block text-xs font-body-bold uppercase tracking-widest text-secondary mb-sm">Total Marks</label>
+<input class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 rounded p-md font-body text-on-surface transition-all" type="number" value="100"/>
+</div>
+</div>
+<div class="mt-xl flex justify-end">
+<button class="px-xl py-md bg-primary text-on-primary font-body-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all" onclick="goToStep(2)">
+                                Continue to Questions
+                            </button>
+</div>
+</div>
+<!-- Step 2: Question Input -->
+<div class="step-transition hidden" id="step-content-2">
+<div class="mb-lg">
+<h3 class="font-ui-header text-ui-header text-primary mb-sm">Import Questions</h3>
+<p class="text-sm text-secondary">Choose your preferred method of adding test items.</p>
+</div>
+<!-- Bento-ish Grid for Entry Methods -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-xl">
+<div class="border border-surface-container-highest p-lg rounded-lg flex flex-col items-center text-center hover:border-primary cursor-pointer transition-colors group">
+<span class="material-symbols-outlined text-4xl text-secondary group-hover:text-primary mb-md">upload_file</span>
+<span class="font-body-bold text-primary">Upload CSV/Excel</span>
+<span class="text-xs text-secondary mt-xs">Import high volumes of questions at once.</span>
+</div>
+<div class="border border-surface-container-highest p-lg rounded-lg flex flex-col items-center text-center hover:border-primary cursor-pointer transition-colors group">
+<span class="material-symbols-outlined text-4xl text-secondary group-hover:text-primary mb-md">post_add</span>
+<span class="font-body-bold text-primary">Manual Entry</span>
+<span class="text-xs text-secondary mt-xs">Add questions individually with full control.</span>
+</div>
+</div>
+<!-- Mini Table / Preview of Added Questions -->
+<div class="mt-lg">
+<div class="flex justify-between items-center mb-md">
+<h4 class="font-body-bold text-primary">Questions Summary (0)</h4>
+<button class="text-xs font-body-bold text-primary border border-primary px-sm py-xs rounded hover:bg-surface-container-low transition-colors">Clear All</button>
+</div>
+<div class="border border-surface-container-highest rounded-lg bg-surface-container-low flex flex-col items-center justify-center p-xl">
+<span class="material-symbols-outlined text-surface-dim text-5xl mb-sm">list_alt</span>
+<p class="text-secondary italic text-sm">No questions added yet.</p>
+</div>
+</div>
+<div class="mt-xl flex justify-between">
+<button class="px-xl py-md border border-outline text-primary font-body-bold rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all" onclick="goToStep(1)">
+                                Back
+                            </button>
+<button class="px-xl py-md bg-primary text-on-primary font-body-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all" onclick="goToStep(3)">
+                                Review &amp; Finalize
+                            </button>
+</div>
+</div>
+<!-- Step 3: Review -->
+<div class="step-transition hidden" id="step-content-3">
+<div class="mb-lg">
+<h3 class="font-ui-header text-ui-header text-primary mb-sm">Review Exam</h3>
+<p class="text-sm text-secondary">Final check before publishing the mock test.</p>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between border-b border-surface-container-highest py-sm">
+<span class="text-secondary text-sm">Title</span>
+<span class="text-primary font-body-bold" id="preview-title">Graduate Aptitude Test 2024</span>
+</div>
+<div class="flex justify-between border-b border-surface-container-highest py-sm">
+<span class="text-secondary text-sm">Category</span>
+<span class="text-primary font-body-bold">Engineering</span>
+</div>
+<div class="flex justify-between border-b border-surface-container-highest py-sm">
+<span class="text-secondary text-sm">Duration</span>
+<span class="text-primary font-body-bold">120 Minutes</span>
+</div>
+<div class="flex justify-between border-b border-surface-container-highest py-sm">
+<span class="text-secondary text-sm">Total Marks</span>
+<span class="text-primary font-body-bold">100</span>
+</div>
+</div>
+<div class="mt-xl p-md bg-surface-container-low border border-surface-container-highest rounded flex items-start gap-md">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-xs text-secondary italic">By clicking "Publish Exam", you confirm that all questions have been reviewed and comply with the institutional standards.</p>
+</div>
+<div class="mt-xl flex justify-between">
+<button class="px-xl py-md border border-outline text-primary font-body-bold rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all" onclick="goToStep(2)">
+                                Back
+                            </button>
+<button class="px-xl py-md bg-primary text-on-primary font-body-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all" onclick="alert('Exam Published Successfully!')">
+                                Publish Exam
+                            </button>
+</div>
+</div>
+</div>
+<!-- Bottom Contextual Info -->
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-lg text-center md:text-left">
+<div>
+<h5 class="text-xs font-body-bold uppercase tracking-widest text-secondary mb-xs">Draft Saved</h5>
+<p class="text-[10px] text-secondary">Last saved 2 minutes ago</p>
+</div>
+<div>
+<h5 class="text-xs font-body-bold uppercase tracking-widest text-secondary mb-xs">Storage Capacity</h5>
+<p class="text-[10px] text-secondary">82% Question Bank Utilized</p>
+</div>
+<div>
+<h5 class="text-xs font-body-bold uppercase tracking-widest text-secondary mb-xs">Permissions</h5>
+<p class="text-[10px] text-secondary">Global Admin Access</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        function goToStep(stepNumber) {
+            // Hide all contents
+            document.querySelectorAll('[id^="step-content-"]').forEach(el => el.classList.add('hidden'));
+            
+            // Show target content
+            document.getElementById(`step-content-${stepNumber}`).classList.remove('hidden');
+            
+            // Update Node UI
+            for(let i = 1; i <= 3; i++) {
+                const node = document.getElementById(`step-node-${i}`);
+                const span = node.nextElementSibling;
+                
+                if (i < stepNumber) {
+                    // Completed
+                    node.classList.remove('bg-primary', 'text-on-primary', 'bg-surface-container-highest', 'text-secondary');
+                    node.classList.add('bg-primary', 'text-on-primary');
+                    node.innerHTML = '<span class="material-symbols-outlined text-sm">check</span>';
+                    span.classList.remove('opacity-50');
+                    span.classList.add('font-body-bold');
+                } else if (i === stepNumber) {
+                    // Active
+                    node.classList.remove('bg-surface-container-highest', 'text-secondary');
+                    node.classList.add('bg-primary', 'text-on-primary');
+                    node.innerHTML = i;
+                    span.classList.remove('opacity-50');
+                    span.classList.add('font-body-bold');
+                } else {
+                    // Inactive
+                    node.classList.remove('bg-primary', 'text-on-primary');
+                    node.classList.add('bg-surface-container-highest', 'text-secondary');
+                    node.innerHTML = i;
+                    span.classList.add('opacity-50');
+                    span.classList.remove('font-body-bold');
+                }
+            }
+
+            // Sync Preview if moving to Step 3
+            if(stepNumber === 3) {
+                const titleInput = document.querySelector('input[placeholder*="Graduate Aptitude"]');
+                if(titleInput && titleInput.value.trim() !== "") {
+                    document.getElementById('preview-title').innerText = titleInput.value;
+                }
+            }
+        }
+    </script>
+</body></html>

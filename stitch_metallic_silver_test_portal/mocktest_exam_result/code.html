@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam Results | MOCKTEST</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8e8",
+                        "surface-dim": "#dadada",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-container": "#848484",
+                        "on-primary-fixed-variant": "#474747",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "surface-tint": "#5e5e5e",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5e5e5f",
+                        "on-surface-variant": "#4c4546",
+                        "on-secondary-container": "#626363",
+                        "tertiary": "#000000",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary-container": "#e0dfdf",
+                        "primary-container": "#1b1b1b",
+                        "on-tertiary-container": "#848484",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e3e2e2",
+                        "outline-variant": "#cfc4c5",
+                        "outline": "#7e7576",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-low": "#f3f3f3",
+                        "primary-fixed": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "primary": "#000000",
+                        "on-secondary-fixed-variant": "#464747",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#1b1b1b",
+                        "inverse-primary": "#c6c6c6",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-surface": "#1b1b1b",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "inverse-on-surface": "#f1f1f1",
+                        "background": "#f9f9f9",
+                        "surface-bright": "#f9f9f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "ui-header": ["Work Sans"],
+                        "sub-header": ["Work Sans"],
+                        "page-title": ["Work Sans"],
+                        "body": ["Work Sans"],
+                        "body-bold": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; background-color: #ffffff; color: #1b1b1b; }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+        .progress-bar-container {
+            height: 8px;
+            background: #e5e5e5;
+            width: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: #8e8e8e;
+            transition: width 1s ease-in-out;
+        }
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-container-lowest docked full-width top-0 border-b border-surface-variant dark:border-on-surface-variant sticky z-40">
+<div class="flex justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto h-16">
+<div class="font-page-title text-page-title font-black text-primary dark:text-on-surface">MOCKTEST</div>
+<div class="hidden md:flex items-center gap-xl font-ui-header text-ui-header">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-surface transition-colors" href="#">Exams</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-surface transition-colors" href="#">Dashboard</a>
+<a class="text-primary dark:text-on-surface border-b-2 border-primary pb-1" href="#">Performance</a>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:block relative">
+<input class="bg-surface-container-low border border-outline-variant px-md py-xs text-body rounded-lg focus:outline-none focus:border-primary w-64" placeholder="Search resources..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-1.5 text-secondary">search</span>
+</div>
+<button class="material-symbols-outlined text-primary p-xs hover:bg-surface-variant rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-primary p-xs hover:bg-surface-variant rounded-full transition-all">account_circle</button>
+</div>
+</div>
+</nav>
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<main class="max-w-[1200px] mx-auto px-container-margin py-xl">
+<!-- Header Section -->
+<header class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<p class="font-ui-header text-ui-header text-secondary mb-xs">National Level Mock Assessment</p>
+<h1 class="font-page-title text-page-title text-primary">Result Summary</h1>
+</div>
+<div class="flex gap-md">
+<button class="border border-[#C0C0C0] text-primary px-lg py-sm font-ui-header text-ui-header hover:bg-surface-variant transition-all rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined">dashboard</span> Back to Dashboard
+                </button>
+<button class="bg-primary text-on-primary px-lg py-sm font-ui-header text-ui-header hover:opacity-80 transition-all rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined">description</span> View Detailed Solutions
+                </button>
+</div>
+</header>
+<!-- Main Grid -->
+<div class="bento-grid">
+<!-- Score Overview Card -->
+<div class="bento-card col-span-12 md:col-span-5 flex flex-col items-center justify-center text-center">
+<div class="relative w-48 h-48 mb-md">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.9" stroke-dashoffset="66.3" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-page-title text-page-title leading-none">88</span>
+<span class="font-ui-header text-ui-header text-secondary">/ 100</span>
+</div>
+</div>
+<div class="bg-primary text-on-primary px-xl py-xs rounded-full font-body-bold text-body uppercase tracking-widest mb-sm">
+                    Pass
+                </div>
+<p class="font-body text-body text-secondary">Congratulations! You've cleared the cutoff for the Advanced Tier.</p>
+</div>
+<!-- Subject Breakdown Card -->
+<div class="bento-card col-span-12 md:col-span-7">
+<h2 class="font-ui-header text-ui-header mb-lg border-b border-surface-variant pb-sm">Subject Performance Breakdown</h2>
+<div class="space-y-xl">
+<!-- Quantitative -->
+<div>
+<div class="flex justify-between items-center mb-xs">
+<div class="flex items-center gap-sm">
+<span class="font-body-bold text-body">Quantitative Aptitude</span>
+<span class="bg-surface-container-high px-sm py-0.5 rounded text-[10px] font-bold">ACCURACY: 92%</span>
+</div>
+<span class="font-ui-header text-ui-header">32/35</span>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar-fill" style="width: 91.4%"></div>
+</div>
+</div>
+<!-- Verbal -->
+<div>
+<div class="flex justify-between items-center mb-xs">
+<div class="flex items-center gap-sm">
+<span class="font-body-bold text-body">Verbal Reasoning</span>
+<span class="bg-surface-container-high px-sm py-0.5 rounded text-[10px] font-bold">ACCURACY: 84%</span>
+</div>
+<span class="font-ui-header text-ui-header">28/35</span>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar-fill" style="width: 80%"></div>
+</div>
+</div>
+<!-- Logical Reasoning -->
+<div>
+<div class="flex justify-between items-center mb-xs">
+<div class="flex items-center gap-sm">
+<span class="font-body-bold text-body">Logical Reasoning</span>
+<span class="bg-surface-container-high px-sm py-0.5 rounded text-[10px] font-bold">ACCURACY: 90%</span>
+</div>
+<span class="font-ui-header text-ui-header">28/30</span>
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar-fill" style="width: 93.3%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Stats Bento Rows -->
+<div class="bento-card col-span-12 md:col-span-4 flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-low flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">timer</span>
+</div>
+<div>
+<p class="font-body text-body text-secondary">Time Taken</p>
+<h3 class="font-ui-header text-ui-header">54:20 <span class="text-xs text-secondary font-normal">/ 90m</span></h3>
+</div>
+</div>
+<div class="bento-card col-span-12 md:col-span-4 flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-low flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">speed</span>
+</div>
+<div>
+<p class="font-body text-body text-secondary">Avg Speed</p>
+<h3 class="font-ui-header text-ui-header">32.5 <span class="text-xs text-secondary font-normal">sec/ques</span></h3>
+</div>
+</div>
+<div class="bento-card col-span-12 md:col-span-4 flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-low flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div>
+<p class="font-body text-body text-secondary">Percentile</p>
+<h3 class="font-ui-header text-ui-header">98.4th</h3>
+</div>
+</div>
+<!-- Visualization Section -->
+<div class="col-span-12 lg:col-span-8 bento-card relative overflow-hidden min-h-[320px]">
+<div class="flex justify-between items-start mb-lg">
+<div>
+<h2 class="font-ui-header text-ui-header">Difficulty Curve</h2>
+<p class="font-body text-body text-secondary">Performance across question complexity levels</p>
+</div>
+<div class="flex items-center gap-md text-xs font-body-bold">
+<span class="flex items-center gap-1"><div class="w-3 h-3 bg-primary rounded-full"></div> Correct</span>
+<span class="flex items-center gap-1"><div class="w-3 h-3 bg-surface-dim rounded-full"></div> Attempted</span>
+</div>
+</div>
+<div class="absolute bottom-8 left-8 right-8 top-24 flex items-end justify-between gap-sm">
+<!-- Fake Bars for Visual Depth -->
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full bg-primary h-[80%] rounded-t opacity-90 group-hover:opacity-100 transition-opacity"></div>
+<span class="mt-xs text-[10px] uppercase text-secondary font-bold">Easy</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full bg-primary h-[65%] rounded-t opacity-90 group-hover:opacity-100 transition-opacity"></div>
+<span class="mt-xs text-[10px] uppercase text-secondary font-bold">Medium</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full bg-primary h-[40%] rounded-t opacity-90 group-hover:opacity-100 transition-opacity"></div>
+<span class="mt-xs text-[10px] uppercase text-secondary font-bold">Hard</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full bg-primary h-[15%] rounded-t opacity-90 group-hover:opacity-100 transition-opacity"></div>
+<span class="mt-xs text-[10px] uppercase text-secondary font-bold">Expert</span>
+</div>
+</div>
+</div>
+<!-- Recommendation Card -->
+<div class="col-span-12 lg:col-span-4 bento-card bg-surface-container-low border-none flex flex-col justify-between">
+<div>
+<h2 class="font-ui-header text-ui-header mb-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">psychology</span> Learning Plan
+                    </h2>
+<p class="font-body text-body text-secondary mb-md">Based on your Hard level questions, we recommend focusing on:</p>
+<ul class="space-y-sm">
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-body">check_circle</span>
+<span class="font-body text-body">Advanced Combinatorics</span>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-body">check_circle</span>
+<span class="font-body text-body">Critical Path Analysis</span>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-body">check_circle</span>
+<span class="font-body text-body">Abstract Linguistic Theory</span>
+</li>
+</ul>
+</div>
+<button class="mt-xl w-full border border-primary text-primary font-ui-header text-ui-header py-sm hover:bg-primary hover:text-on-primary transition-all">
+                    Start Custom Practice
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-container-lowest w-full py-xl border-t border-surface-variant dark:border-on-surface-variant mt-xl">
+<div class="flex flex-col items-center justify-center gap-md w-full px-container-margin">
+<div class="font-ui-header text-ui-header uppercase tracking-widest text-primary dark:text-on-surface">MOCKTEST PLATFORM</div>
+<div class="flex flex-wrap justify-center gap-lg font-body text-body text-secondary dark:text-secondary-fixed-dim">
+<a class="hover:text-primary dark:hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary dark:hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary dark:hover:text-on-surface transition-colors" href="#">Contact Support</a>
+<a class="hover:text-primary dark:hover:text-on-surface transition-colors" href="#">FAQ</a>
+</div>
+<p class="font-body text-body text-secondary dark:text-secondary-fixed-dim opacity-60">© 2024 MOCKTEST PLATFORM. AUTHORITATIVE PRACTICE.</p>
+</div>
+</footer>
+<script>
+        // Simple Confetti Micro-interaction
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = -10;
+                this.size = Math.random() * 5 + 2;
+                this.speedY = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.color = ['#000000', '#C0C0C0', '#8E8E8E'][Math.floor(Math.random() * 3)];
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > canvas.height) {
+                    this.y = -10;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        // Optional: Stop confetti after a few seconds to focus
+        setTimeout(() => {
+            particles = [];
+        }, 5000);
+    </script>
+</body></html>

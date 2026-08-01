@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: tu_user
+      POSTGRES_PASSWORD: tu_pass
+      POSTGRES_DB: tu_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--save", "900", "1"]
+    ports:
+      - '6379:6379'
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DATABASE_URL: postgres://tu_user:tu_pass@postgres:5432/tu_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/usr/src/app
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - backend
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/usr/src/app
+    command: ["sh", "-c", "npm install && npm run dev -- --host 0.0.0.0"]
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - '80:80'
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend/dist:/usr/share/nginx/html:ro
+
+volumes:
+  postgres-data:

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MOCKTEST | Professional Exam Environment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-bright": "#f9f9f9",
+                    "secondary": "#5e5e5f",
+                    "surface-variant": "#e2e2e2",
+                    "primary-container": "#1b1b1b",
+                    "surface-tint": "#5e5e5e",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474747",
+                    "tertiary-container": "#1b1b1b",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary-fixed-dim": "#c7c6c6",
+                    "on-secondary-fixed-variant": "#464747",
+                    "on-primary-container": "#848484",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-background": "#1b1b1b",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#e8e8e8",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-highest": "#e2e2e2",
+                    "secondary-container": "#e0dfdf",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#cfc4c5",
+                    "on-primary-fixed": "#1b1b1b",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#303030",
+                    "secondary-fixed": "#e3e2e2",
+                    "primary": "#000000",
+                    "on-secondary-container": "#626363",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#4c4546",
+                    "background": "#f9f9f9",
+                    "outline": "#7e7576",
+                    "on-surface": "#1b1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "unit": "8px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "page-title": ["Work Sans"],
+                    "sub-header": ["Work Sans"],
+                    "body-bold": ["Work Sans"],
+                    "body": ["Work Sans"],
+                    "ui-header": ["Work Sans"]
+            },
+            "fontSize": {
+                    "page-title": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "sub-header": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-bold": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "ui-header": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-radio {
+            border-color: #000000 !important;
+            background-color: #000000 !important;
+        }
+        body {
+            background-color: #ffffff;
+            color: #1b1b1b;
+            -webkit-font-smoothing: antialiased;
+        }
+        .paper-border {
+            border: 1px solid #e5e5e5;
+        }
+        .metallic-silver {
+            color: #8E8E8E;
+        }
+        .metallic-bg {
+            background-color: #C0C0C0;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-body text-body bg-surface-container-lowest">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-surface-variant docked full-width top-0 z-50 sticky">
+<div class="flex justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto h-16">
+<div class="flex items-center gap-xl">
+<span class="font-page-title text-page-title font-black text-primary">MOCKTEST</span>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-secondary hover:text-primary transition-colors font-ui-header text-[14px]" href="#">Exams</a>
+<a class="text-secondary hover:text-primary transition-colors font-ui-header text-[14px]" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-ui-header text-[14px]" href="#">Performance</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-md">
+<span class="font-ui-header text-ui-header text-primary" id="exam-timer">59:58</span>
+<span class="text-[10px] uppercase tracking-widest text-secondary-fixed-dim">Time Remaining</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-sm hover:bg-surface-variant rounded-full transition-all">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+</button>
+<button class="p-sm hover:bg-surface-variant rounded-full transition-all">
+<span class="material-symbols-outlined text-secondary">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-container-margin py-xl min-h-[calc(100vh-64px)]">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Question Content Area (Col 1-8) -->
+<section class="md:col-span-8 flex flex-col gap-lg">
+<!-- Question Header -->
+<div class="flex justify-between items-center pb-sm border-b border-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="px-sm py-xs bg-surface-container-high rounded text-body-bold text-primary">Question 14</span>
+<span class="text-secondary-fixed-dim font-body">Section: Advanced Physics</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-secondary text-[12px]">+4.0 Correct</span>
+<span class="text-error text-[12px]">-1.0 Incorrect</span>
+</div>
+</div>
+<!-- Question Text -->
+<div class="paper-border p-lg bg-surface-container-lowest rounded-lg">
+<p class="font-sub-header text-sub-header text-on-surface mb-lg">
+                        A particle of mass <em class="italic">m</em> is moving in a circular path of radius <em class="italic">r</em> such that its centripetal acceleration <em class="italic">a<sub>c</sub></em> is varying with time <em class="italic">t</em> as <em class="italic">a<sub>c</sub> = k<sup>2</sup>rt<sup>2</sup></em>, where <em class="italic">k</em> is a constant. What is the power delivered to the particle by the forces acting on it?
+                    </p>
+<div class="my-xl flex justify-center">
+<div class="w-full max-w-md h-48 paper-border flex items-center justify-center bg-surface-container-low rounded">
+<img class="max-h-full opacity-80" data-alt="A clean, minimalist vector diagram representing a particle in circular motion on a white background. The diagram uses precise black lines and metallic silver arrows to show velocity and acceleration vectors. The aesthetic is academic and scholarly, avoiding any unnecessary artistic flourishes to maintain high focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVZIZv5ffyGvf2DC7GugWbMBDZ9yeoSPJSem_JG-g_LZEqQJqedgCcuyZO3fzWtdxm8VyqS9HE532qthSQzOitt91PRhcoRuhKq5F8FUMhbmDp6uqHQk_7ZKXsAdPm19oBnaAeJToZGpmIZRBvGK-3BKI2fTvlz3o6vgOSWVEhseG4GbfFf7olhDJL0gZWnPyQL6dUXeGIVMLt-BThRmD5VPOaTNOaApM5g8JSwRBXGMxwXpAwHDBS1ZMhNZolknCCf81QILkiElQ"/>
+</div>
+</div>
+<!-- Multiple Choice Options -->
+<div class="flex flex-col gap-md" id="options-container">
+<label class="flex items-center p-md paper-border rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="w-5 h-5 border-2 border-surface-dim checked:bg-primary checked:border-primary focus:ring-0 appearance-none rounded-full mr-md transition-all" name="exam-option" type="radio"/>
+<span class="font-body text-on-surface flex-1">A. mk<sup>2</sup>r<sup>2</sup>t</span>
+</label>
+<label class="flex items-center p-md paper-border rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="w-5 h-5 border-2 border-surface-dim checked:bg-primary checked:border-primary focus:ring-0 appearance-none rounded-full mr-md transition-all" name="exam-option" type="radio"/>
+<span class="font-body text-on-surface flex-1">B. mk<sup>2</sup>r<sup>2</sup>t<sup>2</sup></span>
+</label>
+<label class="flex items-center p-md paper-border rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="w-5 h-5 border-2 border-surface-dim checked:bg-primary checked:border-primary focus:ring-0 appearance-none rounded-full mr-md transition-all" name="exam-option" type="radio"/>
+<span class="font-body text-on-surface flex-1">C. 2mk<sup>2</sup>r<sup>2</sup>t</span>
+</label>
+<label class="flex items-center p-md paper-border rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="w-5 h-5 border-2 border-surface-dim checked:bg-primary checked:border-primary focus:ring-0 appearance-none rounded-full mr-md transition-all" name="exam-option" type="radio"/>
+<span class="font-body text-on-surface flex-1">D. Zero</span>
+</label>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col md:flex-row justify-between gap-md mt-sm">
+<div class="flex gap-md">
+<button class="px-lg py-md border border-surface-dim text-primary font-body-bold rounded-lg hover:bg-surface-container-low transition-all flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+                            Mark for Review
+                        </button>
+<button class="px-lg py-md border border-surface-dim text-primary font-body-bold rounded-lg hover:bg-surface-container-low transition-all">
+                            Clear Response
+                        </button>
+</div>
+<div class="flex gap-md">
+<button class="px-lg py-md border border-surface-dim text-primary font-body-bold rounded-lg hover:bg-surface-container-low transition-all">
+                            Previous
+                        </button>
+<button class="px-xl py-md bg-primary text-on-primary font-body-bold rounded-lg hover:opacity-90 transition-all shadow-sm">
+                            Save &amp; Next
+                        </button>
+</div>
+</div>
+</section>
+<!-- Question Navigator Sidebar (Col 9-12) -->
+<aside class="md:col-span-4 flex flex-col gap-lg">
+<!-- Candidate Info Card -->
+<div class="paper-border bg-surface-container-low p-md rounded-lg flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-dim rounded-lg flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A professional studio portrait of a student, shot in high-key lighting against a neutral grey background. The student has a focused, scholarly expression. The image is crisp, with a minimalist aesthetic that aligns with the authoritative and clean design system of the MockTest platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBG2b3YquCHzy0VYyAoJ5PnpmwqMWMKunNdmyFSsD0rm3zqX5KRmkZww7qi56aWHF-ngLMXXQtfGHPu42FIKL4SxyCORzX54qk4zRXZPoPqOwF44mDRSGpelCpfPZvJGYKJGeR1EYEtCx0Bhp7KHuTiLY3OYUghkpF6M6lwiwtSVUBEjq-Fc4EdhiuVDiQn3RsZRwTsuHpyPr08M8pSSQgCFlbeeV9uCRrbLd3I-hf51bxzggYqt9CYv0exo-F2CUwB-zLKTgNdDg"/>
+</div>
+<div>
+<p class="font-body-bold text-primary">Alexander Pierce</p>
+<p class="text-[12px] text-secondary">ID: MT-2024-8891</p>
+</div>
+</div>
+<!-- Navigation Grid -->
+<div class="paper-border bg-surface-container-lowest p-md rounded-lg">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-ui-header text-ui-header text-primary">Question Palette</h3>
+<span class="text-[12px] text-secondary">Total: 45</span>
+</div>
+<!-- Navigator Grid -->
+<div class="grid grid-cols-5 gap-sm mb-lg">
+<!-- Legend of states: Answered(Black), Unanswered(Grey border), Flagged(Silver), Active(Outline) -->
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">01</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">02</div>
+<div class="w-10 h-10 metallic-bg text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold relative">
+                            03
+                            <span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">04</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">05</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">06</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">07</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">08</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">09</div>
+<div class="w-10 h-10 metallic-bg text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">10</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">11</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">12</div>
+<div class="w-10 h-10 bg-primary text-on-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">13</div>
+<div class="w-10 h-10 border-2 border-primary text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body-bold">14</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">15</div>
+<!-- ... more items ... -->
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">16</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">17</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">18</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">19</div>
+<div class="w-10 h-10 bg-surface-container-highest text-primary text-[12px] flex items-center justify-center rounded cursor-pointer font-body">20</div>
+</div>
+<!-- Legend -->
+<div class="grid grid-cols-2 gap-sm pt-md border-t border-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 bg-primary rounded-sm"></span>
+<span class="text-[11px] text-secondary">Answered</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 bg-surface-container-highest rounded-sm"></span>
+<span class="text-[11px] text-secondary">Not Visited</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 border border-surface-dim rounded-sm"></span>
+<span class="text-[11px] text-secondary">Not Answered</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 metallic-bg rounded-sm"></span>
+<span class="text-[11px] text-secondary">Review</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="flex flex-col gap-sm">
+<button class="w-full py-md bg-surface-container-highest text-primary font-body-bold rounded-lg hover:bg-surface-variant transition-all border border-surface-variant">
+                        Submit Final Paper
+                    </button>
+<p class="text-[11px] text-center text-secondary-fixed-dim px-md">
+                        Ensure all flagged questions are reviewed before final submission. Changes cannot be made after submission.
+                    </p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface-container-highest dark:bg-surface-container-lowest border-t border-surface-variant w-full py-xl mt-xl">
+<div class="flex flex-col items-center justify-center gap-md w-full px-container-margin">
+<span class="font-ui-header text-ui-header uppercase tracking-widest text-primary">MOCKTEST PLATFORM</span>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="text-secondary hover:text-primary transition-colors font-body" href="#">Terms of Service</a>
+<a class="text-secondary hover:text-primary transition-colors font-body" href="#">Privacy Policy</a>
+<a class="text-secondary hover:text-primary transition-colors font-body" href="#">Contact Support</a>
+<a class="text-secondary hover:text-primary transition-colors font-body" href="#">FAQ</a>
+</div>
+<p class="text-secondary-fixed-dim text-[12px] font-body mt-md">
+                © 2024 MOCKTEST PLATFORM. AUTHORITATIVE PRACTICE.
+            </p>
+</div>
+</footer>
+<script>
+        // Simple Countdown Timer Simulation
+        let timeInSeconds = 3598; // 59:58
+        const timerElement = document.getElementById('exam-timer');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = timeInSeconds % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (timeInSeconds > 0) {
+                timeInSeconds--;
+            } else {
+                clearInterval(timerInterval);
+                alert('Time is up! Your exam will be automatically submitted.');
+            }
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        // Interaction for Radio Selection
+        const options = document.querySelectorAll('input[name="exam-option"]');
+        options.forEach(option => {
+            option.addEventListener('change', (e) => {
+                // Reset all container backgrounds
+                document.querySelectorAll('#options-container label').forEach(label => {
+                    label.classList.remove('bg-surface-container-low', 'border-primary');
+                    label.classList.add('paper-border');
+                });
+                // Highlight selected
+                if (e.target.checked) {
+                    const label = e.target.closest('label');
+                    label.classList.add('bg-surface-container-low', 'border-primary');
+                    label.classList.remove('paper-border');
+                }
+            });
+        });
+    </script>
+</body></html>
