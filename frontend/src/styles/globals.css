@@ -179,6 +179,34 @@
     background-color: rgb(var(--color-bg-secondary));
   }
 
+  /* Browse Mock Tests button - light: black bg with white text; dark: transparent with white border */
+  .btn-browse-mock {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3.5 font-semibold transition-all shadow-md;
+    background-color: rgb(0 0 0);
+    color: rgb(255 255 255);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-md);
+    transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms cubic-bezier(.2,.9,.2,1), background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    will-change: transform, box-shadow, border-color;
+  }
+
+  .btn-browse-mock:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    opacity: 0.98;
+  }
+
+  .dark .btn-browse-mock {
+    background-color: transparent;
+    color: rgb(255 255 255);
+    border-color: rgb(255 255 255);
+    box-shadow: none;
+  }
+
+  .dark .btn-browse-mock:hover:not(:disabled) {
+    background-color: rgba(255,255,255,0.04);
+  }
+
   /* ── Card Component (Gradient backgrounds) ──────────────────────────── */
   .card {
     @apply rounded-xl p-6;
