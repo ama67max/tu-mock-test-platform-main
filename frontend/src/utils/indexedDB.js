@@ -324,6 +324,36 @@ class IndexedDBManager {
     return cacheMeta;
   }
 
+  /**
+   * Returns an array of cached exams including basic exam data and question counts.
+   * This is a convenience method expected by pages that display the cached exam list.
+   */
+  async getCachedExams() {
+    const meta = await this.getCachedExamsList();
+    const results = [];
+
+    for (const entry of meta) {
+      try {
+        const exam = await this.get(STORES.EXAMS, entry.examId);
+        if (!exam) continue;
+        const questions = await this.getByIndex(STORES.QUESTIONS, 'examId', entry.examId);
+        results.push({
+          id: exam.id,
+          _id: exam.id,
+          title: exam.title,
+          description: exam.description,
+          category: exam.category || null,
+          cachedAt: exam.cachedAt || entry.lastAccessed,
+          questionsCount: Array.isArray(questions) ? questions.length : 0,
+        });
+      } catch (e) {
+        console.warn('Failed to build cached exam entry for', entry.examId, e);
+      }
+    }
+
+    return results;
+  }
+
   // ==================== ANSWER PERSISTENCE METHODS ====================
 
   /**
