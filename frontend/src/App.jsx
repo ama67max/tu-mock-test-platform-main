@@ -15,6 +15,7 @@ const ExamPage = lazy(() => import('./pages/ExamPage'));
 const ResultPage = lazy(() => import('./pages/ResultPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
+const VagueGrid = lazy(() => import('./pages/VagueGrid'));
 
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminUsers = lazy(() => import('./pages/AdminUsers'));
@@ -43,6 +44,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/demo/indexeddb" element={<IndexedDBDemo />} />
           <Route path="/demo/offline" element={<OfflineDemo />} />
+          <Route path="/vague-grid" element={<VagueGrid />} />
 
           {/* ── Student-protected routes ─────────────── */}
           <Route element={<ProtectedRoute />}>
@@ -68,6 +70,8 @@ function App() {
           <Route path="exams" element={<AdminExams />} />
           <Route path="questions" element={<AdminQuestions />} />
           <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="iddb" element={<IndexedDBDemo />} />
+          <Route path="dbdemo" element={<OfflineDemo />} />
         </Route>
 
         {/* ── Fallback ──────────────────────────────────── */}
