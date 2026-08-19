@@ -11,9 +11,15 @@ import {
   Area,
 } from 'recharts';
 import { format } from 'date-fns';
+import { useTheme } from '../../contexts/ThemeContext';
 
-function Skeleton({ height = 240 }) {
-  return <div className="w-full animate-pulse rounded-[24px] bg-slate-900/70" style={{ height }} />;
+function Skeleton({ height = 240, isDark = false }) {
+  return (
+    <div
+      className={`w-full animate-pulse rounded-[24px] ${isDark ? 'bg-surface-container-low' : 'bg-surface-container-lowest'}`}
+      style={{ height }}
+    />
+  );
 }
 
 function safeFormatDate(value, dateFormat) {
@@ -31,17 +37,34 @@ export default function PerformanceChart({
   height = 240,
   showAttempts = true,
   loading = false,
-  colors = { score: '#38bdf8', attempts: '#67e8f9' },
+  colors,
   dateFormat = 'MMM d',
 }) {
-  if (loading) return <Skeleton height={height} />;
+  const { isDark } = useTheme();
+  const chartColors = colors || (isDark
+    ? {
+        score: '#E5E5E5',
+        attempts: '#A1A1AA',
+        grid: 'rgba(255, 255, 255, 0.1)',
+        text: '#FAFAFA',
+        tooltipBg: '#18181B',
+      }
+    : {
+        score: '#18181B',
+        attempts: '#3F3F46',
+        grid: 'rgba(0, 0, 0, 0.1)',
+        text: '#18181B',
+        tooltipBg: '#FFFFFF',
+      });
+
+  if (loading) return <Skeleton height={height} isDark={isDark} />;
 
   const hasData = Array.isArray(data) && data.length > 0;
 
   if (!hasData) {
     return (
-      <div className="flex h-full items-center justify-center rounded-[24px] bg-slate-950/80 p-6" style={{ height }}>
-        <div className="text-sm text-slate-400">No data available</div>
+      <div className={`flex h-full items-center justify-center rounded-[24px] p-6 ${isDark ? 'bg-surface-container-low' : 'bg-surface-container-lowest'}`} style={{ height }}>
+        <div className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>No data available</div>
       </div>
     );
   }
@@ -50,11 +73,11 @@ export default function PerformanceChart({
     <div className="rounded-[24px] p-3">
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} margin={{ top: 12, right: 18, left: 0, bottom: 6 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.18)" />
+          <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} />
           <XAxis
             dataKey="date"
             tickFormatter={(tick) => safeFormatDate(tick, dateFormat)}
-            tick={{ fill: '#cbd5e1', fontSize: 12 }}
+            tick={{ fill: chartColors.text, fontSize: 12, fontWeight: 700 }}
             tickLine={false}
             axisLine={false}
             minTickGap={16}
@@ -63,7 +86,7 @@ export default function PerformanceChart({
             yAxisId="left"
             domain={[0, 100]}
             tickFormatter={(v) => `${v}`}
-            tick={{ fill: '#cbd5e1', fontSize: 12 }}
+            tick={{ fill: chartColors.text, fontSize: 12, fontWeight: 700 }}
             tickLine={false}
             axisLine={false}
           />
@@ -71,27 +94,27 @@ export default function PerformanceChart({
             <YAxis
               yAxisId="right"
               orientation="right"
-              tick={{ fill: '#cbd5e1', fontSize: 12 }}
+              tick={{ fill: chartColors.text, fontSize: 12, fontWeight: 700 }}
               tickLine={false}
               axisLine={false}
             />
           )}
           <Tooltip
-            wrapperStyle={{ borderRadius: 16, borderColor: '#334155', backgroundColor: '#0f172a' }}
-            labelStyle={{ color: '#ffffff' }}
-            itemStyle={{ color: '#cbd5e1' }}
-            cursor={{ stroke: '#334155', strokeWidth: 1 }}
+            wrapperStyle={{ borderRadius: 16, borderColor: chartColors.text, backgroundColor: chartColors.tooltipBg }}
+            labelStyle={{ color: chartColors.text, fontWeight: 700 }}
+            itemStyle={{ color: chartColors.text }}
+            cursor={{ stroke: chartColors.text, strokeWidth: 1 }}
             labelFormatter={(label) => safeFormatDate(label, dateFormat)}
             formatter={(value, name) => [value, name === 'avgScore' ? 'Avg Score' : name === 'attempts' ? 'Attempts' : name]}
           />
-          <Legend wrapperStyle={{ color: '#cbd5e1' }} />
+          <Legend wrapperStyle={{ color: chartColors.text, fontWeight: 700 }} />
 
           <Area
             type="monotone"
             dataKey="avgScore"
             yAxisId="left"
-            stroke={colors.score}
-            fill={colors.score}
+            stroke={chartColors.score}
+            fill={chartColors.score}
             fillOpacity={0.12}
             name="Avg Score"
           />
@@ -100,7 +123,7 @@ export default function PerformanceChart({
             type="monotone"
             dataKey="avgScore"
             yAxisId="left"
-            stroke={colors.score}
+            stroke={chartColors.score}
             strokeWidth={3}
             dot={{ r: 3 }}
             activeDot={{ r: 5 }}
@@ -112,7 +135,7 @@ export default function PerformanceChart({
               type="monotone"
               dataKey="attempts"
               yAxisId="right"
-              stroke={colors.attempts}
+              stroke={chartColors.attempts}
               strokeWidth={3}
               dot={false}
               name="Attempts"

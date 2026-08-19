@@ -77,7 +77,7 @@ const apiRateLimiter = rateLimit({
 // ── Auth Endpoint Rate Limiter (stricter) ─────────────────────────────────────
 const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts per window
+  max: 100, // 100 attempts per window (increased for load testing)
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisRateLimitStore('rl:auth'),

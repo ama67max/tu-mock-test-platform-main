@@ -50,14 +50,20 @@ const examBaseSchema = {
     })
     .pipe(z.boolean())
     .optional(),
+  questionIds: z
+    .array(z.string().min(1, 'Question ID is required'))
+    .min(1, 'At least one question is required')
+    .optional(),
   startTime: z
-    .string()
-    .datetime({ message: 'Start time must be a valid ISO datetime' })
-    .optional(),
+    .preprocess(
+      (val) => (val === null || val === '' ? undefined : val),
+      z.string().datetime({ message: 'Start time must be a valid ISO datetime' }).optional()
+    ),
   endTime: z
-    .string()
-    .datetime({ message: 'End time must be a valid ISO datetime' })
-    .optional(),
+    .preprocess(
+      (val) => (val === null || val === '' ? undefined : val),
+      z.string().datetime({ message: 'End time must be a valid ISO datetime' }).optional()
+    ),
 };
 
 // ── Create Exam Schema ────────────────────────────────────────────────────────

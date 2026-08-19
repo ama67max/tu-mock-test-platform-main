@@ -13,18 +13,24 @@ export function useExam() {
 
     try {
       const { data } = await startAttempt(payload);
-      const examData = data?.data;
+      const attemptData = data?.data ?? data ?? {};
+      const exam = attemptData?.exam || attemptData;
+      const questions = exam?.questions || attemptData?.questions || exam?.examQuestions || [];
+      const durationSeconds =
+        attemptData?.durationSeconds ||
+        attemptData?.timeRemainingSeconds ||
+        (exam?.durationMinutes ? Number(exam.durationMinutes) * 60 : 0);
 
-      if (examData?.exam && examData?.questions) {
+      if (exam && questions.length > 0) {
         store.startExam({
-          exam: examData.exam,
-          questions: examData.questions,
-          attemptId: examData.attemptId,
-          durationSeconds: examData.durationSeconds || examData.exam?.durationMinutes * 60,
+          exam,
+          questions,
+          attemptId: attemptData?.id || attemptData?.attemptId || payload.examId,
+          durationSeconds,
         });
       }
 
-      return examData;
+      return attemptData;
     } catch (err) {
       setError(err?.response?.data?.message || 'Unable to start exam.');
       throw err;
@@ -43,9 +49,13 @@ export function useExam() {
     }
   }, []);
 
-  const submitExam = useCallback(async (payload) => {
+  const submitExam = useCallback(async (payload = {}) => {
     try {
-      const { data } = await finishAttempt(payload);
+      const timeTakenSec = payload.timeTakenSec ?? 0;
+      const { data } = await finishAttempt({
+        ...payload,
+        timeTakenSec,
+      });
       store.resetExam();
       return data?.data;
     } catch (err) {

@@ -56,6 +56,20 @@ export const getDashboardStats = getSystemAnalytics;
 export const getTrendData = getAttemptTrends;
 export const getSubjectBreakdown = getCategoryBreakdown;
 
+export const getTopPerformers = async (examId, limit = 10) => {
+  try {
+    const res = await axiosInstance.get(`/exams/${examId}/leaderboard`, {
+      params: { limit },
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || 'Failed to fetch top performers';
+    const error = new Error(message);
+    error.payload = err?.response?.data;
+    throw error;
+  }
+};
+
 export default {
   getSystemAnalytics,
   getCategoryBreakdown,
@@ -65,4 +79,5 @@ export default {
   getDashboardStats,
   getTrendData,
   getSubjectBreakdown,
+  getTopPerformers,
 };

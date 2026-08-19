@@ -1,12 +1,13 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, HardDriveDownload, RefreshCw, CheckCircle2, WifiOff } from 'lucide-react';
-import { getExams, getExamById } from '../api/examApi';
+import { getExamById } from '../api/examApi';
 import ExamCard from '../components/exam/ExamCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import OfflineIndicator from '../components/ui/OfflineIndicator';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { useExamCache } from '../hooks/useIndexedDB';
+import { useExams } from '../hooks/useExams';
 import dbManager from '../utils/indexedDB';
 import examCache from '../utils/examCache';
 
@@ -14,6 +15,9 @@ function ExamListPage() {
   const navigate = useNavigate();
   const { isOnline } = useOnlineStatus();
   const { cacheStats, refreshStats } = useExamCache();
+
+  // Use SWR hook for exams with caching
+  const { exams: swrExams, isLoading, error: swrError, refresh } = useExams({ isPublished: true });
 
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,45 +34,68 @@ function ExamListPage() {
     return ids;
   }, [cacheStats]);
 
-  const fetchExams = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      if (isOnline) {
-        const { data } = await getExams({ published: true });
-        const list = data?.data?.exams || data?.data || [];
-        setExams(list);
-      } else {
-        // Fallback to IndexedDB cached exams when offline
-        const cachedList = await dbManager.getCachedExams();
-        if (cachedList && cachedList.length > 0) {
-          setExams(cachedList);
-        } else {
-          setExams([]);
-          setError('You are offline and no exams are saved in offline storage.');
-        }
-      }
-    } catch (err) {
-      console.warn('Network request failed, falling back to local cache:', err);
-      try {
-        const cachedList = await dbManager.getCachedExams();
-        if (cachedList && cachedList.length > 0) {
-          setExams(cachedList);
-        } else {
-          setError(err?.response?.data?.message || 'Unable to load exams.');
-        }
-      } catch (dbErr) {
-        setError('Failed to retrieve exams from offline storage.');
-      }
-    } finally {
-      setLoading(false);
-      refreshStats();
-    }
-  };
-
+  // Sync SWR data with local state and handle offline fallback
   useEffect(() => {
-    fetchExams();
-  }, [isOnline]);
+    async function loadExams() {
+      setLoading(true);
+      setError('');
+
+      if (!isOnline) {
+        // Offline mode: load from IndexedDB
+        try {
+          const cachedList = await dbManager.getCachedExams();
+          if (cachedList && cachedList.length > 0) {
+            setExams(cachedList);
+          } else {
+            setExams([]);
+            setError('You are offline and no exams are saved in offline storage.');
+          }
+        } catch (dbErr) {
+          setError('Failed to retrieve exams from offline storage.');
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Online mode: use SWR data
+      if (swrError) {
+        // SWR failed, try IndexedDB fallback
+        console.warn('SWR request failed, falling back to local cache:', swrError);
+        try {
+          const cachedList = await dbManager.getCachedExams();
+          if (cachedList && cachedList.length > 0) {
+            setExams(cachedList);
+          } else {
+            setError(swrError?.response?.data?.message || 'Unable to load exams.');
+          }
+        } catch (dbErr) {
+          setError('Failed to retrieve exams from offline storage.');
+        }
+      } else if (swrExams && swrExams.length >= 0) {
+        // Filter exams that have questions
+        const filteredExams = swrExams.filter((exam) => {
+          const qCount = exam?.questionsCount ?? exam?._count?.examQuestions ?? exam?.examQuestions?.length ?? 0;
+          return Number(qCount) > 0;
+        });
+        setExams(filteredExams);
+      }
+
+      setLoading(isLoading);
+      if (!isLoading) {
+        refreshStats();
+      }
+    }
+
+    loadExams();
+  }, [swrExams, isLoading, swrError, isOnline, refreshStats]);
+
+  // Manual refresh handler
+  const handleRefresh = async () => {
+    if (isOnline) {
+      await refresh();
+    }
+    refreshStats();
+  };
 
   const handlePrefetch = async (exam) => {
     const examId = exam.id || exam._id;
@@ -144,8 +171,9 @@ function ExamListPage() {
 
             <button
               type="button"
-              onClick={fetchExams}
-              className="flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all"
+              onClick={handleRefresh}
+              disabled={isLoading}
+              className="flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all disabled:opacity-50"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
               <span>Refresh</span>
@@ -163,7 +191,7 @@ function ExamListPage() {
             <p className="text-base text-danger-700">{error}</p>
             <button
               type="button"
-              onClick={fetchExams}
+              onClick={handleRefresh}
               className="mt-4 rounded-lg border border-danger-600 bg-danger-100 px-4 py-2 text-xs font-semibold text-danger-700 hover:bg-danger-50"
             >
               Try Again
@@ -186,7 +214,7 @@ function ExamListPage() {
                   isCached={isCached}
                   isCaching={cachingExamId === examId}
                   onPrefetch={() => handlePrefetch(exam)}
-                  onStart={() => navigate(`/exam/${examId}`)}
+                  onStart={() => navigate(`/exams/${examId}`)}
                   actionLabel={isCached ? 'Start Exam (Offline Ready)' : 'Start Exam'}
                 />
               );

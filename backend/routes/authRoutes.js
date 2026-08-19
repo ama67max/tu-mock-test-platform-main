@@ -2,6 +2,7 @@ const { Router } = require('express');
 const authController = require('../controllers/authController');
 const validate = require('../middleware/validateMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
+const { authRateLimiter } = require('../middleware/rateLimitMiddleware');
 const {
   registerSchema,
   loginSchema,
@@ -13,12 +14,14 @@ const router = Router();
 
 router.post(
   '/register',
+  authRateLimiter,
   validate({ body: registerSchema }),
   authController.register
 );
 
 router.post(
   '/login',
+  authRateLimiter,
   validate({ body: loginSchema }),
   authController.login
 );

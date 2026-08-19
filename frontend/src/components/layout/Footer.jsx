@@ -39,7 +39,7 @@ function Footer() {
             className="mt-3 max-w-xs text-body"
             style={{ color: 'rgb(var(--color-text-tertiary))' }}
           >
-            Practice exams for Tribhuvan University entrance tests — IOE, CSIT, CMAT, BCA, and BIT.
+            Smarter mock tests and focused practice for IOE, CSIT, CMAT, BCA, and BIT aspirants.
           </p>
         </div>
 

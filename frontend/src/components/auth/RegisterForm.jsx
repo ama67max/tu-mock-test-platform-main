@@ -128,7 +128,7 @@ function RegisterForm() {
     <div className="card w-full max-w-md mx-auto animate-fade-in">
       <h1 className="text-2xl font-bold text-neutral-900 mb-1">Create your account</h1>
       <p className="text-sm text-neutral-500 mb-6">
-        Start practicing for your TU entrance exam today.
+        Build your prep routine and start practicing for your TU entrance exam today.
       </p>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
@@ -207,7 +207,7 @@ function RegisterForm() {
       </form>
 
       <p className="mt-6 text-center text-sm text-neutral-500">
-        Already have an account?{' '}
+        Already preparing with us?{' '}
         <Link to="/login" className="font-medium text-neutral-800 hover:underline">
           Log in
         </Link>

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const examController = require('../controllers/examController');
+const leaderboardController = require('../controllers/leaderboardController');
 const validate = require('../middleware/validateMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
 const authorizeRoles = require('../middleware/roleMiddleware');
@@ -19,6 +20,7 @@ router.get(
   examController.listExams
 );
 
+router.get('/:id/leaderboard', authMiddleware, leaderboardController.getTopPerformers);
 router.get('/:id', examController.getExam);
 
 router.get('/:id/questions', examController.getExamQuestions);

@@ -3,9 +3,18 @@ import { render, screen, waitFor } from '@testing-library/react';
 import DashboardPage from '../pages/DashboardPage';
 
 vi.mock('../api/analyticsApi', () => ({
-  getDashboardStats: vi.fn(async () => ({ data: { avgScore: 80, totalAttempts: 1234, passRate: 72, activeUsers: 456, defaultExamId: 1 } })),
-  getTrendData: vi.fn(async () => ({ data: [{ date: '2026-07-01', avgScore: 80, attempts: 120 }] })),
-  getSubjectBreakdown: vi.fn(async () => ({ data: [{ subject: 'Math', avgScore: 78 }] })),
+  getMyAnalytics: vi.fn(async () => ({
+    data: {
+      averageScore: 80,
+      totalAttempts: 1234,
+      accuracy: 72,
+      totalTimeSpentMinutes: 340,
+      subjectBreakdown: [{ name: 'Math', averageScore: 78, totalQuestions: 10 }],
+    },
+  })),
+  getMyAttemptTrends: vi.fn(async () => ({
+    data: [{ date: '2026-07-01', average_score: 80, attempts: 120 }],
+  })),
 }));
 
 vi.mock('../api/resultApi', () => ({

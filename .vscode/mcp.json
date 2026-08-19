@@ -1,0 +1,9 @@
+{
+    "servers" : {
+        "marketingskills":{
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y","@marketingskills/mcp-server"]
+        }
+    }
+}

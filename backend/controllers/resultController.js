@@ -51,7 +51,32 @@ const getMyResults = asyncHandler(async (req, res) => {
   );
 });
 
+const getAttemptAnswers = asyncHandler(async (req, res) => {
+  const { attemptId } = req.params;
+  const { userId, role } = req.user;
+
+  const attemptMeta = await prisma.userAttempt.findUnique({
+    where: { id: attemptId },
+    select: { userId: true },
+  });
+
+  if (!attemptMeta) {
+    throw new ApiError(404, 'Attempt not found');
+  }
+
+  if (attemptMeta.userId !== userId && !['ADMIN', 'SUPER_ADMIN'].includes(role)) {
+    throw new ApiError(403, 'You do not have access to these answers');
+  }
+
+  const answers = await resultService.getAttemptAnswers(attemptId);
+
+  res.status(200).json(
+    new ApiResponse(200, answers, 'Attempt answers fetched successfully')
+  );
+});
+
 module.exports = {
   getResult,
   getMyResults,
+  getAttemptAnswers,
 };

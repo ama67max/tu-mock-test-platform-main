@@ -1,5 +1,7 @@
 const prisma = require('../config/db');
 const { ApiError } = require('../utils/apiResponse');
+const { invalidateUserAnalytics } = require('./analyticsService');
+const { invalidateUserResults } = require('./resultService');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -13,6 +15,22 @@ const isAttemptExpired = (attempt, exam) => {
 
 const getServerTimeTaken = (attempt) => {
   return Math.floor((Date.now() - new Date(attempt.startedAt).getTime()) / 1000);
+};
+
+const formatAttemptPayload = (attempt) => {
+  const questions = attempt?.exam?.examQuestions?.map((eq) => ({
+    ...eq.question,
+    orderIndex: eq.orderIndex,
+  })) || [];
+
+  return {
+    ...attempt,
+    exam: {
+      ...attempt.exam,
+      examQuestions: undefined,
+      questions,
+    },
+  };
 };
 
 // ── Start Attempt ─────────────────────────────────────────────────────────────
@@ -35,20 +53,47 @@ const startAttempt = async (userId, examId) => {
     throw new ApiError(403, 'This exam has ended');
   }
   if (exam._count.examQuestions === 0) {
-    throw new ApiError(400, 'This exam has no questions');
+    throw new ApiError(
+      400,
+      'This exam has no questions assigned. Please add at least one question before starting it.'
+    );
   }
 
-  // Atomic check-and-create prevents duplicate active attempts under race conditions
+  // Resume the active in-progress attempt instead of crashing the flow with a duplicate error.
   const attempt = await prisma.$transaction(async (tx) => {
     const existing = await tx.userAttempt.findFirst({
       where: { userId, examId, status: 'IN_PROGRESS' },
+      include: {
+        exam: {
+          include: {
+            category: { select: { id: true, name: true, slug: true } },
+            examQuestions: {
+              orderBy: { orderIndex: 'asc' },
+              include: {
+                question: {
+                  select: {
+                    id: true,
+                    questionText: true,
+                    options: true,
+                    difficulty: true,
+                    marks: true,
+                    media: {
+                      select: { id: true, mediaType: true, mediaUrl: true },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (existing) {
-      throw new ApiError(409, 'You already have an active attempt for this exam');
+      return formatAttemptPayload(existing);
     }
 
-    return tx.userAttempt.create({
+    const created = await tx.userAttempt.create({
       data: {
         userId,
         examId,
@@ -79,22 +124,11 @@ const startAttempt = async (userId, examId) => {
         },
       },
     });
+
+    return formatAttemptPayload(created);
   });
 
-  // Flatten junction table for cleaner frontend consumption
-  const questions = attempt.exam.examQuestions.map((eq) => ({
-    ...eq.question,
-    orderIndex: eq.orderIndex,
-  }));
-
-  return {
-    ...attempt,
-    exam: {
-      ...attempt.exam,
-      examQuestions: undefined,
-      questions,
-    },
-  };
+  return attempt;
 };
 
 // ── Submit Answer ─────────────────────────────────────────────────────────────
@@ -183,9 +217,10 @@ const finishAttempt = async (userId, attemptId, clientTimeTakenSec) => {
   // Server is source of truth for time, but respect client's clock if reasonable
   const serverTimeTaken = getServerTimeTaken(attempt);
   const maxTime = attempt.exam.durationMinutes * 60;
+  const clientSeconds = Number.isFinite(Number(clientTimeTakenSec)) ? Number(clientTimeTakenSec) : 0;
   const timeTakenSec = expired
     ? Math.min(serverTimeTaken, maxTime)
-    : Math.min(Math.max(clientTimeTakenSec, 0), serverTimeTaken);
+    : Math.min(Math.max(clientSeconds, 0), serverTimeTaken);
 
   const result = await prisma.$transaction(async (tx) => {
     // Aggregate statistics
@@ -237,6 +272,12 @@ const finishAttempt = async (userId, attemptId, clientTimeTakenSec) => {
 
     return updated;
   });
+
+  // Invalidate caches after successful submission (non-blocking)
+  await Promise.all([
+    invalidateUserAnalytics(userId),
+    invalidateUserResults(userId),
+  ]);
 
   return result;
 };

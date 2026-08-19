@@ -17,6 +17,15 @@ const invalidateListCaches = async () => {
 
 // ── Create Question ───────────────────────────────────────────────────────────
 const createQuestion = async (data) => {
+  const categoryExists = await prisma.category.findUnique({
+    where: { id: data.categoryId },
+    select: { id: true },
+  });
+
+  if (!categoryExists) {
+    throw new ApiError(400, 'Selected category does not exist');
+  }
+
   const question = await prisma.question.create({
     data,
     include: { category: { select: { id: true, name: true, slug: true } } },
@@ -124,6 +133,17 @@ const updateQuestion = async (id, data) => {
 
   if (!existing) {
     throw new ApiError(404, 'Question not found');
+  }
+
+  if (data.categoryId) {
+    const categoryExists = await prisma.category.findUnique({
+      where: { id: data.categoryId },
+      select: { id: true },
+    });
+
+    if (!categoryExists) {
+      throw new ApiError(400, 'Selected category does not exist');
+    }
   }
 
   const updated = await prisma.question.update({

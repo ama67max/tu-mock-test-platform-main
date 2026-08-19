@@ -66,8 +66,8 @@ const OfflineIndicator = ({
         <div
           className={`w-full py-3 px-4 text-center ${
             isOnline
-              ? 'bg-gradient-to-r from-green-600 to-green-700 text-white'
-              : 'bg-gradient-to-r from-red-600 to-red-700 text-white'
+              ? 'bg-success-600 text-on-primary'
+              : 'bg-danger-600 text-on-primary'
           } animate-slide-down`}
         >
           <div className="flex items-center justify-center gap-3">
@@ -92,52 +92,47 @@ const OfflineIndicator = ({
     );
   }
 
-  // Detailed variant
   if (variant === 'detailed') {
     return (
       <div className={positionClasses[position]}>
         <div
-          className={`bg-gradient-to-br ${
-            isOnline
-              ? 'from-green-900 to-green-950'
-              : 'from-red-900 to-red-950'
-          } border ${
-            isOnline ? 'border-green-700' : 'border-red-700'
+          className={`bg-surface-container-lowest border ${
+            isOnline ? 'border-success-500' : 'border-danger-500'
           } rounded-lg p-4 shadow-lg max-w-sm animate-slide-in`}
         >
           <div className="flex items-start gap-3">
             <div
               className={`p-2 rounded-lg ${
-                isOnline ? 'bg-green-800' : 'bg-red-800'
+                isOnline ? 'bg-success-600' : 'bg-danger-600'
               }`}
             >
               {isOnline ? (
-                <Wifi className="w-6 h-6 text-white" />
+                <Wifi className="w-6 h-6 text-on-primary" />
               ) : (
-                <WifiOff className="w-6 h-6 text-white" />
+                <WifiOff className="w-6 h-6 text-on-primary" />
               )}
             </div>
-            
+
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
-                <h4 className="text-body font-semibold text-white">
+                <h4 className="text-body font-semibold text-primary">
                   {isOnline ? 'Back Online' : 'Offline Mode'}
                 </h4>
                 <div
                   className={`w-2 h-2 rounded-full ${
-                    isOnline ? 'bg-green-400' : 'bg-red-400'
+                    isOnline ? 'bg-success-500' : 'bg-danger-500'
                   } animate-pulse`}
                 />
               </div>
-              
-              <p className="text-sm text-silver-400">
+
+              <p className="text-sm text-secondary">
                 {isOnline
                   ? 'Connection restored. Syncing data...'
                   : 'Working offline. Changes saved locally.'}
               </p>
-              
+
               {!isOnline && offlineDuration > 0 && (
-                <p className="text-xs text-silver-500 mt-2">
+                <p className="text-xs text-tertiary mt-2">
                   Offline for {formatDuration(offlineDuration)}
                 </p>
               )}
@@ -148,15 +143,12 @@ const OfflineIndicator = ({
     );
   }
 
-  // Compact variant (default)
   return (
     <div className={positionClasses[position]}>
       <div
         className={`flex items-center gap-2 px-3 py-2 rounded-full ${
-          isOnline
-            ? 'bg-gradient-to-r from-green-600 to-green-700'
-            : 'bg-gradient-to-r from-red-600 to-red-700'
-        } text-white shadow-lg animate-slide-in`}
+          isOnline ? 'bg-success-600' : 'bg-danger-600'
+        } text-on-primary shadow-lg animate-slide-in`}
       >
         {isOnline ? (
           <>
@@ -171,7 +163,7 @@ const OfflineIndicator = ({
         )}
         <div
           className={`w-2 h-2 rounded-full ${
-            isOnline ? 'bg-green-300' : 'bg-red-300'
+            isOnline ? 'bg-success-100' : 'bg-danger-100'
           } animate-pulse`}
         />
       </div>

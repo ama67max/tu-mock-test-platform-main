@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserTable from '../components/admin/UserTable';
 import * as adminApi from '../api/adminApi';
+import AdminUserEditModal from '../components/admin/AdminUserEditModal';
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -43,6 +44,18 @@ export default function AdminUsers() {
     }
   }
 
+  const [editOpen, setEditOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+
+  const handleEdit = (user) => {
+    setEditingUser(user);
+    setEditOpen(true);
+  };
+
+  const handleSaved = (updatedUser) => {
+    setUsers((prev) => prev.map((u) => (u.id === updatedUser.id ? { ...u, ...updatedUser } : u)));
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -60,8 +73,10 @@ export default function AdminUsers() {
 
       {/* User Table */}
       <div className="bg-surface-container-lowest border border-surface-variant rounded-xl shadow-sm overflow-hidden">
-        <UserTable users={users} loading={loading} onToggleActive={handleToggle} onDelete={handleDelete} />
+        <UserTable users={users} loading={loading} onToggleActive={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
+
+      <AdminUserEditModal user={editingUser} isOpen={editOpen} onClose={() => setEditOpen(false)} onSaved={handleSaved} />
     </div>
   );
 }

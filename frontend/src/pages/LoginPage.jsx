@@ -44,7 +44,7 @@ function LoginPage() {
         <div className="bg-surface-container-lowest border border-surface-variant p-8 shadow-sm rounded-xl">
           <div className="mb-6">
             <h2 className="font-headline text-2xl font-bold text-primary">Log In</h2>
-            <p className="font-sans text-xs text-secondary mt-1">Access your mock test session</p>
+            <p className="font-sans text-xs text-secondary mt-1">Continue your prep with confidence</p>
           </div>
 
           <LoginForm />

@@ -105,6 +105,24 @@ export const createExam = async (payload) => {
   }
 };
 
+export const updateExam = async (id, payload) => {
+  try {
+    const res = await axiosInstance.put(`/exams/${id}`, payload);
+    return res.data;
+  } catch (err) {
+    normalizeError(err, 'Failed to update exam');
+  }
+};
+
+export const deleteExam = async (id) => {
+  try {
+    const res = await axiosInstance.delete(`/exams/${id}`);
+    return res.data;
+  } catch (err) {
+    normalizeError(err, 'Failed to delete exam');
+  }
+};
+
 export const uploadQuestion = async (payload) => {
   try {
     const res = await axiosInstance.post('/questions', payload);
@@ -136,6 +154,34 @@ export const getQuestions = async (params = {}) => {
   }
 };
 
+export const getExamById = async (id) => {
+  try {
+    const res = await axiosInstance.get(`/exams/${id}`);
+    // Normalize ApiResponse wrapper: return inner data if present
+    return res.data?.data || res.data;
+  } catch (err) {
+    normalizeError(err, 'Failed to fetch exam');
+  }
+};
+
+export const getExamQuestions = async (id) => {
+  try {
+    const res = await axiosInstance.get(`/exams/${id}/questions`);
+    return res.data?.data || res.data;
+  } catch (err) {
+    normalizeError(err, 'Failed to fetch exam questions');
+  }
+};
+
+export const setExamQuestions = async (id, questionIds) => {
+  try {
+    const res = await axiosInstance.put(`/exams/${id}/questions`, { questionIds });
+    return res.data?.data || res.data;
+  } catch (err) {
+    normalizeError(err, 'Failed to set exam questions');
+  }
+};
+
 export default {
   getAdminOverview,
   getAdminCategories,
@@ -147,7 +193,12 @@ export default {
   deleteUser,
   getExams,
   createExam,
+  updateExam,
+  deleteExam,
   uploadQuestion,
   uploadQuestions,
   getQuestions,
+  getExamById,
+  getExamQuestions,
+  setExamQuestions,
 };

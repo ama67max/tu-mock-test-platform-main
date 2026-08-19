@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as adminApi from '../../api/adminApi';
 import LoadingSpinner from '../common/LoadingSpinner';
 
-export default function ExamCreator({ onSubmit, initial = {} }) {
+export default function ExamCreator({ onSubmit, initial = {}, submitting = false }) {
   const [title, setTitle] = useState(initial.title || '');
   const [description, setDescription] = useState(initial.description || '');
   const [categoryId, setCategoryId] = useState(initial.categoryId || '');
+  // categories to load questions from (allows selecting questions from multiple categories)
+  const [questionSourceCategories, setQuestionSourceCategories] = useState(initial.questionSourceCategories || (initial.categoryId ? [initial.categoryId] : []));
   const [durationMinutes, setDurationMinutes] = useState(initial.durationMinutes || 60);
   const [totalMarks, setTotalMarks] = useState(initial.totalMarks || 100);
   const [passingMarks, setPassingMarks] = useState(initial.passingMarks || 50);
@@ -29,12 +31,27 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
 
   useEffect(() => {
     if (categoryId) {
+      // ensure primary category is included in source categories
+      setQuestionSourceCategories((prev) => (prev && prev.length ? (prev.includes(categoryId) ? prev : [categoryId, ...prev]) : [categoryId]));
       setQuestionIds([]);
-      loadQuestions(categoryId);
+      // load questions from currently selected source categories (which will include primary)
+      loadQuestions(questionSourceCategories.length ? questionSourceCategories : [categoryId]);
     } else {
       setAvailableQuestions([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
+
+  // reload questions whenever the selected source categories change
+  useEffect(() => {
+    if (!categoryId) return;
+    if (!questionSourceCategories || questionSourceCategories.length === 0) {
+      setAvailableQuestions([]);
+      return;
+    }
+    loadQuestions(questionSourceCategories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questionSourceCategories]);
 
   async function loadCategories() {
     try {
@@ -48,15 +65,34 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
     }
   }
 
-  async function loadQuestions(catId) {
+  async function loadQuestions(catIds) {
     setQuestionsLoading(true);
     try {
-      const res = await adminApi.getQuestions({ categoryId: catId, limit: 100 });
-      const payload = res?.data || res;
-      const questionList = Array.isArray(payload)
-        ? payload
-        : payload?.questions || payload?.data || [];
-      setAvailableQuestions(questionList);
+      const ids = Array.isArray(catIds) ? catIds : [catIds];
+      // fetch questions for each category and combine
+      const combined = [];
+      for (const id of ids) {
+        try {
+          const res = await adminApi.getQuestions({ categoryId: id, limit: 200 });
+          const payload = res?.data || res;
+          const questionList = Array.isArray(payload)
+            ? payload
+            : payload?.questions || payload?.data || [];
+          combined.push(...questionList);
+        } catch (innerErr) {
+          console.warn('Failed to load questions for category', id, innerErr);
+        }
+      }
+      // dedupe by id
+      const uniq = [];
+      const seen = new Set();
+      for (const q of combined) {
+        if (!q || !q.id) continue;
+        if (seen.has(q.id)) continue;
+        seen.add(q.id);
+        uniq.push(q);
+      }
+      setAvailableQuestions(uniq);
     } catch (e) {
       console.error('Failed to load questions:', e);
       setAvailableQuestions([]);
@@ -108,10 +144,7 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
       return;
     }
 
-    const startDateTime = startTime ? `${startTime}T${startTimeHour}:00:00Z` : null;
-    const endDateTime = endTime ? `${endTime}T${endTimeHour}:00:00Z` : null;
-
-    onSubmit && onSubmit({
+    const payload = {
       title,
       description,
       categoryId,
@@ -119,10 +152,26 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
       totalMarks: Number(totalMarks),
       passingMarks: Number(passingMarks),
       isPublished,
-      startTime: startDateTime,
-      endTime: endDateTime,
       questionIds,
-    });
+    };
+
+    if (startTime) {
+      payload.startTime = `${startTime}T${startTimeHour}:00:00Z`;
+    }
+
+    if (endTime) {
+      payload.endTime = `${endTime}T${endTimeHour}:00:00Z`;
+    }
+
+    onSubmit && onSubmit(payload);
+    
+    // Reset form after successful submission (optional - parent can handle this)
+    setTitle('');
+    setDescription('');
+    setQuestionIds([]);
+    setIsPublished(false);
+    setStartTime('');
+    setEndTime('');
   }
 
   return (
@@ -200,16 +249,30 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
               </option>
             ))}
           </select>
-          {!showCreateCategory && (
-            <button
-              type="button"
-              onClick={() => setShowCreateCategory(true)}
-              className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold whitespace-nowrap"
+          <div className="flex flex-col">
+            <label className="text-xs text-secondary">Load questions from</label>
+            <select
+              multiple
+              value={questionSourceCategories}
+              onChange={(e) => setQuestionSourceCategories(Array.from(e.target.selectedOptions, (o) => o.value))}
+              className="px-2 py-1 border border-surface-variant rounded-lg text-on-surface bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary h-10"
+              disabled={loading}
             >
-              + New Category
-            </button>
-          )}
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
+        {!showCreateCategory && (
+          <button
+            type="button"
+            onClick={() => setShowCreateCategory(true)}
+            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold whitespace-nowrap"
+          >
+            + New Category
+          </button>
+        )}
         {categories.length === 0 && !showCreateCategory && (
           <p className="text-xs text-warning-700">Create a category first</p>
         )}
@@ -361,11 +424,16 @@ export default function ExamCreator({ onSubmit, initial = {} }) {
       <div className="flex gap-2 pt-4">
         <button
           type="submit"
-          disabled={!categoryId || loading}
-          className="px-6 py-2 bg-primary text-white rounded-lg font-semibold disabled:opacity-50 hover:bg-on-surface transition-colors"
+          disabled={!categoryId || loading || submitting}
+          className="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 active:scale-[0.98]"
         >
-          Save Exam
+          {submitting ? 'Saving...' : 'Save Exam'}
         </button>
+        {questionIds.length === 0 && categoryId && (
+          <p className="text-xs text-warning-700 self-center">
+            Select at least one question to save
+          </p>
+        )}
       </div>
     </form>
   );

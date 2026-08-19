@@ -25,7 +25,11 @@ const authMiddleware = (req, res, next) => {
   }
 
   const decoded = verifyAccessToken(token);
-  req.user = decoded;
+  req.user = {
+    ...decoded,
+    id: decoded.userId ?? decoded.id,
+    userId: decoded.userId ?? decoded.id,
+  };
 
   next();
 };

@@ -41,6 +41,16 @@ function ExamPage() {
             if (isMounted) setIsOfflineAttempt(false);
             return;
           } catch (onlineError) {
+            const status = onlineError?.response?.status;
+            const serverMessage = onlineError?.response?.data?.message || onlineError?.response?.data?.error;
+
+            if (status === 400 || status === 403 || status === 404) {
+              if (isMounted) {
+                setInitError(serverMessage || 'This exam is unavailable right now.');
+              }
+              return;
+            }
+
             console.warn('Online start failed, attempting IndexedDB offline cache:', onlineError);
           }
         }
@@ -121,35 +131,39 @@ function ExamPage() {
   }, [currentQuestion, examState.answers]);
 
   // Handle Answer Selection with continuous IndexedDB persistence
-  const handleSelectAnswer = async (value) => {
-    const questionId = currentQuestion?._id || currentQuestion?.id;
-    if (!questionId) return;
+  const handleSelectAnswer = useCallback(
+    async (value) => {
+      const questionId = currentQuestion?._id || currentQuestion?.id;
+      if (!questionId) return;
 
-    // 1. Update Zustand store state
-    examState.setAnswer(questionId, value);
+      // 1. Update Zustand store state
+      examState.setAnswer(questionId, value);
 
-    // 2. Persist to local IndexedDB store immediately
-    await dbManager.saveAnswer(examState.attemptId || `attempt-${examId}`, questionId, value);
+      // 2. Persist to local IndexedDB store immediately
+      await dbManager.saveAnswer(examState.attemptId || `attempt-${examId}`, questionId, value);
 
-    // 3. If online, sync attempt answer to backend API silently
-    if (isOnline && !isOfflineAttempt) {
-      try {
-        await examState.saveAnswer({
-          attemptId: examState.attemptId,
-          questionId,
-          selectedOption: value,
-        });
-      } catch (err) {
-        console.warn('Backend answer sync delayed; saved locally in IndexedDB:', err);
+      // 3. If online, sync attempt answer to backend API silently
+      if (isOnline && !isOfflineAttempt) {
+        try {
+          await examState.saveAnswer({
+            attemptId: examState.attemptId,
+            questionId,
+            selectedOption: value,
+            timeTakenSec: 0,
+          });
+        } catch (err) {
+          console.warn('Backend answer sync delayed; saved locally in IndexedDB:', err);
+        }
       }
-    }
-  };
+    },
+    [currentQuestion, examId, isOnline, isOfflineAttempt, examState.setAnswer, examState.saveAnswer, examState.attemptId]
+  );
 
-  const handleToggleReview = () => {
+  const handleToggleReview = useCallback(() => {
     const questionId = currentQuestion?._id || currentQuestion?.id;
     if (!questionId) return;
     examState.toggleReviewFlag(questionId);
-  };
+  }, [currentQuestion, examState.toggleReviewFlag]);
 
   // Submit Exam (Online direct submit vs Offline sync queue)
   const handleSubmit = async () => {
@@ -158,19 +172,28 @@ function ExamPage() {
 
     try {
       if (isOnline && !isOfflineAttempt) {
-        await examState.submitExam({ attemptId: examState.attemptId });
-        navigate(`/dashboard`);
+        const elapsedSeconds = examState.startedAt
+          ? Math.max(0, Math.floor((Date.now() - new Date(examState.startedAt).getTime()) / 1000))
+          : 0;
+        const attemptId = examState.attemptId;
+
+        await examState.submitExam({
+          attemptId,
+          timeTakenSec: elapsedSeconds,
+        });
+        navigate(`/results/${attemptId}`);
       } else {
         // Offline Submission Fallback: Store payload in IndexedDB Sync Queue
+        const attemptId = examState.attemptId;
         const submissionPayload = {
-          attemptId: examState.attemptId,
+          attemptId,
           examId,
           answers: examState.answers,
           submittedAt: new Date().toISOString(),
         };
 
         await dbManager.addToSyncQueue('SUBMIT_EXAM', submissionPayload);
-        await dbManager.markAnswersSynced(examState.attemptId);
+        await dbManager.markAnswersSynced(attemptId);
 
         setSubmitNotice(
           'Attempt submitted offline! Your submission has been safely stored and will automatically sync when online.'
@@ -178,7 +201,7 @@ function ExamPage() {
 
         setTimeout(() => {
           examState.resetExam();
-          navigate('/dashboard');
+          navigate(`/results/${attemptId}`);
         }, 3000);
       }
     } catch (err) {
@@ -208,11 +231,11 @@ function ExamPage() {
 
   if (initError) {
     return (
-      <div className="min-h-screen bg-background text-on-surface flex items-center justify-center p-6">
-        <div className="max-w-md w-full rounded-xl border border-surface-variant bg-surface-container-lowest p-8 text-center shadow-sm">
-          <WifiOff className="mx-auto h-12 w-12 text-error mb-4" />
-          <h2 className="text-xl font-bold text-on-surface">Unavailable Offline</h2>
-          <p className="mt-2 text-sm text-secondary">{initError}</p>
+      <div className="flex min-h-screen items-center justify-center bg-background p-6 text-on-surface">
+        <div className="w-full max-w-md rounded-xl border border-surface-variant bg-surface-container-lowest p-6 text-center shadow-sm">
+          <WifiOff className="mx-auto mb-4 h-10 w-10 text-danger-500" />
+          <h2 className="text-subheading font-bold text-on-surface">Unavailable Offline</h2>
+          <p className="mt-2 text-body text-secondary">{initError}</p>
           <Button className="mt-6" fullWidth onClick={() => navigate('/exams')}>
             Return to Exam Library
           </Button>
@@ -233,32 +256,31 @@ function ExamPage() {
     <div className="min-h-screen bg-background text-on-surface">
       <OfflineIndicator variant="compact" position="top-right" showOnline={false} />
 
-      <main className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Exam Header Card */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8 border-b border-surface-variant pb-6">
+      <main className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-surface-variant pb-6 md:flex-row md:items-end">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="inline-block rounded-lg bg-surface-container-highest px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary border border-surface-variant">
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span className="inline-flex rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
                 Live Exam Session
               </span>
 
               {isOfflineAttempt ? (
-                <span className="flex items-center gap-1 rounded-lg bg-surface-container-highest px-2.5 py-1.5 text-xs font-semibold text-on-surface border border-surface-variant">
+                <span className="inline-flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold text-on-surface">
                   <HardDrive size={12} />
                   <span>Offline Storage Mode</span>
                 </span>
               ) : (
-                <span className="flex items-center gap-1 rounded-lg bg-surface-container-highest px-2.5 py-1.5 text-xs font-semibold text-on-surface border border-surface-variant">
+                <span className="inline-flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold text-on-surface">
                   <CheckCircle2 size={12} />
                   <span>Live Online Sync</span>
                 </span>
               )}
             </div>
 
-            <h1 className="font-headline text-3xl font-black text-primary">
+            <h1 className="font-headline text-heading font-bold text-primary">
               {examState.exam?.title || 'Mock Examination'}
             </h1>
-            <p className="font-sans text-sm text-secondary mt-1">
+            <p className="mt-1 text-body text-secondary">
               Answers auto-save to local storage on every selection.
             </p>
           </div>
@@ -279,18 +301,15 @@ function ExamPage() {
         </div>
 
         {submitNotice && (
-          <div className="mt-6 rounded-xl border border-surface-variant bg-surface-container-highest p-4 text-center text-sm font-medium text-on-surface shadow-sm animate-fade-in">
+          <div className="mt-6 rounded-xl border border-surface-variant bg-surface-container-highest p-4 text-center text-body font-bold text-on-surface shadow-sm animate-fade-in">
             {submitNotice}
           </div>
         )}
 
-        {/* Main Grid Section */}
-        <div className="grid gap-6 xl:grid-cols-[1.4fr_0.85fr] mt-8">
+        <div className="mt-8 grid gap-6 xl:grid-cols-[1.4fr_0.85fr]">
           <div className="space-y-6">
-            {/* Themed Timer */}
             <ExamTimer seconds={examState.timeRemainingSeconds || 0} label="Time Remaining" />
 
-            {/* Active Question Panel */}
             <QuestionPanel
               question={currentQuestion}
               selectedValue={selectedValue}
@@ -301,34 +320,45 @@ function ExamPage() {
               onToggleReview={handleToggleReview}
             />
 
-            {/* Navigation Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-surface-variant bg-surface-container-lowest p-6 shadow-sm">
-              <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                Question {examState.currentIndex + 1} of {examState.questions.length}
-              </span>
+            <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs font-bold uppercase tracking-wider text-secondary">
+                  Question {examState.currentIndex + 1} of {examState.questions.length}
+                </span>
 
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="secondary"
-                  disabled={examState.currentIndex === 0}
-                  onClick={() => examState.prevQuestion()}
-                >
-                  <ChevronLeft size={16} />
-                  <span>Previous</span>
-                </Button>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="secondary"
+                    disabled={examState.currentIndex === 0}
+                    onClick={() => examState.prevQuestion()}
+                  >
+                    <ChevronLeft size={16} />
+                    <span>Previous</span>
+                  </Button>
 
-                <Button
-                  disabled={examState.currentIndex === examState.questions.length - 1}
-                  onClick={() => examState.nextQuestion()}
-                >
-                  <span>Next</span>
-                  <ChevronRight size={16} />
-                </Button>
+                  <Button
+                    disabled={examState.currentIndex === examState.questions.length - 1}
+                    onClick={() => examState.nextQuestion()}
+                  >
+                    <span>Next</span>
+                    <ChevronRight size={16} />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Progress bar: quick visual read on how far through the exam the
+                  candidate is, complementing the numeric counter above */}
+              <div className="mt-4 h-2 w-full overflow-hidden rounded-lg bg-surface-container-low">
+                <div
+                  className="h-full rounded-lg bg-primary transition-[width] duration-300 ease-out"
+                  style={{
+                    width: `${((examState.currentIndex + 1) / Math.max(1, examState.questions.length)) * 100}%`,
+                  }}
+                />
               </div>
             </div>
           </div>
 
-          {/* Sidebar Navigation & Submission Card */}
           <div className="space-y-6">
             <ExamNavigation
               questions={examState.questions}
@@ -338,14 +368,13 @@ function ExamPage() {
               onSelect={examState.goToQuestion}
             />
 
-            {/* Submission Card */}
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+            <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
               <div className="space-y-4">
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                  <span className="text-xs font-bold uppercase tracking-wider text-secondary">
                     Finish Session
                   </span>
-                  <h2 className="mt-1 text-2xl font-bold text-primary">Ready to Submit?</h2>
+                  <h2 className="mt-1 text-subheading font-bold text-primary">Ready to Submit?</h2>
                   <p className="mt-1 text-xs text-secondary">
                     Review your answered items in the navigation grid before final submission.
                   </p>
@@ -365,4 +394,3 @@ function ExamPage() {
 }
 
 export default ExamPage;
-

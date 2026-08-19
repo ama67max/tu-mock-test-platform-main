@@ -6,6 +6,7 @@
  * import('./utils/indexedDB.test.js').then(m => m.runTests())
  */
 
+import { describe, expect, it } from 'vitest';
 import dbManager from './indexedDB';
 
 // Mock exam data
@@ -150,6 +151,17 @@ export async function runTests() {
     return false;
   }
 }
+
+describe('indexedDB manager', () => {
+  it('exposes the expected database methods', () => {
+    expect(dbManager).toBeTruthy();
+    expect(typeof dbManager.init).toBe('function');
+    expect(typeof dbManager.getCachedExam).toBe('function');
+    expect(typeof dbManager.saveAnswer).toBe('function');
+    expect(typeof dbManager.getAttemptAnswers).toBe('function');
+    expect(typeof runTests).toBe('function');
+  });
+});
 
 // Auto-run tests if loaded directly
 if (typeof window !== 'undefined' && window.location.search.includes('test-db')) {

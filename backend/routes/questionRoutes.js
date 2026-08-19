@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Router } = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -11,10 +12,13 @@ const {
   questionQuerySchema,
 } = require('../validators/questionValidator');
 
+const UPLOAD_DIR = path.resolve(__dirname, '../uploads');
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
 // ── Multer Configuration ──────────────────────────────────────────────────────
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, UPLOAD_DIR);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;

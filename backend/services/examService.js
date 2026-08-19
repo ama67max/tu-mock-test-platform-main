@@ -1,5 +1,20 @@
 const prisma = require('../config/db');
 const { ApiError } = require('../utils/apiResponse');
+const { cacheOrFetch, invalidatePattern, invalidate } = require('../utils/cache');
+
+// ── Cache Key Generators ──────────────────────────────────────────────────────
+const CACHE_KEYS = {
+  EXAM_LIST: (params) => `exams:list:${params.role}:${params.categoryId || 'all'}:${params.page}:${params.limit}:${params.isPublished ?? 'na'}`,
+  EXAM_DETAIL: (examId) => `exams:detail:${examId}`,
+  EXAM_QUESTIONS: (examId, forStudent) => `exams:questions:${examId}:${forStudent ? 'student' : 'admin'}`,
+};
+
+// ── Cache TTL Constants (seconds) ─────────────────────────────────────────────
+const CACHE_TTL = {
+  EXAM_LIST: 180,        // 3 minutes
+  EXAM_DETAIL: 300,      // 5 minutes
+  EXAM_QUESTIONS: 300,   // 5 minutes
+};
 
 // ── Question Field Selectors ──────────────────────────────────────────────────
 const SAFE_QUESTION_SELECT = {
@@ -25,13 +40,23 @@ const FULL_QUESTION_SELECT = {
 const createExam = async (data) => {
   const { questionIds, ...examData } = data;
 
+  const hasQuestionIds = Array.isArray(questionIds) && questionIds.length > 0;
+
+  if (questionIds && questionIds.length === 0) {
+    throw new ApiError(400, 'Exam must include at least one question');
+  }
+
+  if (examData.isPublished && !hasQuestionIds) {
+    throw new ApiError(400, 'Published exams must include at least one question');
+  }
+
   const exam = await prisma.$transaction(async (tx) => {
     const created = await tx.exam.create({
       data: examData,
       include: { category: { select: { id: true, name: true, slug: true } } },
     });
 
-    if (questionIds && questionIds.length > 0) {
+    if (hasQuestionIds) {
       const questions = await tx.question.findMany({
         where: { id: { in: questionIds }, isActive: true },
         select: { id: true },
@@ -53,6 +78,9 @@ const createExam = async (data) => {
     return created;
   });
 
+  // Invalidate exam list cache since a new exam was created
+  await invalidatePattern('exams:list:*');
+
   return exam;
 };
 
@@ -64,93 +92,106 @@ const getExams = async ({
   limit = 10,
   role = 'STUDENT',
 }) => {
-  const where = {};
+  const cacheKey = CACHE_KEYS.EXAM_LIST({ categoryId, isPublished, page, limit, role });
 
-  if (categoryId) where.categoryId = categoryId;
+  return cacheOrFetch(cacheKey, async () => {
+    const where = {};
 
-  if (role === 'STUDENT') {
-    where.isPublished = true;
-    const now = new Date();
-    where.AND = [
-      { OR: [{ startTime: null }, { startTime: { lte: now } }] },
-      { OR: [{ endTime: null }, { endTime: { gte: now } }] },
-    ];
-  } else if (isPublished !== undefined) {
-    where.isPublished = isPublished;
-  }
+    if (categoryId) where.categoryId = categoryId;
 
-  const skip = (page - 1) * limit;
+    if (role === 'STUDENT') {
+      where.isPublished = true;
+      const now = new Date();
+      where.AND = [
+        { examQuestions: { some: {} } },
+        { OR: [{ startTime: null }, { startTime: { lte: now } }] },
+        { OR: [{ endTime: null }, { endTime: { gte: now } }] },
+      ];
+    } else if (isPublished !== undefined) {
+      where.isPublished = isPublished;
+    }
 
-  const [exams, total] = await prisma.$transaction([
-    prisma.exam.findMany({
-      where,
-      include: {
-        category: { select: { id: true, name: true, slug: true } },
-        _count: { select: { examQuestions: true } },
-      },
-      skip,
-      take: limit,
-      orderBy: { createdAt: 'desc' },
-    }),
-    prisma.exam.count({ where }),
-  ]);
+    const skip = (page - 1) * limit;
 
-  return { exams, total, page, pages: Math.ceil(total / limit) };
+    const [exams, total] = await prisma.$transaction([
+      prisma.exam.findMany({
+        where,
+        include: {
+          category: { select: { id: true, name: true, slug: true } },
+          _count: { select: { examQuestions: true } },
+        },
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.exam.count({ where }),
+    ]);
+
+    return { exams, total, page, pages: Math.ceil(total / limit) };
+  }, CACHE_TTL.EXAM_LIST);
 };
 
 // ── Get Exam by ID ────────────────────────────────────────────────────────────
 const getExamById = async (examId) => {
-  const exam = await prisma.exam.findUnique({
-    where: { id: examId },
-    include: {
-      category: { select: { id: true, name: true, slug: true } },
-      _count: { select: { examQuestions: true, attempts: true } },
-    },
-  });
+  const cacheKey = CACHE_KEYS.EXAM_DETAIL(examId);
 
-  if (!exam) throw new ApiError(404, 'Exam not found');
-  return exam;
+  return cacheOrFetch(cacheKey, async () => {
+    const exam = await prisma.exam.findUnique({
+      where: { id: examId },
+      include: {
+        category: { select: { id: true, name: true, slug: true } },
+        _count: { select: { examQuestions: true, attempts: true } },
+      },
+    });
+
+    if (!exam) throw new ApiError(404, 'Exam not found');
+    return exam;
+  }, CACHE_TTL.EXAM_DETAIL);
 };
 
 // ── Get Exam with Questions ───────────────────────────────────────────────────
 const getExamWithQuestions = async (examId, forStudent = false) => {
-  const exam = await prisma.exam.findUnique({
-    where: { id: examId },
-    include: {
-      category: { select: { id: true, name: true, slug: true } },
-      examQuestions: {
-        orderBy: { orderIndex: 'asc' },
-        include: {
-          question: {
-            select: forStudent ? SAFE_QUESTION_SELECT : FULL_QUESTION_SELECT,
+  const cacheKey = CACHE_KEYS.EXAM_QUESTIONS(examId, forStudent);
+
+  return cacheOrFetch(cacheKey, async () => {
+    const exam = await prisma.exam.findUnique({
+      where: { id: examId },
+      include: {
+        category: { select: { id: true, name: true, slug: true } },
+        examQuestions: {
+          orderBy: { orderIndex: 'asc' },
+          include: {
+            question: {
+              select: forStudent ? SAFE_QUESTION_SELECT : FULL_QUESTION_SELECT,
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  if (!exam) throw new ApiError(404, 'Exam not found');
+    if (!exam) throw new ApiError(404, 'Exam not found');
 
-  if (forStudent) {
-    if (!exam.isPublished) {
-      throw new ApiError(403, 'This exam is not available');
+    if (forStudent) {
+      if (!exam.isPublished) {
+        throw new ApiError(403, 'This exam is not available');
+      }
+      const now = new Date();
+      if (exam.startTime && now < exam.startTime) {
+        throw new ApiError(403, 'This exam has not started yet');
+      }
+      if (exam.endTime && now > exam.endTime) {
+        throw new ApiError(403, 'This exam has ended');
+      }
     }
-    const now = new Date();
-    if (exam.startTime && now < exam.startTime) {
-      throw new ApiError(403, 'This exam has not started yet');
-    }
-    if (exam.endTime && now > exam.endTime) {
-      throw new ApiError(403, 'This exam has ended');
-    }
-  }
 
-  // Flatten junction data for frontend consumption
-  const questions = exam.examQuestions.map((eq) => ({
-    ...eq.question,
-    orderIndex: eq.orderIndex,
-  }));
+    // Flatten junction data for frontend consumption
+    const questions = exam.examQuestions.map((eq) => ({
+      ...eq.question,
+      orderIndex: eq.orderIndex,
+    }));
 
-  return { ...exam, questions, examQuestions: undefined };
+    return { ...exam, questions, examQuestions: undefined };
+  }, CACHE_TTL.EXAM_QUESTIONS);
 };
 
 // ── Update Exam ───────────────────────────────────────────────────────────────
@@ -168,6 +209,11 @@ const updateExam = async (examId, data) => {
     include: { category: { select: { id: true, name: true, slug: true } } },
   });
 
+  // Invalidate all caches related to this exam
+  await invalidatePattern('exams:list:*');
+  await invalidate(CACHE_KEYS.EXAM_DETAIL(examId));
+  await invalidatePattern(`exams:questions:${examId}:*`);
+
   return updated;
 };
 
@@ -181,6 +227,12 @@ const deleteExam = async (examId) => {
   if (!existing) throw new ApiError(404, 'Exam not found');
 
   await prisma.exam.delete({ where: { id: examId } });
+
+  // Invalidate all caches related to this exam
+  await invalidatePattern('exams:list:*');
+  await invalidate(CACHE_KEYS.EXAM_DETAIL(examId));
+  await invalidatePattern(`exams:questions:${examId}:*`);
+
   return { id: examId };
 };
 
@@ -220,6 +272,10 @@ const assignQuestions = async (examId, questionIds) => {
     skipDuplicates: true,
   });
 
+  // Invalidate exam list (question count changed) and question cache
+  await invalidatePattern('exams:list:*');
+  await invalidatePattern(`exams:questions:${examId}:*`);
+
   return { assigned: questionIds.length };
 };
 
@@ -255,6 +311,10 @@ const setExamQuestions = async (examId, questionIds) => {
     }
   });
 
+  // Invalidate exam list (question count changed) and question cache
+  await invalidatePattern('exams:list:*');
+  await invalidatePattern(`exams:questions:${examId}:*`);
+
   return { assigned: questionIds.length };
 };
 
@@ -267,6 +327,10 @@ const removeQuestions = async (examId, questionIds) => {
   const result = await prisma.examQuestion.deleteMany({
     where: { examId, questionId: { in: questionIds } },
   });
+
+  // Invalidate exam list (question count changed) and question cache
+  await invalidatePattern('exams:list:*');
+  await invalidatePattern(`exams:questions:${examId}:*`);
 
   return { removed: result.count };
 };
@@ -291,6 +355,9 @@ const reorderQuestions = async (examId, orders) => {
       });
     }
   });
+
+  // Invalidate question cache (order changed)
+  await invalidatePattern(`exams:questions:${examId}:*`);
 
   return { updated: orders.length };
 };

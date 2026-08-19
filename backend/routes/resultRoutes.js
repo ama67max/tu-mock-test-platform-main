@@ -10,7 +10,7 @@ router.use(authMiddleware);
 // ── Result Retrieval Routes ───────────────────────────────────────────────────
 
 router.get('/', resultController.getMyResults);
-
+router.get('/:attemptId/answers', resultController.getAttemptAnswers);
 router.get('/:attemptId', resultController.getResult);
 
 module.exports = router;

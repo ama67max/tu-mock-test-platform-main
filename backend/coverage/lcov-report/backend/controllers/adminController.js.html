@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.4% </span>
+                <span class="strong">36.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/49</span>
+                <span class='fraction'>18/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">27.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>10/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.73% </span>
+                <span class="strong">39.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/46</span>
+                <span class='fraction'>18/46</span>
             </div>
         
             
@@ -271,14 +271,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,27 +288,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -429,15 +429,15 @@ const getOverview = asyncHandler(<span class="fstat-no" title="function not cove
  * GET /api/v1/admin/categories
  * List all categories with usage counts.
  */
-const getCategories = asyncHandler(<span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-  const categories = <span class="cstat-no" title="statement not covered" >await prisma.category.findMany({</span>
+const getCategories = asyncHandler(async (req, res) =&gt; {
+  const categories = await prisma.category.findMany({
     include: {
       _count: { select: { exams: true, questions: true } },
     },
     orderBy: { name: 'asc' },
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  res.status(200).json(</span>
+  res.status(200).json(
     new ApiResponse(200, categories, 'Categories fetched successfully')
   );
 });
@@ -446,28 +446,28 @@ const getCategories = asyncHandler(<span class="fstat-no" title="function not co
  * POST /api/v1/admin/categories
  * Create a new exam category.
  */
-const createCategory = asyncHandler(<span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-  const { name, slug, description } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+const createCategory = asyncHandler(async (req, res) =&gt; {
+  const { name, slug, description } = req.body;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!name || typeof name !== 'string' || name.trim().length === 0) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!name || typeof name !== 'string' || name.trim().length === 0) {
 <span class="cstat-no" title="statement not covered" >    throw new ApiError(400, 'Category name is required');</span>
   }
-<span class="cstat-no" title="statement not covered" >  if (!slug || typeof slug !== 'string' || slug.trim().length === 0) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!slug || typeof slug !== 'string' || slug.trim().length === 0) {
 <span class="cstat-no" title="statement not covered" >    throw new ApiError(400, 'Category slug is required');</span>
   }
-<span class="cstat-no" title="statement not covered" >  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
 <span class="cstat-no" title="statement not covered" >    throw new ApiError(400, 'Slug must be lowercase alphanumeric with hyphens only');</span>
   }
 &nbsp;
-  const category = <span class="cstat-no" title="statement not covered" >await prisma.category.create({</span>
+  const category = await prisma.category.create({
     data: {
       name: name.trim(),
       slug: slug.trim().toLowerCase(),
-      description: description?.trim() || null,
+      description: description?.trim() || <span class="branch-1 cbranch-no" title="branch not covered" >null,</span>
     },
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  res.status(201).json(</span>
+  res.status(201).json(
     new ApiResponse(201, category, 'Category created successfully')
   );
 });
@@ -547,7 +547,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-07-24T19:09:49.878Z
+                at 2026-08-01T14:50:32.502Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 function ExamNavigation({
   questions = [],
   currentIndex = 0,
@@ -24,41 +26,41 @@ function ExamNavigation({
   const getButtonClass = (index) => {
     const status = getStatus(index);
     const base =
-      'flex h-11 w-11 items-center justify-center rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm';
+      'flex h-8 w-8 items-center justify-center rounded-lg text-body font-bold transition-colors duration-150 ease-out';
 
     switch (status) {
       case 'current':
-        return `${base} border-2 border-primary bg-primary text-white scale-105`;
+        return `${base} border-2 border-primary bg-primary text-on-primary ring-2 ring-primary/30 ring-offset-2 ring-offset-surface-container-lowest`;
       case 'answered':
         return `${base} border border-success-600 bg-success-50 text-success-700 hover:bg-success-100`;
       case 'marked':
         return `${base} border border-warning-600 bg-warning-50 text-warning-700 hover:bg-warning-100`;
       case 'answered-marked':
-        return `${base} border border-primary bg-primary text-white hover:bg-on-surface`;
+        return `${base} border border-primary bg-primary text-on-primary`;
       default:
         return `${base} border border-surface-variant bg-surface-container-low text-secondary hover:border-outline hover:bg-surface-container hover:text-on-surface`;
     }
   };
 
   return (
-    <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-6 shadow-sm">
-      <div className="flex items-center justify-between gap-4 pb-4 border-b border-surface-variant">
+    <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+      <div className="flex items-center justify-between gap-4 border-b border-surface-variant pb-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-secondary">Navigation</h3>
-          <p className="text-xs text-secondary mt-1">{totalCount} total questions</p>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-secondary">Navigation</h3>
+          <p className="mt-1 text-xs text-secondary">{totalCount} total questions</p>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-xs font-medium">
-          <span className="rounded-lg bg-success-50 border border-success-600 px-2.5 py-1 text-success-700">
+        <div className="flex flex-wrap gap-2 text-xs font-bold">
+          <span className="rounded-lg border border-success-600 bg-success-50 px-3 py-1 text-success-700">
             {answeredCount} Done
           </span>
-          <span className="rounded-lg bg-warning-50 border border-warning-600 px-2.5 py-1 text-warning-700">
+          <span className="rounded-lg border border-warning-600 bg-warning-50 px-3 py-1 text-warning-700">
             {markedCount} Flagged
           </span>
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-5 gap-2.5 sm:grid-cols-6 md:grid-cols-8">
+      <div className="mt-4 grid grid-cols-5 gap-2 sm:grid-cols-6 md:grid-cols-8">
         {questions.map((question, index) => (
           <button
             key={question?._id || question?.id || index}
@@ -72,21 +74,21 @@ function ExamNavigation({
         ))}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-xs text-secondary pt-4 border-t border-surface-variant">
-        <div className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-md border border-surface-variant bg-surface-container-low" />
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-surface-variant pt-4 text-xs text-secondary">
+        <div className="flex items-center gap-2">
+          <span className="h-4 w-4 rounded-md border border-surface-variant bg-surface-container-low" />
           <span>Unanswered</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-md border border-success-600 bg-success-50" />
+        <div className="flex items-center gap-2">
+          <span className="h-4 w-4 rounded-md border border-success-600 bg-success-50" />
           <span>Answered</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-md border border-warning-600 bg-warning-50" />
+        <div className="flex items-center gap-2">
+          <span className="h-4 w-4 rounded-md border border-warning-600 bg-warning-50" />
           <span>Flagged</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-md border-2 border-primary bg-primary" />
+        <div className="flex items-center gap-2">
+          <span className="h-4 w-4 rounded-md border-2 border-primary bg-primary" />
           <span>Current</span>
         </div>
       </div>
@@ -94,5 +96,6 @@ function ExamNavigation({
   );
 }
 
-export default ExamNavigation;
-
+// Memoized so a per-second timer tick in the parent doesn't force the whole
+// question grid to re-render — only real answer/index/review changes do.
+export default memo(ExamNavigation);

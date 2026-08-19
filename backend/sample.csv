@@ -1,0 +1,9 @@
+category_id,question_text,option_a,option_b,option_c,option_d,correct_answer,explanation,difficulty,marks
+<your-category-id>,What is 2+2?,1,2,3,4,4,Basic math,EASY,1
+<your-category-id>,Capital of Nepal?,Kathmandu,Pokhara,Lalitpur,Bhaktapur,Kathmandu,Geography,EASY,1
+
+If you want an actual file-ready example with a real category ID, use one from your admin category list. For example:
+
+9b8c9f7d-1d2d-4f42-b6ce-7b1f0c4d1a2e,What is 2+2?,1,2,3,4,4,Basic math,EASY,1
+
+Replace the placeholder <your-category-id> with an existing category ID from the system.

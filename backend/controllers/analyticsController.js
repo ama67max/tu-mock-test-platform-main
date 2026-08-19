@@ -72,8 +72,11 @@ const getStudentAnalytics = asyncHandler(async (req, res) => {
   );
 });
 
+const getDashboardStats = getSystemStats;
+
 module.exports = {
   getSystemStats,
+  getDashboardStats,
   getCategoryBreakdown,
   getAttemptTrends,
   getMyAttemptTrends,

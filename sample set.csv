@@ -1,0 +1,101 @@
+category_id,question_text,option_a,option_b,option_c,option_d,correct_answer,explanation,difficulty,marks
+cmsahqudq000ebsk11ytbktxz,"The irrational number is",1,pi,22/7,-1,pi,Real Numbers,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If P and Q are non-empty sets and P ⊂ Q ⊂ U, then P ∩ Q =",P,Q,U,empty set,P,Set Theory,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A sentence which is not a Statement is","Elephant is a small animal","100 is a number","Hari is Nepali citizen",x > 2,x > 2,Logic,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If |x - 3| = 5, then x =","{-8, 2}","{8, -2}","{8, 2}","{-8, -2}","{8, -2}",Algebra,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If the graph of y = a^x contains the points (3, 64), then the base a is",4,3,64,2,4,Exponents,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If f(x) = x - 5 for x ∈ R, then f^-1(x) =",1/(x-5),1/(x+5),5/(y+x),x + 5,x + 5,Functions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The period of the function f(x) = cos(2x + 5) is",pi,pi/2,2pi,pi/3,pi,Trigonometry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If sin^-1(x) = cos^-1(x), then x =","-sqrt(2)","-1/sqrt(2)","1/sqrt(2)",sqrt(2),"1/sqrt(2)",Inverse Trigonometry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The solution of sin^2(x) = 1/4 is","n*pi ± pi/6","n*pi ± pi/4","n*pi ± pi/3","n*pi ± pi/2","n*pi ± pi/6",Trigonometry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If 3rd, 5th and 7th term of a G.P. are p, q, r respectively, then",p^2 = q^2 + r^2,p^2 = qr,pr = q^2,p + q + r = 0,pr = q^2,Geometric Progression,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The value of p for which 3p + 4, 6p - 2 and 2p + 7 are in A.P is",15/7,15,30,10,15/7,Arithmetic Progression,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If A = [a_ij], where a_ij = i + j, then 2 x 2 matrix A is","[[2, 3], [3, 4]]","[[2, 3], [4, 4]]","[[2, 3], [2, 4]]","[[2, 3], [3, 2]]","[[2, 3], [3, 4]]",Matrices,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The value of x for the determinant |x+1 3; 0 1| = 0 is",0,1,-1,-2,-1,Determinants,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The system of equation 2x + 3y = 5, 2x + 3y = 7 has","one solution","two solutions","many solutions","no solution","no solution",System of Equations,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If w is the cube root of unity of a complex number, then (1 - w)(1 - w^2) =",0,-2,3,w,3,Complex Numbers,EASY,1
+cmsahqudq000ebsk11ytbktxz,"sqrt(-3) * sqrt(-5) =","-sqrt(15)",sqrt(15),i*sqrt(15),-i*sqrt(15),"-sqrt(15)",Complex Numbers,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A quadratic equation whose roots are 2, -3 is",x^2 + x + 6 = 0,x^2 - x + 6 = 0,x^2 + x - 6 = 0,x^2 - x - 5 = 0,x^2 + x - 6 = 0,Quadratic Equations,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The straight lines represented by 3x^2 + 2xy + ky^2 = 0 are perpendicular to each other if k =",-3,3,0,6,-3,Pair of Straight Lines,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Equation of tangent to the circle x^2 + y^2 = 5 at (2, 1) is",2x + y = 5,2x + y = 4,x + 2y = 5,2x - y = 5,2x + y = 5,Circles,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If lim (x->3) (x^3 - a^3)/(x - 3) = 27, then a =",9,-3,3,9,3,Limits,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If y = x^2/2 + p^2/x^2, then dy/dx at x = p is",2/p,p,1,0,0,Derivatives,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Integral of (3*sqrt(x) + sin(x) + 2*e^(2x)) dx =",2x^(3/2) - cos(x) + e^(2x),x^(3/2) - cos(x) + e^(2x),2x^(3/2) + cos(x) + e^(2x),2x^3 - cos(x) + 2e^(2x),2x^(3/2) - cos(x) + e^(2x),Integration,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Integral from 0 to 1 of 2x * e^(x^2 + 1) dx =",e^2 + e^1,e^2 - e^1,e^2,e^1,e^2 - e^1,Definite Integration,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Area bounded by the x-axis and the curve y = 3x^2, the lines x = 2 and x = 4 is",64,56,56/3,72,56,Area Under Curves,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The critical points for f(x) = x^4 - 6x^2 + 8x are","1, -2","1, 2","-1, 1","-1, -2","1, -2",Calculus,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The word 'permissible' is accented on its ... syllable.",1st,2nd,3rd,None of the above,2nd,Syllable Stress,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following word gets stress on the 2nd syllable?",perishes,incredible,incur,temerity,incredible,Syllable Stress,EASY,1
+cmsahqudq000ebsk11ytbktxz,"I shall be glad ... your help in my business.",in,by,of,with,with,Prepositions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"An addicted person is the slave ... his habit.",to,for,on,by,to,Prepositions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Give an appropriate synonym of the word 'Vendor'",pleasant,secret,promise,seller,seller,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Give an appropriate synonym of the word 'acerbic'",mildness,acrimony,unsuitable,extravagant,acrimony,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Give opposite meaning word to 'replete'",empty,alarm,full,stuff,empty,Antonyms,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Give opposite meaning word to 'quell'",encourage,stop,crush,promote,encourage,Antonyms,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A disease that can be spread by touch is...",pandemic,infectious,endemic,contagious,contagious,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Pick the odd word out",lamb,pork,mutton,venison,lamb,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"What is the right meaning of the Latin words 'ad nauseam'?",to a disgusting degree,regularly,on duty,rarely,to a disgusting degree,Latin Phrases,EASY,1
+cmsahqudq000ebsk11ytbktxz,"I think she will succeed, .....?",shan't she?,won't she?,would she?,doesn't she?,won't she?,Question Tags,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following is the adjective?",width,autumnal,advantage,difficult to understand,autumnal,Parts of Speech,EASY,1
+cmsahqudq000ebsk11ytbktxz,"'Don't stand on ceremony with him' means:","avoid someone","maintain formality","pay too much attention to correct rules of behavior","do everything necessary","pay too much attention to correct rules of behavior",Idioms,EASY,1
+cmsahqudq000ebsk11ytbktxz,"'This legal document is double Dutch to me' means:","emotional object",entertainment,"a fair chance","difficult to understand","difficult to understand",Idioms,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If you interfere with ... nature you will suffer for it.",a,an,the,none,none,Articles,EASY,1
+cmsahqudq000ebsk11ytbktxz,"I must ... getting a room ready for him.",see about,see off,see to,see through,see about,Phrasal Verbs,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The inscription was almost unreadable as most of its letters have been ...",worn on,worn away,worn out,worn off,worn away,Phrasal Verbs,EASY,1
+cmsahqudq000ebsk11ytbktxz,"They are helpful and ...","I am also","also, I am",so am I,none,so am I,Conjunctions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Food that agrees to one's taste is called",edible,pungent,Sensuous,Palatable,Palatable,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Never ... to anyone.","did I harm","I harmed","I harm","does I harm","did I harm",Inversion,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Nowadays transportation system ... more expensive.",become,has become,is becoming,had become,is becoming,Tenses,EASY,1
+cmsahqudq000ebsk11ytbktxz,"In 'The Mayor of our municipality makes his presentation very interesting', 'very interesting' is",direct object,indirect object,complement,adjunct,complement,Grammar,EASY,1
+cmsahqudq000ebsk11ytbktxz,"One can ... these skills by one's own efforts.",prepare,perform,collect,frame,perform,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"An expert in foods and nutrition is a",dietician,patrician,pediatrician,nurturer,dietician,Vocabulary,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following pairs have the same dimension?",L/R and CR,LR and CR,R/L and LC,CR and 1/LC,L/R and CR,Dimensions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A bullet fired into a fixed target loses half of its velocity after penetrating 3 cm. The further distance travelled before coming to rest is",4 cm,2 cm,3 cm,1 cm,1 cm,Kinematics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The horizontal range is 4*sqrt(3) times the maximum height in projectile motion. The angle of projection is",15°,45°,30°,60°,30°,Projectile Motion,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If the net force acting on a body is zero, then the WRONG statement is:","body is at rest","acceleration is not zero","body is in motion","acceleration should be zero","acceleration is not zero",Newton's Laws,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If the length of a wire is doubled keeping the diameter constant, its Young's modulus will",increase,decrease,remain same,depend upon nature of matter,remain same,Elasticity,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The work done to blow a soap bubble of radius R is W. The work done to increase its radius from R to 3R is",2W,8W,4W,9W,8W,Surface Tension,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A metallic ball is immersed in alcohol. The coefficient of cubical expansion of metal is less than that of alcohol. When heated, the weight of the ball",increases,remains unchanged,decreases,"first increases, then decreases",increases,Thermal Properties,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Latent heat of a substance is zero at",boiling,critical temperature,melting point,freezing point,critical temperature,Thermodynamics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The average kinetic energy per degree of freedom per molecule of an ideal gas is",KT,2KT,1/2 KT,3/2 KT,1/2 KT,Kinetic Theory,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Two spheres of same material have radii in the ratio 3:2. The heat radiated by them at the same temperature will be in ratio",1:1,4:9,9:4,3:2,9:4,Radiation,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Light of wavelength 550 nm falls normally on a slit of width 22 x 10^-5 m. The angular position of second minima from central maximum is",14.5°,30°,42°,62°,30°,Wave Optics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A person is in a room whose ceiling and two adjacent walls are mirrors. Number of images formed of an object is",2,3,4,7,7,Ray Optics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"If the refractive index is 1.414 and refracting angle of prism is 60°, then minimum deviation of light will be",30°,60°,45°,72°,30°,Prism Optics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A sound wave has frequency 500 Hz and velocity 360 m/s. What is the distance between 2 particles having phase difference 60°?",0.7 cm,70 cm,3.2 cm,12 cm,12 cm,Sound Waves,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Two fixed charges q and 4q are at distance r apart. Where should a third charge be placed so the system is in equilibrium?",2r/3 from 4q,2r from q,r/2 from q,r/2 from 4q,2r/3 from 4q,Electrostatics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"n equal capacitors are first connected in series and then in parallel. The ratio of maximum to minimum capacitance is",n^2,1/n^2,n,1/n,n^2,Capacitance,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A heater coil is cut into two equal parts and only one part is used. How will the heat generated vary?",one fourth,doubled,halved,four times,doubled,Current Electricity,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A 60 V battery is connected across 10 ohm resistor. Current is 4.5 A. The internal resistance of the battery is",0 ohm,3.0 ohm,0.3 ohm,3.3 ohm,3.3 ohm,Current Electricity,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A magnetic needle kept in a uniform magnetic field experiences","a torque but not a force","a force and a torque","neither a force nor a torque","a force but not a torque","a torque but not a force",Magnetism,EASY,1
+cmsahqudq000ebsk11ytbktxz,"In an LCR circuit, inductive reactance at resonance is 100 ohm and resistance is 5 ohm. The quality factor Q is",2000,500,20,0.2,20,AC Circuits,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A circuit contains a capacitor of 450 pF. The value of L to broadcast on Radio at 1020 kHz is",2.8 x 10^-4 H,7.5 x 10^-4 H,5.8 x 10^-4 H,9.5 x 10^-4 H,5.8 x 10^-4 H,AC Circuits,EASY,1
+cmsahqudq000ebsk11ytbktxz,"An electron is accelerated from rest through a potential difference of 100 V. Its final velocity will be",5.9 x 10^6 m/s,3 x 10^7 m/s,4 x 10^5 m/s,6 x 10^6 m/s,5.9 x 10^6 m/s,Modern Physics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"When a proton collides with an electron, which characteristic of the proton increases?",Energy,wavelength,Frequency,impulse,wavelength,Modern Physics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The half-life of a radioactive sample is 10 years. Its mean life is",12.43 years,14.43 years,10 years,same as half life,14.43 years,Nuclear Physics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"NPN transistors are preferred over PNP transistors because of","low cost","handling low power","low energy dissipation","higher mobility of electrons than holes","higher mobility of electrons than holes",Semiconductors,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Magnetic quantum number specifies",orbital size,orbital orientation,orbital shape,nuclear stability,orbital orientation,Atomic Structure,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The radioactive rays having highest penetrating power are",alpha rays,beta rays,gamma rays,X-rays,gamma rays,Radioactivity,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following has an electrovalent linkage?",MgCl2,CH4,SiCl4,CCl4,MgCl2,Chemical Bonding,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The element having highest value of electronegativity is",chlorine,fluorine,bromine,iodine,fluorine,Periodic Properties,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Oxidation number of chromium in Cr2O7^2- is",+6,+5,+4,+3,+6,Redox Reactions,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following is an amphoteric oxide?",CuO,MgO,Cu2O,ZnO,ZnO,Inorganic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The structure of Buckminsterfullerene contains","20 six-member & 12 five-member rings","12 six-member & 20 five-member rings","18 six-member & 10 five-member rings","10 six-member & 8 five-member rings","20 six-member & 12 five-member rings",Inorganic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Down's process is used for the extraction of",ammonia,nitric acid,sodium,sulphuric acid,sodium,Metallurgy,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The IUPAC name of iso-butane is",2-methylpropane,2,2-dimethylpropane,2-methylbutene,2-methylbutane,2-methylpropane,Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"An alkaline KMnO4 solution is known as","Tollen's reagent","Baeyer's reagent","Fehling's reagent","Grignard reagent","Baeyer's reagent",Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"When haloalkane is treated with metallic sodium in dry ether, alkane is obtained. This reaction is","Wurtz reaction","Wolff-Kishner reduction","Cannizzaro's reaction","Reimer-Tiemann reaction","Wurtz reaction",Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The general formula of alkanes is",CnH2n+2,CnH2n-2,CnH2n,none of the above,CnH2n+2,Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Detection of nitrogen, sulphur and halogens in organic compounds is done by","Lassaigne's test","Lucas test","Victor Meyer test","Carbylamine test","Lassaigne's test",Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The structure of methane is",trigonal planar,linear,tetrahedral,square planar,tetrahedral,Chemical Bonding,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Equivalent weight of potassium permanganate in acidic medium is equal to",mol.wt / 5,mol.wt / 3,mol.wt / 4,mol.wt / 2,mol.wt / 5,Volumetric Analysis,EASY,1
+cmsahqudq000ebsk11ytbktxz,"An example of a Lewis base is",BF3,AlCl3,FeCl3,NH3,NH3,Ionic Equilibrium,EASY,1
+cmsahqudq000ebsk11ytbktxz,"A device which can generate electricity by means of redox reaction is called",electrochemical cell,galvanic cell,voltaic cell,all of the above,all of the above,Electrochemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"1 calorie is equal to",4.184 Joules,3.184 Joules,2.184 Joules,0.184 Joules,4.184 Joules,Thermodynamics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"The rate of a reaction depends on","concentration of reacting species",temperature,"surface area of reactants","all of the above","all of the above",Chemical Kinetics,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Each carbon atom of benzene is",sp2 hybridised,sp3 hybridised,sp hybridised,sp3d hybridised,sp2 hybridised,Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which is correct for the reaction of Lucas reagent with tertiary alcohol?","no turbidity occurs at room temp","turbidity appears within 5 minutes","turbidity appears immediately","turbidity appears within 10 minutes","turbidity appears immediately",Organic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Fat is a",lipid,carbohydrate,protein,amino acid,lipid,Biomolecules,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Bakelite is made by the reaction of","phenol and formaldehyde","urea and formaldehyde","melamine and formaldehyde","ethylene glycol and phthalic acid","phenol and formaldehyde",Polymers,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Which of the following compound is called corrosive sublimate?",Hg2Cl2,HgCl2,K2[HgI4],HgI3,HgCl2,Inorganic Chemistry,EASY,1
+cmsahqudq000ebsk11ytbktxz,"Hematite is an ore of",Iron,Copper,Mercury,Silver,Iron,Metallurgy,EASY,1
