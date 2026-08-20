@@ -72,7 +72,7 @@ export default function AdminUsers() {
       </header>
 
       {/* User Table */}
-      <div className="bg-surface-container-lowest border border-surface-variant rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-surface-container-lowest border border-border overflow-hidden">
         <UserTable users={users} loading={loading} onToggleActive={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
 

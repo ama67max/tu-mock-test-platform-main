@@ -40,7 +40,7 @@ export default function AdminDashboard() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-surface-container-lowest border border-surface-variant p-5 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
             <span className="material-symbols-outlined text-primary text-xl">group</span>
             <span className="font-sans text-xs uppercase tracking-wider text-secondary font-semibold">Total Users</span>
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest border border-surface-variant p-5 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
             <span className="material-symbols-outlined text-primary text-xl">assignment</span>
             <span className="font-sans text-xs uppercase tracking-wider text-secondary font-semibold">Total Exams</span>
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest border border-surface-variant p-5 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
             <span className="material-symbols-outlined text-primary text-xl">database</span>
             <span className="font-sans text-xs uppercase tracking-wider text-secondary font-semibold">Questions</span>
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest border border-surface-variant p-5 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
             <span className="material-symbols-outlined text-primary text-xl">sensors</span>
             <span className="font-sans text-xs uppercase tracking-wider text-secondary font-semibold">Active Attempts</span>
@@ -82,10 +82,10 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Users */}
-      <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+      <div className="bg-surface-container-lowest border border-border p-6">
         <div className="mb-4 border-b border-surface-variant pb-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Activity</span>
-          <h3 className="font-headline text-xl font-bold text-primary mt-1">Recent Registered Users</h3>
+          <h3 className="font-headline text-xl font-bold text-primary mt-1">Recent registrations</h3>
         </div>
         <UserTable users={users} loading={loading} />
       </div>

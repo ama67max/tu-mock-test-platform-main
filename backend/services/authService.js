@@ -103,6 +103,22 @@ const login = async (email, password) => {
   };
 };
 
+const changePassword = async (userId, oldPassword, newPassword) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { passwordHash: true },
+  });
+
+  if (!user || !(await comparePassword(oldPassword, user.passwordHash))) {
+    throw new ApiError(401, 'Current password is incorrect');
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash: await hashPassword(newPassword) },
+  });
+};
+
 // ── Logout (Single Device) ────────────────────────────────────────────────────
 const logout = async (refreshToken) => {
   const tokenHash = hashRefreshToken(refreshToken);
@@ -180,6 +196,7 @@ const logoutAllDevices = async (userId) => {
 module.exports = {
   register,
   login,
+  changePassword,
   logout,
   refreshAccessToken,
   logoutAllDevices,

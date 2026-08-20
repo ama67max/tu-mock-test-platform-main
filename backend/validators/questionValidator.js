@@ -121,7 +121,7 @@ const questionQuerySchema = z.object({
     .default('1'),
   limit: z
     .union([z.string(), z.number()])
-    .transform((val) => (typeof val === 'string' ? parseInt(val, 10) : val))
+    .transform((val) => Math.min(typeof val === 'string' ? parseInt(val, 10) : val, 100))
     .pipe(z.number().int().min(1).max(100))
     .default('10'),
 });

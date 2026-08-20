@@ -27,7 +27,7 @@ const formatAttemptPayload = (attempt) => {
     ...attempt,
     exam: {
       ...attempt.exam,
-      examQuestions: undefined,
+      examQuestions: questions,
       questions,
     },
   };
@@ -59,7 +59,6 @@ const startAttempt = async (userId, examId) => {
     );
   }
 
-  // Resume the active in-progress attempt instead of crashing the flow with a duplicate error.
   const attempt = await prisma.$transaction(async (tx) => {
     const existing = await tx.userAttempt.findFirst({
       where: { userId, examId, status: 'IN_PROGRESS' },
@@ -90,7 +89,7 @@ const startAttempt = async (userId, examId) => {
     });
 
     if (existing) {
-      return formatAttemptPayload(existing);
+      throw new ApiError(409, 'You already have an active attempt for this exam');
     }
 
     const created = await tx.userAttempt.create({
@@ -297,11 +296,25 @@ const autoSubmitAttempt = async (attemptId) => {
 // ── Get Attempt (State Retrieval) ─────────────────────────────────────────────
 const getAttempt = async (attemptId, userId) => {
   const attempt = await prisma.userAttempt.findFirst({
-    where: { id: attemptId, userId },
+    where: { id: attemptId },
     include: {
       exam: {
         include: {
           category: { select: { id: true, name: true, slug: true } },
+          examQuestions: {
+            orderBy: { orderIndex: 'asc' },
+            include: {
+              question: {
+                select: {
+                  id: true,
+                  questionText: true,
+                  options: true,
+                  difficulty: true,
+                  marks: true,
+                },
+              },
+            },
+          },
         },
       },
       answers: {
@@ -321,8 +334,11 @@ const getAttempt = async (attemptId, userId) => {
   });
 
   if (!attempt) throw new ApiError(404, 'Attempt not found');
+  if (attempt.userId !== userId) {
+    throw new ApiError(403, 'You do not have access to this attempt');
+  }
 
-  return attempt;
+  return formatAttemptPayload(attempt);
 };
 
 module.exports = {

@@ -70,7 +70,7 @@ export default function VagueGrid() {
           />
           <button
             onClick={() => setSeed((s) => s + 1)}
-            className="px-3 py-1 rounded bg-primary text-on-primary text-sm shadow"
+            className="border border-primary bg-primary px-3 py-1 text-sm text-on-primary"
           >
             Reshuffle
           </button>
@@ -86,7 +86,7 @@ export default function VagueGrid() {
         {tiles.map((t) => (
           <div
             key={t.id}
-            className="relative rounded border border-border-primary bg-surface/40 p-2 overflow-hidden h-24 flex items-center justify-center"
+            className="relative border border-border bg-surface/40 p-2 overflow-hidden h-24 flex items-center justify-center"
             style={{
               transform: `rotate(${t.rotation}deg) skew(${t.skew}deg) scale(${t.scale})`,
               opacity: t.opacity,

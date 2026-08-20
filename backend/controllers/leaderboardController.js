@@ -3,10 +3,10 @@ const asyncHandler = require('../utils/asyncHandler');
 const leaderboardService = require('../services/leaderboardService');
 
 const getTopPerformers = asyncHandler(async (req, res) => {
-  const examId = Number(req.params.id || req.query.examId);
+  const examId = req.params.id || req.query.examId;
   const limit = Math.min(Number(req.query.limit || 10), 50);
 
-  if (!examId || Number.isNaN(examId)) {
+  if (!examId || !Number.isInteger(limit) || limit < 1) {
     throw new ApiError(400, 'A valid examId is required');
   }
 

@@ -46,10 +46,10 @@ function QuestionPanel({
       : [];
 
   return (
-    <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+    <div className="border border-border bg-surface-container-lowest p-5 sm:p-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-2">
-          <span className="inline-flex rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
+          <span className="inline-flex border border-border bg-surface-container-highest px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-secondary">
             Question {question.orderIndex || 1}
           </span>
           <h3 className="text-subheading font-bold leading-8 text-on-surface">
@@ -60,14 +60,14 @@ function QuestionPanel({
         <button
           type="button"
           onClick={onToggleReview}
-          className={`flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2 text-body font-bold transition-colors duration-150 ${
+            className={`flex shrink-0 items-center gap-2 border px-4 py-2 text-sm font-bold transition-colors duration-150 ${
             isMarkedForReview
-              ? 'border-warning-600 bg-warning-50 text-warning-700'
-              : 'border-surface-variant bg-surface-container-low text-secondary hover:border-outline hover:bg-surface-container'
+              ? 'border-primary bg-primary text-on-primary'
+              : 'border-border bg-surface-container-low text-secondary hover:border-primary hover:text-primary'
           }`}
         >
-          {isMarkedForReview ? <BookmarkCheck size={16} className="text-warning-700" /> : <Bookmark size={16} />}
-          <span>{isMarkedForReview ? 'Marked for Review' : 'Mark for Review'}</span>
+          {isMarkedForReview ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
+          <span>{isMarkedForReview ? 'Flagged for review' : 'Flag question for review'}</span>
         </button>
       </div>
 

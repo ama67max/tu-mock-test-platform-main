@@ -88,8 +88,8 @@ function LoginForm() {
 
   return (
     <div className="card w-full max-w-md mx-auto animate-fade-in">
-      <h1 className="text-2xl font-bold text-neutral-900 mb-1">Welcome back</h1>
-      <p className="text-sm text-neutral-500 mb-6">
+      <h1 className="font-headline text-2xl font-bold text-primary mb-1">Welcome back</h1>
+      <p className="text-sm text-secondary mb-6">
         Log in to continue your TU exam prep with focus and momentum.
       </p>
 
@@ -120,7 +120,7 @@ function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="text-neutral-400 hover:text-neutral-600"
+              className="text-secondary hover:text-primary"
               tabIndex={-1}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
@@ -143,9 +143,9 @@ function LoginForm() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-neutral-500">
+      <p className="mt-6 text-center text-sm text-secondary">
         New here?{' '}
-        <Link to="/register" className="font-medium text-neutral-800 hover:underline">
+        <Link to="/register" className="font-medium text-primary underline-offset-4 hover:underline">
           Create your free account
         </Link>
       </p>

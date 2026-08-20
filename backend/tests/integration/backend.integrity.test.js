@@ -4,6 +4,7 @@ const path = require('path');
 const os = require('os');
 const app = require('../../app');
 const prisma = require('../../config/db');
+const redis = require('../../config/redis');
 const { hashPassword } = require('../../utils/password');
 const leaderboardService = require('../../services/leaderboardService');
 require('dotenv').config({ path: '.env.test' });
@@ -47,6 +48,7 @@ let attemptId;
 // ── Setup / Teardown ──────────────────────────────────────────────────────────
 beforeAll(async () => {
   await prisma.$connect();
+  await redis.flushdb();
   await cleanDatabase();
 
   // Seed admin directly (register defaults to STUDENT)

@@ -55,7 +55,7 @@ function Footer() {
             <li>
               <Link 
                 to="/exams" 
-                className="transition-colors hover:text-primary"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                 style={{ color: 'rgb(var(--color-text-secondary))' }}
               >
                 Exams
@@ -64,7 +64,7 @@ function Footer() {
             <li>
               <Link 
                 to="/dashboard" 
-                className="transition-colors hover:text-primary"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                 style={{ color: 'rgb(var(--color-text-secondary))' }}
               >
                 Dashboard
@@ -73,7 +73,7 @@ function Footer() {
             <li>
               <Link 
                 to="/exams" 
-                className="transition-colors hover:text-primary"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                 style={{ color: 'rgb(var(--color-text-secondary))' }}
               >
                 Leaderboards
@@ -94,7 +94,7 @@ function Footer() {
             <li>
               <Link 
                 to="/login" 
-                className="transition-colors hover:text-primary"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                 style={{ color: 'rgb(var(--color-text-secondary))' }}
               >
                 Log in
@@ -103,7 +103,7 @@ function Footer() {
             <li>
               <Link 
                 to="/register" 
-                className="transition-colors hover:text-primary"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                 style={{ color: 'rgb(var(--color-text-secondary))' }}
               >
                 Sign up

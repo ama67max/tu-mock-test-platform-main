@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "repomix": "^1.17.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
   }
 }

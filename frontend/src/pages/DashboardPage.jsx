@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PerformanceChart from '../components/dashboard/PerformanceChart';
 import SubjectBreakdown from '../components/dashboard/SubjectBreakdown';
 import RecentAttempts from '../components/dashboard/RecentAttempts';
@@ -47,30 +48,19 @@ function StatCard({ label, value, suffix, subtext, loading, delay = 0, icon, col
     return () => clearTimeout(timer);
   }, [delay]);
 
-  const colorStyles = {
-    primary: 'from-primary/5 to-primary/0 text-primary border-primary/10',
-    success: 'from-emerald-500/5 to-emerald-500/0 text-emerald-600 border-emerald-500/10',
-    warning: 'from-amber-500/5 to-amber-500/0 text-amber-600 border-amber-500/10',
-    info: 'from-sky-500/5 to-sky-500/0 text-sky-600 border-sky-500/10',
-  };
-
   return (
     <div 
       className={`
         relative overflow-hidden bg-surface-container-lowest 
-        border border-surface-variant p-5 rounded-2xl shadow-sm
-        hover:shadow-md hover:border-surface-variant/80
-        hover:-translate-y-0.5 transition-all duration-300 ease-out
+        border border-border p-5
+        hover:border-primary transition-colors duration-300 ease-out
         group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
         transition-all duration-500
       `}
     >
-      {/* Subtle gradient background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${colorStyles[color]} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-      
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-3">
-          <span className="font-sans text-[11px] uppercase tracking-widest text-secondary font-bold">
+            <span className="font-sans text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">
             {label}
           </span>
           {icon && (
@@ -97,13 +87,12 @@ function StatCard({ label, value, suffix, subtext, loading, delay = 0, icon, col
                 </>
               )}
             </div>
-            <p className="text-[11px] text-secondary/70 mt-2 font-medium">{subtext}</p>
+            <p className="mt-2 text-[11px] font-medium text-secondary">{subtext}</p>
           </>
         )}
       </div>
       
-      {/* Bottom accent line */}
-      <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${colorStyles[color].split(' ')[0].replace('/5', '/40')} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </div>
   );
 }
@@ -135,15 +124,15 @@ function ChartCard({ children, eyebrow, title, loading, delay = 0 }) {
   return (
     <div 
       className={`
-        bg-surface-container-lowest border border-surface-variant p-6 rounded-2xl shadow-sm
-        hover:shadow-md transition-all duration-500
+        bg-surface-container-lowest border border-border p-6
+        hover:border-primary transition-colors duration-500
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
       `}
     >
       <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="relative">
         {loading && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-sm rounded-lg">
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface-container-lowest/90">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
               <span className="text-xs text-secondary font-medium">Loading data...</span>
@@ -167,7 +156,7 @@ export default function DashboardPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const chartHeight = windowWidth >= 1280 ? 360 : windowWidth >= 1024 ? 320 : 280;
+  const defaultChartHeight = windowWidth >= 1280 ? 360 : windowWidth >= 1024 ? 320 : 280;
 
   // Use SWR hooks for data fetching with caching
   const { analytics: kpis, isLoading: loadingKpis } = useMyAnalytics();
@@ -194,7 +183,8 @@ export default function DashboardPage() {
   const timeSpentMinutes = kpis?.totalTimeSpentMinutes ?? '-';
 
   // Determine if we have any data at all
-  const hasNoData = !loadingKpis && !kpis;
+  const hasNoData = !loadingKpis && (!kpis || Number(kpis.totalAttempts ?? 0) === 0);
+  const chartHeight = hasNoData ? (windowWidth >= 768 ? 180 : 150) : defaultChartHeight;
 
   return (
     <div className="bg-background text-on-surface min-h-screen selection:bg-primary/10">
@@ -205,15 +195,15 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10 pb-6 border-b border-surface-variant/60">
           <div className="space-y-2">
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="font-headline text-3xl lg:text-4xl font-black text-primary tracking-tight">
-                Student Analytics Dashboard
+              <h1 className="font-headline text-3xl font-black tracking-tight text-primary lg:text-4xl">
+                Your preparation, in focus
               </h1>
               <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/10">
-                TU Mock Tests
+                TU mock tests
               </span>
             </div>
             <p className="font-sans text-sm text-secondary/80 max-w-md leading-relaxed">
-              Track your mock test score trends, identify subject strengths, and monitor your progression over time.
+              See your score trend, subject accuracy, and time per question so every new mock test has a clear purpose.
             </p>
           </div>
 
@@ -221,26 +211,23 @@ export default function DashboardPage() {
             <div className={`
               bg-surface-container-highest px-4 py-2.5 rounded-xl flex items-center gap-2.5 
               border shadow-sm transition-all duration-300
-              ${isOnline 
-                ? 'border-emerald-500/20 shadow-emerald-500/5' 
-                : 'border-amber-500/20 shadow-amber-500/5'
-              }
+              border-border
             `}>
               <span className={`
                 relative flex h-2.5 w-2.5
-                ${isOnline ? 'text-emerald-500' : 'text-amber-500'}
+                text-primary
               `}>
                 <span className={`
                   animate-ping absolute inline-flex h-full w-full rounded-full opacity-75
-                  ${isOnline ? 'bg-emerald-400' : 'bg-amber-400'}
+                  bg-primary
                 `} />
                 <span className={`
                   relative inline-flex rounded-full h-2.5 w-2.5
-                  ${isOnline ? 'bg-emerald-500' : 'bg-amber-500'}
+                  bg-primary
                 `} />
               </span>
               <span className="font-semibold text-xs uppercase tracking-wider text-primary">
-                {isOnline ? 'Live Network Data' : 'Offline Cache Mode'}
+                {isOnline ? 'Progress synced' : 'Offline cache active'}
               </span>
             </div>
           </div>
@@ -248,48 +235,53 @@ export default function DashboardPage() {
 
         {/* ─── Empty State ───────────────────────────────────────── */}
         {hasNoData && (
-          <div className="mb-8 p-8 rounded-2xl border border-dashed border-surface-variant bg-surface-container-lowest/50 text-center">
-            <span className="material-symbols-outlined text-4xl text-secondary/30 mb-3 block">analytics</span>
-            <h3 className="font-headline text-lg font-bold text-primary mb-1">No Data Available</h3>
-            <p className="text-sm text-secondary">Start taking mock tests to see your analytics here.</p>
+          <div className="mb-8 flex flex-col gap-5 border border-dashed border-surface-variant bg-surface-container-lowest/50 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div>
+              <span className="material-symbols-outlined mb-3 block text-3xl text-secondary/50">analytics</span>
+              <h3 className="mb-1 font-headline text-lg font-bold text-primary">Your first baseline is waiting</h3>
+              <p className="max-w-md text-sm text-secondary">Start a mock test to unlock score trends and subject insights.</p>
+            </div>
+            <Link to="/exams" className="btn-primary min-h-11 shrink-0 px-5 py-3 text-sm">
+              Start mock test
+            </Link>
           </div>
         )}
 
         {/* ─── Stats Summary Grid ────────────────────────────────── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-5 mb-10">
           <StatCard 
-            label="Avg Score" 
+            label="Average score" 
             value={avgScore} 
             suffix="%" 
-            subtext="Average Across Attempts"
+            subtext="Across completed attempts"
             loading={loadingKpis}
             delay={0}
             icon="trending_up"
             color="primary"
           />
           <StatCard 
-            label="Total Attempts" 
+            label="Mock tests taken" 
             value={totalAttempts} 
-            subtext="Mock Tests Taken"
+            subtext="Completed sessions"
             loading={loadingKpis}
             delay={100}
             icon="fact_check"
             color="info"
           />
           <StatCard 
-            label="Accuracy" 
+            label="Answer accuracy" 
             value={passRate} 
             suffix="%" 
-            subtext="Answer Accuracy Rate"
+            subtext="Correct answers"
             loading={loadingKpis}
             delay={200}
             icon="check_circle"
             color="success"
           />
           <StatCard 
-            label="Time Spent" 
+            label="Study time" 
             value={timeSpentMinutes} 
-            subtext="Minutes Total"
+            subtext="Minutes in practice"
             loading={loadingKpis}
             delay={300}
             icon="schedule"
@@ -339,8 +331,8 @@ export default function DashboardPage() {
 
         {/* ─── Footer ────────────────────────────────────────────── */}
         <div className="mt-12 pt-6 border-t border-surface-variant/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-secondary/50">
-          <p>Dashboard updates automatically as you complete new tests.</p>
-          <p className="font-mono">v2.0 • TU Analytics</p>
+          <p>Progress updates automatically after each completed mock test.</p>
+          <p className="font-mono">TU / analytics</p>
         </div>
       </main>
     </div>

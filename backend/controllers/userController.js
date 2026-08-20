@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const authService = require('../services/authService');
 const { ApiResponse } = require('../utils/apiResponse');
 const asyncHandler = require('../utils/asyncHandler');
 
@@ -34,6 +35,17 @@ const updateMe = asyncHandler(async (req, res) => {
 
   res.status(200).json(
     new ApiResponse(200, updated, 'Profile updated successfully')
+  );
+});
+
+const changePassword = asyncHandler(async (req, res) => {
+  const { userId } = req.user;
+  const { oldPassword, newPassword } = req.body;
+
+  await authService.changePassword(userId, oldPassword, newPassword);
+
+  res.status(200).json(
+    new ApiResponse(200, null, 'Password changed successfully')
   );
 });
 
@@ -115,6 +127,7 @@ const toggleActivation = asyncHandler(async (req, res) => {
 module.exports = {
   getMe,
   updateMe,
+  changePassword,
   getUser,
   updateUser,
   searchUsers,

@@ -63,12 +63,12 @@ export default function AdminQuestions() {
       </header>
 
       {errors.length > 0 && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="border border-primary bg-surface-container-highest p-3 text-sm text-primary">
           {errors.join(', ')}
         </div>
       )}
 
-      <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+      <div className="bg-surface-container-lowest border border-border p-6">
         <div className="mb-6 border-b border-surface-variant pb-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Single Entry</span>
           <h3 className="font-headline text-xl font-bold text-primary mt-1">Add Question</h3>
@@ -81,7 +81,7 @@ export default function AdminQuestions() {
         />
       </div>
 
-      <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+      <div className="bg-surface-container-lowest border border-border p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-surface-variant pb-4 mb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Batch Import</span>
@@ -93,7 +93,7 @@ export default function AdminQuestions() {
             className="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-base">upload_file</span>
-            Upload CSV
+            Upload question CSV
           </button>
         </div>
         <p className="text-xs text-secondary">

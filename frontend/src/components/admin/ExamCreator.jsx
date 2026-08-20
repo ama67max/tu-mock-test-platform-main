@@ -39,7 +39,6 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
     } else {
       setAvailableQuestions([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
 
   // reload questions whenever the selected source categories change
@@ -50,7 +49,6 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
       return;
     }
     loadQuestions(questionSourceCategories);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionSourceCategories]);
 
   async function loadCategories() {
@@ -234,11 +232,11 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
             </div>
           </div>
         ) : null}
-        <div className="flex gap-2 mb-2">
+        <div className="grid gap-3 mb-2 sm:grid-cols-[minmax(0,1fr)_minmax(10rem,0.7fr)]">
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="flex-1 px-3 py-2 border border-surface-variant rounded-lg text-on-surface bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary"
+            className="input-base h-11 w-full"
             disabled={loading}
             required
           >
@@ -249,13 +247,13 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
               </option>
             ))}
           </select>
-          <div className="flex flex-col">
+          <div className="flex min-w-0 flex-col">
             <label className="text-xs text-secondary">Load questions from</label>
             <select
               multiple
               value={questionSourceCategories}
               onChange={(e) => setQuestionSourceCategories(Array.from(e.target.selectedOptions, (o) => o.value))}
-              className="px-2 py-1 border border-surface-variant rounded-lg text-on-surface bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary h-10"
+              className="input-base h-11 w-full"
               disabled={loading}
             >
               {categories.map((cat) => (
@@ -268,7 +266,7 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
           <button
             type="button"
             onClick={() => setShowCreateCategory(true)}
-            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold whitespace-nowrap"
+            className="min-h-11 bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary"
           >
             + New Category
           </button>

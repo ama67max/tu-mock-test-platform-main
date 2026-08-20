@@ -12,6 +12,7 @@ router.use(authMiddleware, authorizeRoles('ADMIN', 'SUPER_ADMIN'));
 // ── Dashboard Overview ────────────────────────────────────────────────────────
 
 router.get('/overview', adminController.getOverview);
+router.get('/results/export', adminController.exportResults);
 
 // ── Category Management ───────────────────────────────────────────────────────
 

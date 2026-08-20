@@ -88,7 +88,15 @@ const getCategoryBreakdown = async () => {
       ORDER BY cb.name ASC
     `;
 
-    return breakdown;
+    return breakdown.map((category) => ({
+      categoryId: category.category_id,
+      categoryName: category.category_name,
+      slug: category.slug,
+      totalExams: category.total_exams,
+      totalQuestions: category.total_questions,
+      totalAttempts: category.total_attempts,
+      averageScore: category.average_score,
+    }));
   }, CACHE_TTL.CATEGORY_BREAKDOWN);
 };
 

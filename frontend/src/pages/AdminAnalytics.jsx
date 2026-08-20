@@ -73,20 +73,20 @@ export default function AdminAnalytics() {
 
       {/* Analytics Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-6">
           <div className="mb-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary">30-Day Trend</span>
             <h3 className="font-headline text-xl font-bold text-primary mt-1">Score Progression</h3>
           </div>
-          <PerformanceChart data={trend} height={320} loading={loading} />
+          <PerformanceChart data={trend} height={trend.length ? 320 : 170} loading={loading} />
         </div>
 
-        <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+        <div className="bg-surface-container-lowest border border-border p-6">
           <div className="mb-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary font-semibold">Subject Breakdown</span>
             <h3 className="font-headline text-xl font-bold text-primary mt-1">Topic Strength</h3>
           </div>
-          <SubjectBreakdown data={subjects} height={320} loading={loading} />
+          <SubjectBreakdown data={subjects} height={subjects.length ? 320 : 170} loading={loading} />
         </div>
       </div>
     </div>

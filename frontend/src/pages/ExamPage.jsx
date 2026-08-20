@@ -233,7 +233,7 @@ function ExamPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background p-6 text-on-surface">
         <div className="w-full max-w-md rounded-xl border border-surface-variant bg-surface-container-lowest p-6 text-center shadow-sm">
-          <WifiOff className="mx-auto mb-4 h-10 w-10 text-danger-500" />
+          <WifiOff className="mx-auto mb-4 h-10 w-10 text-primary" />
           <h2 className="text-subheading font-bold text-on-surface">Unavailable Offline</h2>
           <p className="mt-2 text-body text-secondary">{initError}</p>
           <Button className="mt-6" fullWidth onClick={() => navigate('/exams')}>
@@ -257,22 +257,22 @@ function ExamPage() {
       <OfflineIndicator variant="compact" position="top-right" showOnline={false} />
 
       <main className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-surface-variant pb-6 md:flex-row md:items-end">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-border pb-6 md:flex-row md:items-end">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <span className="inline-flex rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-                Live Exam Session
+              <span className="inline-flex border border-primary bg-primary px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-on-primary">
+                Mock test in progress
               </span>
 
               {isOfflineAttempt ? (
                 <span className="inline-flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold text-on-surface">
                   <HardDrive size={12} />
-                  <span>Offline Storage Mode</span>
+                  <span>Offline mode</span>
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-highest px-3 py-1 text-xs font-bold text-on-surface">
                   <CheckCircle2 size={12} />
-                  <span>Live Online Sync</span>
+                  <span>Progress auto-saved</span>
                 </span>
               )}
             </div>
@@ -281,7 +281,7 @@ function ExamPage() {
               {examState.exam?.title || 'Mock Examination'}
             </h1>
             <p className="mt-1 text-body text-secondary">
-              Answers auto-save to local storage on every selection.
+              Your answers are saved after every selection.
             </p>
           </div>
 
@@ -301,7 +301,7 @@ function ExamPage() {
         </div>
 
         {submitNotice && (
-          <div className="mt-6 rounded-xl border border-surface-variant bg-surface-container-highest p-4 text-center text-body font-bold text-on-surface shadow-sm animate-fade-in">
+          <div className="mt-6 border border-primary bg-surface-container-highest p-4 text-center text-sm font-bold text-primary animate-fade-in">
             {submitNotice}
           </div>
         )}
@@ -320,7 +320,7 @@ function ExamPage() {
               onToggleReview={handleToggleReview}
             />
 
-            <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+            <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <span className="text-xs font-bold uppercase tracking-wider text-secondary">
                   Question {examState.currentIndex + 1} of {examState.questions.length}
@@ -348,9 +348,9 @@ function ExamPage() {
 
               {/* Progress bar: quick visual read on how far through the exam the
                   candidate is, complementing the numeric counter above */}
-              <div className="mt-4 h-2 w-full overflow-hidden rounded-lg bg-surface-container-low">
+              <div className="mt-4 h-1 w-full overflow-hidden bg-surface-container-low">
                 <div
-                  className="h-full rounded-lg bg-primary transition-[width] duration-300 ease-out"
+                  className="h-full bg-primary transition-[width] duration-300 ease-out"
                   style={{
                     width: `${((examState.currentIndex + 1) / Math.max(1, examState.questions.length)) * 100}%`,
                   }}
@@ -368,21 +368,21 @@ function ExamPage() {
               onSelect={examState.goToQuestion}
             />
 
-            <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+            <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
               <div className="space-y-4">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-secondary">
-                    Finish Session
+                    Finish test
                   </span>
-                  <h2 className="mt-1 text-subheading font-bold text-primary">Ready to Submit?</h2>
+                  <h2 className="mt-1 text-subheading font-bold text-primary">Ready to submit?</h2>
                   <p className="mt-1 text-xs text-secondary">
-                    Review your answered items in the navigation grid before final submission.
+                    Review your answers and flagged questions before you submit.
                   </p>
                 </div>
 
                 <Button fullWidth isLoading={isSubmitting} onClick={handleSubmit}>
                   <Send size={16} />
-                  <span>Submit Final Exam</span>
+                  <span>Submit exam</span>
                 </Button>
               </div>
             </div>

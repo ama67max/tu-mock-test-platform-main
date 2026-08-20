@@ -102,7 +102,7 @@ const OfflineDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-darkGray-900 to-darkGray-800 p-8">
+    <div className="demo-monochrome min-h-screen bg-background p-8 text-primary">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

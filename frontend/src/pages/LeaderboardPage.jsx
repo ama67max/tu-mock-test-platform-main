@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as analyticsApi from '../api/analyticsApi';
 import * as resultApi from '../api/resultApi';
 
@@ -14,13 +15,19 @@ function downloadBlob(blob, filename) {
 }
 
 export default function LeaderboardPage() {
-  const [examId, setExamId] = useState('');
+  const { examId: routeExamId } = useParams();
+  const [examId, setExamId] = useState(routeExamId || '');
   const [limit, setLimit] = useState(10);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (routeExamId) {
+      loadLeaderboard(routeExamId, limit);
+      return undefined;
+    }
+
     let mounted = true;
     async function init() {
       try {
@@ -39,7 +46,7 @@ export default function LeaderboardPage() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [routeExamId]);
 
   async function loadLeaderboard(eid, lim = limit) {
     if (!eid) {
@@ -49,7 +56,7 @@ export default function LeaderboardPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await analyticsApi.getTopPerformers(Number(eid), lim);
+      const res = await analyticsApi.getTopPerformers(eid, lim);
       setData(res?.data || []);
     } catch (e) {
       setError(e.message || 'Failed to load leaderboard');
@@ -61,7 +68,7 @@ export default function LeaderboardPage() {
   async function handleExport() {
     if (!examId) return setError('Exam ID required to export');
     try {
-      const blob = await resultApi.exportResultsCSV({ examId: Number(examId) });
+      const blob = await resultApi.exportResultsCSV({ examId });
       const filename = `leaderboard_exam_${examId}.csv`;
       downloadBlob(blob, filename);
     } catch (e) {
@@ -133,7 +140,7 @@ export default function LeaderboardPage() {
         </section>
 
         {error && (
-          <div className="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-xs font-semibold text-red-600">
+          <div className="mb-6 border border-primary bg-surface-container-highest p-4 text-xs font-semibold text-primary">
             {error}
           </div>
         )}
@@ -142,7 +149,7 @@ export default function LeaderboardPage() {
         {!loading && data.length >= 3 && (
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {/* Rank 2 */}
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl flex flex-col items-center justify-center text-center order-2 md:order-1 border-b-4 border-b-secondary-container shadow-sm">
+            <div className="bg-surface-container-lowest border border-border p-6 flex flex-col items-center justify-center text-center order-2 md:order-1">
               <div className="relative mb-3">
                 <div className="w-16 h-16 rounded-full border-2 border-secondary bg-surface-container-high flex items-center justify-center font-black text-xl text-primary">
                   2
@@ -150,7 +157,7 @@ export default function LeaderboardPage() {
               </div>
               <span className="text-secondary font-bold text-xs uppercase tracking-wider">RANK 2</span>
               <h3 className="font-headline text-lg font-bold text-primary mt-1">
-                {top2?.name || top2?.userName || top2?.user?.name || `Scholar #${top2?.userId || '2'}`}
+                {top2?.fullName || top2?.name || top2?.userName || top2?.user?.name || `Scholar #${top2?.userId || '2'}`}
               </h3>
               <div className="mt-4 pt-3 border-t border-surface-variant w-full grid grid-cols-2 text-xs">
                 <div>
@@ -167,15 +174,15 @@ export default function LeaderboardPage() {
             </div>
 
             {/* Rank 1 (Main Featured Anchor) */}
-            <div className="bg-surface-container-lowest border-2 border-primary p-6 rounded-xl flex flex-col items-center justify-center text-center order-1 md:order-2 border-b-4 border-b-primary shadow-md scale-105 z-10">
+            <div className="bg-surface-container-lowest border-2 border-primary p-6 flex flex-col items-center justify-center text-center order-1 md:order-2 scale-105 z-10">
               <div className="relative mb-3">
                 <div className="w-20 h-20 rounded-full border-4 border-primary bg-primary text-on-primary flex items-center justify-center font-black text-2xl shadow-md">
-                  👑 1
+                  1
                 </div>
               </div>
               <span className="text-primary font-black text-xs uppercase tracking-widest">RANK 1 · CHAMPION</span>
               <h2 className="font-headline text-xl font-bold text-primary mt-1">
-                {top1?.name || top1?.userName || top1?.user?.name || `Scholar #${top1?.userId || '1'}`}
+                {top1?.fullName || top1?.name || top1?.userName || top1?.user?.name || `Scholar #${top1?.userId || '1'}`}
               </h2>
               <div className="mt-4 pt-3 border-t border-primary w-full grid grid-cols-2 text-xs">
                 <div>
@@ -192,7 +199,7 @@ export default function LeaderboardPage() {
             </div>
 
             {/* Rank 3 */}
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl flex flex-col items-center justify-center text-center order-3 border-b-4 border-b-outline-variant shadow-sm">
+            <div className="bg-surface-container-lowest border border-border p-6 flex flex-col items-center justify-center text-center order-3">
               <div className="relative mb-3">
                 <div className="w-16 h-16 rounded-full border-2 border-outline-variant bg-surface-container-high flex items-center justify-center font-black text-xl text-primary">
                   3
@@ -200,7 +207,7 @@ export default function LeaderboardPage() {
               </div>
               <span className="text-secondary font-bold text-xs uppercase tracking-wider">RANK 3</span>
               <h3 className="font-headline text-lg font-bold text-primary mt-1">
-                {top3?.name || top3?.userName || top3?.user?.name || `Scholar #${top3?.userId || '3'}`}
+                {top3?.fullName || top3?.name || top3?.userName || top3?.user?.name || `Scholar #${top3?.userId || '3'}`}
               </h3>
               <div className="mt-4 pt-3 border-t border-surface-variant w-full grid grid-cols-2 text-xs">
                 <div>
@@ -219,7 +226,7 @@ export default function LeaderboardPage() {
         )}
 
         {/* Detailed Rankings Table */}
-        <div className="bg-surface-container-lowest border border-surface-variant rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-surface-container-lowest border border-border overflow-hidden">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-surface-container-low border-b border-surface-variant text-left text-xs uppercase tracking-wider text-secondary font-semibold">

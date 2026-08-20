@@ -64,7 +64,7 @@ export default function PerformanceChart({
   if (!hasData) {
     return (
       <div className={`flex h-full items-center justify-center rounded-[24px] p-6 ${isDark ? 'bg-surface-container-low' : 'bg-surface-container-lowest'}`} style={{ height }}>
-        <div className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>No data available</div>
+        <div className="text-sm text-secondary">No data available yet</div>
       </div>
     );
   }

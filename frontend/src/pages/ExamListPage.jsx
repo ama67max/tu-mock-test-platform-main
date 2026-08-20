@@ -138,15 +138,10 @@ function ExamListPage() {
             <p className="font-sans text-sm text-secondary mt-1">Choose an exam to start practice. Cached exams remain accessible even when disconnected.</p>
           </div>
 
-          <div
-            className={`px-4 py-2.5 rounded-lg flex items-center gap-2 border text-xs font-semibold uppercase tracking-wider ${
-              isOnline
-                ? 'bg-success-50 border-success-600 text-success-700'
-                : 'bg-warning-50 border-warning-600 text-warning-700'
-            }`}
+          <div className="flex items-center gap-2 border border-primary bg-surface-container-highest px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary"
           >
             {isOnline ? <CheckCircle2 size={16} /> : <WifiOff size={16} />}
-            <span>{isOnline ? 'Live Network Data' : 'Offline Cache Mode'}</span>
+            <span>{isOnline ? 'Progress synced' : 'Offline cache active'}</span>
           </div>
         </div>
 
@@ -163,8 +158,8 @@ function ExamListPage() {
             />
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-between gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-medium text-secondary">
+          <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto">
+            <div className="flex min-h-11 flex-1 items-center justify-between gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-medium text-secondary sm:flex-none">
               <HardDriveDownload size={16} className="text-primary" />
               <span>{cacheStats?.cachedExamsCount || 0} / 5 Cached</span>
             </div>
@@ -173,7 +168,7 @@ function ExamListPage() {
               type="button"
               onClick={handleRefresh}
               disabled={isLoading}
-              className="flex items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all disabled:opacity-50"
+              className="flex min-h-11 items-center gap-2 rounded-lg border border-surface-variant bg-surface-container-lowest px-4 py-2.5 text-xs font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all disabled:opacity-50"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
               <span>Refresh</span>
@@ -187,19 +182,28 @@ function ExamListPage() {
             <LoadingSpinner size="lg" label="Loading mock exams..." />
           </div>
         ) : error ? (
-          <div className="mt-8 rounded-xl border border-danger-600 bg-danger-50 p-8 text-center shadow-sm">
-            <p className="text-base text-danger-700">{error}</p>
+          <div className="mt-8 border border-primary bg-surface-container-highest p-8 text-center">
+            <p className="text-base text-primary">{error}</p>
             <button
               type="button"
               onClick={handleRefresh}
-              className="mt-4 rounded-lg border border-danger-600 bg-danger-100 px-4 py-2 text-xs font-semibold text-danger-700 hover:bg-danger-50"
+              className="mt-4 border border-primary bg-primary px-4 py-2 text-xs font-semibold text-on-primary hover:opacity-90"
             >
               Try Again
             </button>
           </div>
         ) : filteredExams.length === 0 ? (
-          <div className="mt-8 rounded-xl border border-dashed border-surface-variant bg-surface-container-low p-12 text-center text-secondary">
-            <p className="text-base font-medium">No exams found matching your query.</p>
+          <div className="mt-8 border border-dashed border-surface-variant bg-surface-container-low p-8 text-center text-secondary sm:p-12">
+            <HardDriveDownload size={28} className="mx-auto mb-4 text-secondary/60" aria-hidden="true" />
+            <p className="text-base font-medium text-primary">No exams found matching your query.</p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6">Published mock exams will appear here, and saved exams remain available when you are offline.</p>
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="mt-5 min-h-11 border border-primary px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-surface-container"
+            >
+              Clear search
+            </button>
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
@@ -215,7 +219,7 @@ function ExamListPage() {
                   isCaching={cachingExamId === examId}
                   onPrefetch={() => handlePrefetch(exam)}
                   onStart={() => navigate(`/exams/${examId}`)}
-                  actionLabel={isCached ? 'Start Exam (Offline Ready)' : 'Start Exam'}
+                  actionLabel={isCached ? 'Start mock test offline' : 'Start mock test'}
                 />
               );
             })}

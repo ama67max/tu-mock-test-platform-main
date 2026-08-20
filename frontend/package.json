@@ -4,12 +4,35 @@
   "version": "1.0.0",
   "description": "Frontend for TU Mock Test Platform - React + Vite + Tailwind",
   "type": "module",
+  "eslintConfig": {
+    "env": { "browser": true, "es2022": true, "jest": true },
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "ecmaFeatures": { "jsx": true }
+    },
+    "plugins": ["react", "react-hooks"],
+    "settings": { "react": { "version": "detect" } },
+    "rules": {
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error",
+      "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "off",
+      "no-unused-vars": "off",
+      "no-undef": "off",
+      "no-useless-escape": "off",
+      "no-extra-boolean-cast": "off"
+    },
+    "ignorePatterns": ["dist/", "public/", "node_modules/"]
+  },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",

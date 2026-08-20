@@ -26,15 +26,15 @@ function ExamNavigation({
   const getButtonClass = (index) => {
     const status = getStatus(index);
     const base =
-      'flex h-8 w-8 items-center justify-center rounded-lg text-body font-bold transition-colors duration-150 ease-out';
+      'flex h-9 w-9 items-center justify-center border text-sm font-bold transition-colors duration-150 ease-out';
 
     switch (status) {
       case 'current':
         return `${base} border-2 border-primary bg-primary text-on-primary ring-2 ring-primary/30 ring-offset-2 ring-offset-surface-container-lowest`;
       case 'answered':
-        return `${base} border border-success-600 bg-success-50 text-success-700 hover:bg-success-100`;
+        return `${base} border-primary bg-surface-container-highest text-primary hover:bg-primary hover:text-on-primary`;
       case 'marked':
-        return `${base} border border-warning-600 bg-warning-50 text-warning-700 hover:bg-warning-100`;
+        return `${base} border-2 border-primary bg-surface-container-low text-primary hover:bg-primary hover:text-on-primary`;
       case 'answered-marked':
         return `${base} border border-primary bg-primary text-on-primary`;
       default:
@@ -43,7 +43,7 @@ function ExamNavigation({
   };
 
   return (
-    <div className="rounded-xl border border-surface-variant bg-surface-container-lowest p-4 shadow-sm sm:p-6">
+    <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
       <div className="flex items-center justify-between gap-4 border-b border-surface-variant pb-4">
         <div>
           <h3 className="text-xs font-bold uppercase tracking-wider text-secondary">Navigation</h3>
@@ -51,10 +51,10 @@ function ExamNavigation({
         </div>
 
         <div className="flex flex-wrap gap-2 text-xs font-bold">
-          <span className="rounded-lg border border-success-600 bg-success-50 px-3 py-1 text-success-700">
+          <span className="border border-primary bg-surface-container-highest px-3 py-1 text-primary">
             {answeredCount} Done
           </span>
-          <span className="rounded-lg border border-warning-600 bg-warning-50 px-3 py-1 text-warning-700">
+          <span className="border-2 border-primary bg-surface-container-low px-3 py-1 text-primary">
             {markedCount} Flagged
           </span>
         </div>
@@ -76,15 +76,15 @@ function ExamNavigation({
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-surface-variant pt-4 text-xs text-secondary">
         <div className="flex items-center gap-2">
-          <span className="h-4 w-4 rounded-md border border-surface-variant bg-surface-container-low" />
+          <span className="h-4 w-4 border border-border bg-surface-container-low" />
           <span>Unanswered</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-4 w-4 rounded-md border border-success-600 bg-success-50" />
+          <span className="h-4 w-4 border border-primary bg-surface-container-highest" />
           <span>Answered</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-4 w-4 rounded-md border border-warning-600 bg-warning-50" />
+          <span className="h-4 w-4 border-2 border-primary bg-surface-container-low" />
           <span>Flagged</span>
         </div>
         <div className="flex items-center gap-2">

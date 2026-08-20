@@ -126,8 +126,8 @@ function RegisterForm() {
 
   return (
     <div className="card w-full max-w-md mx-auto animate-fade-in">
-      <h1 className="text-2xl font-bold text-neutral-900 mb-1">Create your account</h1>
-      <p className="text-sm text-neutral-500 mb-6">
+      <h1 className="font-headline text-2xl font-bold text-primary mb-1">Create your account</h1>
+      <p className="text-sm text-secondary mb-6">
         Build your prep routine and start practicing for your TU entrance exam today.
       </p>
 
@@ -171,7 +171,7 @@ function RegisterForm() {
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="text-neutral-400 hover:text-neutral-600"
+              className="text-secondary hover:text-primary"
               tabIndex={-1}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
@@ -206,9 +206,9 @@ function RegisterForm() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-neutral-500">
+      <p className="mt-6 text-center text-sm text-secondary">
         Already preparing with us?{' '}
-        <Link to="/login" className="font-medium text-neutral-800 hover:underline">
+        <Link to="/login" className="font-medium text-primary underline-offset-4 hover:underline">
           Log in
         </Link>
       </p>

@@ -46,10 +46,6 @@ const createExam = async (data) => {
     throw new ApiError(400, 'Exam must include at least one question');
   }
 
-  if (examData.isPublished && !hasQuestionIds) {
-    throw new ApiError(400, 'Published exams must include at least one question');
-  }
-
   const exam = await prisma.$transaction(async (tx) => {
     const created = await tx.exam.create({
       data: examData,

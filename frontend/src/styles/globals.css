@@ -5,79 +5,79 @@
 @layer base {
   /* ── CSS Custom Properties for Theme System ──────────────────────────── */
   :root {
-    /* Light Theme */
-    --color-bg-primary: 248 250 252; /* #F8FAFC */
-    --color-bg-secondary: 241 245 249; /* slate-100 */
-    --color-bg-tertiary: 226 232 240; /* slate-200 */
-    --color-bg-accent: 24 24 27; /* zinc-900 */
+    /* Light Theme - Strict monochrome */
+    --color-bg-primary: 255 255 255;
+    --color-bg-secondary: 248 249 250;
+    --color-bg-tertiary: 241 243 245;
+    --color-bg-accent: 26 26 26;
 
-    --color-text-primary: 24 24 27; /* zinc-900 */
-    --color-text-secondary: 82 82 91; /* zinc-700 */
-    --color-text-tertiary: 113 113 122; /* zinc-600 */
-    --color-text-inverse: 250 250 250; /* zinc-50 */
+    --color-text-primary: 26 26 26;
+    --color-text-secondary: 73 73 73;
+    --color-text-tertiary: 119 119 119;
+    --color-text-inverse: 242 242 242;
 
-    --color-border-primary: 212 212 216; /* zinc-300 */
-    --color-border-secondary: 228 228 231; /* zinc-200 */
-    --color-border-accent: 113 113 122; /* zinc-600 */
-    --color-border-shared: 39 39 42; /* #27272A */
+    --color-border-primary: 224 224 224;
+    --color-border-secondary: 232 232 232;
+    --color-border-accent: 90 90 90;
+    --color-border-shared: 59 59 59;
 
     --color-surface-elevated: 255 255 255;
-    --color-surface-sunken: 244 244 245;
-    --color-surface-variant: 226 232 240;
+    --color-surface-sunken: 245 245 245;
+    --color-surface-variant: 241 243 245;
     --color-surface-container-lowest: 255 255 255;
-    --color-surface-container-low: 248 250 252;
-    --color-surface-container: 241 245 249;
-    --color-surface-container-high: 226 232 240;
-    --color-surface-container-highest: 214 219 229;
+    --color-surface-container-low: 248 249 250;
+    --color-surface-container: 241 243 245;
+    --color-surface-container-high: 233 235 237;
+    --color-surface-container-highest: 227 229 232;
 
-    --chart-primary: 24 24 27;
-    --chart-secondary: 63 63 70;
-    --chart-grid: 24 24 27;
-    --chart-text: 24 24 27;
+    --chart-primary: 26 26 26;
+    --chart-secondary: 92 92 92;
+    --chart-grid: 26 26 26;
+    --chart-text: 26 26 26;
 
-    --gradient-hero: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --gradient-hero: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --gradient-card: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 18px -10px rgba(0, 0, 0, 0.18);
+    --shadow-lg: 0 18px 30px -18px rgba(0, 0, 0, 0.22);
   }
 
   .dark {
-    /* Dark Theme */
-    --color-bg-primary: 0 0 0; /* black */
-    --color-bg-secondary: 10 10 10;
-    --color-bg-tertiary: 18 18 20; /* #121214 */
-    --color-bg-accent: 250 250 250;
+    /* Dark Theme - Strict monochrome */
+    --color-bg-primary: 0 0 0;
+    --color-bg-secondary: 18 18 18;
+    --color-bg-tertiary: 28 28 28;
+    --color-bg-accent: 242 242 242;
 
-    --color-text-primary: 250 250 250;
-    --color-text-secondary: 212 212 216;
-    --color-text-tertiary: 161 161 170;
-    --color-text-inverse: 0 0 0;
+    --color-text-primary: 242 242 242;
+    --color-text-secondary: 192 192 192;
+    --color-text-tertiary: 142 142 142;
+    --color-text-inverse: 18 18 18;
 
-    --color-border-primary: 50 50 54;
-    --color-border-secondary: 40 40 45;
-    --color-border-accent: 161 161 170;
-    --color-border-shared: 39 39 42; /* #27272A */
+    --color-border-primary: 68 68 68;
+    --color-border-secondary: 48 48 48;
+    --color-border-accent: 196 196 196;
+    --color-border-shared: 39 39 39;
 
-    --color-surface-elevated: 18 18 20; /* #121214 */
-    --color-surface-sunken: 10 10 10;
-    --color-surface-variant: 39 39 42;
-    --color-surface-container-lowest: 18 18 20;
-    --color-surface-container-low: 20 20 22;
-    --color-surface-container: 24 24 27;
-    --color-surface-container-high: 28 28 31;
-    --color-surface-container-highest: 32 32 36;
+    --color-surface-elevated: 30 30 30;
+    --color-surface-sunken: 12 12 12;
+    --color-surface-variant: 45 45 45;
+    --color-surface-container-lowest: 18 18 18;
+    --color-surface-container-low: 22 22 22;
+    --color-surface-container: 28 28 28;
+    --color-surface-container-high: 34 34 34;
+    --color-surface-container-highest: 42 42 42;
 
-    --chart-primary: 229 229 229;
-    --chart-secondary: 161 161 170;
+    --chart-primary: 242 242 242;
+    --chart-secondary: 170 170 170;
     --chart-grid: 255 255 255;
-    --chart-text: 250 250 250;
+    --chart-text: 242 242 242;
 
-    --gradient-hero: linear-gradient(135deg, #000000 0%, #121214 100%);
-    --gradient-card: linear-gradient(135deg, #0a0a0a 0%, #121214 100%);
+    --gradient-hero: linear-gradient(135deg, #000000 0%, #121212 100%);
+    --gradient-card: linear-gradient(135deg, #111111 0%, #1d1d1d 100%);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.8);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.8), 0 2px 4px -1px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 12px 24px -16px rgba(0, 0, 0, 0.8);
+    --shadow-lg: 0 18px 34px -20px rgba(0, 0, 0, 0.9);
   }
 
   html,
@@ -97,6 +97,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-text-primary));
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   /* ── Scrollbar Styling (Theme-aware) ────────────────────────────────── */
@@ -256,7 +272,7 @@
     left: 4%;
     width: 240px;
     height: 240px;
-    background: rgba(148, 163, 184, 0.18);
+    background: rgba(17, 17, 17, 0.08);
   }
 
   .hero-orb-2 {
@@ -264,7 +280,7 @@
     bottom: 0;
     width: 320px;
     height: 320px;
-    background: rgba(15, 23, 42, 0.10);
+    background: rgba(0, 0, 0, 0.06);
     animation-delay: 1.2s;
   }
 
@@ -289,7 +305,7 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(148, 163, 184, 0.18), transparent 68%);
+    background: radial-gradient(circle, rgba(17, 17, 17, 0.12), transparent 68%);
     opacity: 0;
     transform: scale(0.8);
     transition: opacity 260ms ease, transform 260ms ease;
@@ -297,8 +313,8 @@
 
   .feature-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(148, 163, 184, 0.45);
-    box-shadow: 0 16px 40px -24px rgba(15, 23, 42, 0.35);
+    border-color: rgba(90, 90, 90, 0.45);
+    box-shadow: 0 16px 40px -24px rgba(0, 0, 0, 0.2);
   }
 
   .feature-card:hover::before {
@@ -315,14 +331,14 @@
 
   .stat-tile:hover {
     transform: translateY(-4px);
-    box-shadow: 0 14px 28px -18px rgba(15, 23, 42, 0.35);
+    box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.2);
   }
 
   .cta-panel {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgb(15 23 42) 0%, rgb(30 41 59) 35%, rgb(15 23 42) 100%);
-    box-shadow: 0 18px 40px -20px rgba(15, 23, 42, 0.55);
+    background: linear-gradient(135deg, rgb(18 18 18) 0%, rgb(38 38 38) 40%, rgb(18 18 18) 100%);
+    box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.55);
   }
 
   .cta-panel::before {
@@ -339,6 +355,188 @@
     }
     100% {
       transform: translateY(-12px) translateX(8px) scale(1.06);
+    }
+  }
+
+  @keyframes page-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-reveal {
+    animation: page-reveal 700ms cubic-bezier(.2,.9,.2,1) both;
+  }
+
+  .page-reveal-delay-1 {
+    animation-delay: 100ms;
+  }
+
+  .page-reveal-delay-2 {
+    animation-delay: 180ms;
+  }
+
+  .formula-field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    color: rgb(var(--color-text-primary));
+    opacity: 0.1;
+  }
+
+  .formula-field__formula {
+    position: absolute;
+    display: block;
+    white-space: nowrap;
+    font-family: 'Caveat', 'Segoe Print', cursive;
+    font-size: clamp(1.15rem, 1.8vw, 1.7rem);
+    font-weight: 500;
+    letter-spacing: 0;
+    transform: rotate(var(--formula-rotation, 0deg));
+  }
+
+  .formula-field__formula--one {
+    top: 18%;
+    left: 2%;
+    --formula-rotation: -8deg;
+  }
+
+  .formula-field__formula--two {
+    top: 8%;
+    right: 8%;
+    --formula-rotation: 5deg;
+  }
+
+  .formula-field__formula--three {
+    top: 48%;
+    left: 30%;
+    --formula-rotation: -3deg;
+  }
+
+  .formula-field__formula--four {
+    top: 72%;
+    left: 6%;
+    --formula-rotation: 7deg;
+  }
+
+  .formula-field__formula--five {
+    top: 31%;
+    right: 1%;
+    --formula-rotation: -6deg;
+  }
+
+  .formula-field__formula--six {
+    top: 87%;
+    right: 21%;
+    --formula-rotation: 4deg;
+  }
+
+  .formula-field__formula--seven {
+    top: 61%;
+    right: 4%;
+    --formula-rotation: -4deg;
+  }
+
+  .formula-field__formula--eight {
+    top: 23%;
+    left: 42%;
+    --formula-rotation: 8deg;
+  }
+
+  .formula-field__formula--nine {
+    top: 42%;
+    left: 5%;
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    --formula-rotation: 5deg;
+  }
+
+  .formula-field__formula--ten {
+    top: 56%;
+    left: 13%;
+    --formula-rotation: -7deg;
+  }
+
+  .formula-field__formula--eleven {
+    top: 66%;
+    left: 47%;
+    --formula-rotation: 6deg;
+  }
+
+  .formula-field__formula--twelve {
+    top: 13%;
+    left: 29%;
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    font-weight: 600;
+    --formula-rotation: -4deg;
+  }
+
+  .formula-field__formula--thirteen {
+    top: 81%;
+    left: 38%;
+    --formula-rotation: -5deg;
+  }
+
+  .formula-field__formula--fourteen {
+    top: 92%;
+    left: 4%;
+    --formula-rotation: 3deg;
+  }
+
+  .formula-field__rule {
+    position: absolute;
+    display: block;
+    width: 10rem;
+    height: 1px;
+    background-color: currentColor;
+    transform: rotate(-18deg);
+  }
+
+  .formula-field__rule--one {
+    top: 39%;
+    left: 11%;
+  }
+
+  .formula-field__rule--two {
+    top: 78%;
+    right: 8%;
+    transform: rotate(12deg);
+  }
+
+  @media (max-width: 639px) {
+    .formula-field {
+      opacity: 0.075;
+    }
+
+    .formula-field__formula--three,
+    .formula-field__formula--six,
+    .formula-field__formula--eight,
+    .formula-field__formula--eleven,
+    .formula-field__formula--thirteen,
+    .formula-field__formula--fourteen,
+    .formula-field__rule {
+      display: none;
+    }
+
+    .formula-field__formula--one {
+      top: 14%;
+      left: -2%;
+    }
+
+    .formula-field__formula--five {
+      top: 40%;
+      right: -8%;
+    }
+
+    .formula-field__formula--seven {
+      top: 68%;
+      right: -4%;
     }
   }
 
@@ -387,11 +585,6 @@
            text-xs font-medium;
     background-color: rgb(var(--color-bg-tertiary));
     color: rgb(var(--color-text-secondary));
-  }
-
-  /* ── Gradient Text Effects ──────────────────────────────────────────── */
-  .text-gradient-silver {
-    @apply bg-gradient-to-r from-silver-400 to-silver-600 bg-clip-text text-transparent;
   }
 
   /* ── Loading Shimmer Effect ─────────────────────────────────────────── */
@@ -492,6 +685,40 @@
 }
 
 @layer utilities {
+  /* Diagnostic pages retain their behavior while sharing the product's monochrome visual language. */
+  .demo-monochrome [class*="bg-gradient"] {
+    background-image: none !important;
+    background-color: rgb(var(--color-surface-container)) !important;
+  }
+
+  .demo-monochrome [class*="text-green"],
+  .demo-monochrome [class*="text-red"],
+  .demo-monochrome [class*="text-blue"],
+  .demo-monochrome [class*="text-purple"],
+  .demo-monochrome [class*="text-yellow"],
+  .demo-monochrome [class*="text-sky"],
+  .demo-monochrome [class*="text-emerald"] {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .demo-monochrome [class*="bg-green"],
+  .demo-monochrome [class*="bg-red"],
+  .demo-monochrome [class*="bg-blue"],
+  .demo-monochrome [class*="bg-purple"],
+  .demo-monochrome [class*="bg-yellow"],
+  .demo-monochrome [class*="bg-sky"],
+  .demo-monochrome [class*="bg-emerald"] {
+    background-color: rgb(var(--color-surface-container-high)) !important;
+  }
+
+  .demo-monochrome [class*="border-green"],
+  .demo-monochrome [class*="border-red"],
+  .demo-monochrome [class*="border-blue"],
+  .demo-monochrome [class*="border-purple"],
+  .demo-monochrome [class*="border-yellow"] {
+    border-color: rgb(var(--color-border-primary)) !important;
+  }
+
   /* ── Custom Utility Classes ─────────────────────────────────────────── */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -513,10 +740,6 @@
 
   .text-tertiary {
     color: rgb(var(--color-text-tertiary));
-  }
-
-  .bg-primary {
-    background-color: rgb(var(--color-bg-primary));
   }
 
   .bg-secondary {

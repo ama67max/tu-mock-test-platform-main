@@ -1,224 +1,168 @@
 import React from 'react';
+import { ArrowUpRight, ChevronDown, MoveUpRight, Ruler, ShoppingBag, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import FormulaField from '../components/home/FormulaField';
+
+const answerOptions = [
+  'Newton’s first law',
+  'Newton’s second law',
+  'Newton’s third law',
+  'Law of conservation',
+];
 
 export default function HomePage() {
   return (
-    <div className="bg-background text-on-surface min-h-screen hero-shell">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="hero-orb hero-orb-1" />
-        <div className="hero-orb hero-orb-2" />
-      </div>
-
-      <main className="relative max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <section className="py-14 md:py-24 flex flex-col items-center text-center gap-8">
-          <div className="space-y-5 max-w-3xl animate-fade-in-up">
-            <span className="inline-block bg-surface-container-highest px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest text-secondary border border-surface-variant transition-all duration-300 hover:border-primary/60 hover:shadow-md">
-              Your TU entrance prep, made simpler
-            </span>
-            <h1 className="font-headline text-3xl md:text-5xl lg:text-6xl font-black leading-tight text-primary tracking-tight">
-              Prepare smarter. Score with confidence.
-            </h1>
-            <p className="font-sans text-base md:text-lg text-secondary max-w-2xl mx-auto leading-relaxed">
-              Practice 1,000+ syllabus-aligned questions for IOE, B.Sc. CSIT, CMAT, BCA, and BIT. Find your weak areas, sharpen your skills, and keep your preparation moving—even offline.
-            </p>
+    <div className="min-h-screen overflow-hidden bg-background text-primary">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <section className="relative isolate flex min-h-0 flex-col justify-between py-6 sm:py-8 lg:min-h-[calc(100vh-64px)] lg:py-10">
+          <FormulaField />
+          <div className="absolute left-0 right-0 top-0 flex items-center justify-between border-b border-surface-variant pb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-secondary sm:pb-4 sm:text-[10px] sm:tracking-[0.22em]">
+            <span className="hidden sm:inline">Collection 01 / 2026</span>
+            <span className="hidden sm:block">Built for focused practice</span>
+            <span>Exam mode</span>
           </div>
 
-          {/* Quick Action CTAs */}
-          <div className="flex flex-wrap justify-center gap-4 pt-2 animate-fade-in-up" style={{ animationDelay: '80ms' }}>
-            <Link
-              to="/exams"
-              className="btn-browse-mock flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              <span>Explore mock tests</span>
-              <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
-            </Link>
-            <Link
-              to="/login"
-              className="border border-outline-variant text-primary bg-surface-container-lowest px-8 py-3.5 rounded-lg font-semibold hover:bg-surface-container transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              Start practicing
-            </Link>
-          </div>
-
-          {/* Trust Microcopy */}
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-semibold text-secondary animate-fade-in-up" style={{ animationDelay: '140ms' }}>
-            <span className="flex items-center gap-1.5 rounded-full border border-surface-variant bg-surface-container-lowest px-3 py-1.5 transition-all duration-300 hover:border-primary/60 hover:text-primary">
-              <span className="material-symbols-outlined text-base" aria-hidden="true">check_circle</span>
-              Start for free
-            </span>
-            <span className="flex items-center gap-1.5 rounded-full border border-surface-variant bg-surface-container-lowest px-3 py-1.5 transition-all duration-300 hover:border-primary/60 hover:text-primary">
-              <span className="material-symbols-outlined text-base" aria-hidden="true">download_for_offline</span>
-              Practice offline
-            </span>
-            <span className="flex items-center gap-1.5 rounded-full border border-surface-variant bg-surface-container-lowest px-3 py-1.5 transition-all duration-300 hover:border-primary/60 hover:text-primary">
-              <span className="material-symbols-outlined text-base" aria-hidden="true">menu_book</span>
-              Syllabus-aligned
-            </span>
-          </div>
-        </section>
-
-        {/* Exam Tracks Bento Grid */}
-        <section className="py-10">
-          <div className="flex items-end justify-between mb-8 border-b border-surface-variant pb-4 gap-4">
-            <div>
-              <h2 className="font-headline text-2xl font-bold text-primary">Choose your exam track</h2>
-              <p className="font-sans text-sm text-secondary mt-1">
-                Focus on the subjects and question patterns that match your target TU entrance exam.
+          <div className="grid flex-1 items-center gap-10 pt-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:pt-16">
+            <div className="page-reveal relative z-10 max-w-xl py-6 sm:py-8">
+              <h1 className="max-w-[760px] font-headline text-[clamp(3.25rem,8vw,8.4rem)] font-black leading-[0.86] tracking-[-0.04em] text-primary">
+                Practice like
+                <span className="block text-secondary">it matters.</span>
+              </h1>
+              <p className="mt-8 max-w-md text-base leading-7 text-secondary md:text-lg">
+                Realistic mock tests, instant score breakdowns, and subject-wise insights for students preparing to perform under pressure.
               </p>
-            </div>
-            <Link to="/exams" className="font-semibold text-primary flex items-center gap-1 hover:underline text-sm whitespace-nowrap transition-all duration-200 hover:gap-1.5">
-              <span>View all exams</span>
-              <span className="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
-            </Link>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {/* Engineering Track (IOE) */}
-            <div className="feature-card md:col-span-8 rounded-xl p-8 flex flex-col justify-between relative group">
-              <div className="relative z-10 space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
-                    <span className="material-symbols-outlined" aria-hidden="true">engineering</span>
-                  </span>
-                  <span className="bg-surface-container-highest px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-secondary">
-                    IOE Entrance
-                  </span>
-                </div>
-                <h3 className="font-headline text-2xl font-bold text-primary">IOE Engineering Entrance</h3>
-                <p className="font-sans text-sm text-secondary max-w-md leading-relaxed">
-                  Build exam confidence with full-length Physics, Chemistry, Mathematics, and English mocks designed around the IOE format.
-                </p>
+              <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Link
                   to="/exams"
-                  className="mt-2 inline-flex bg-primary text-on-primary px-5 py-2.5 rounded-lg font-semibold text-sm items-center gap-1.5 hover:opacity-90 active:scale-[0.98] transition-all duration-200 hover:-translate-y-0.5"
+                  className="group inline-flex min-h-12 items-center justify-between gap-4 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-on-primary transition-transform duration-300 hover:-translate-y-1 sm:min-h-0 sm:justify-center"
                 >
-                  <span>Start practicing</span>
-                  <span className="material-symbols-outlined text-sm" aria-hidden="true">chevron_right</span>
+                  Start mock test
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:rotate-45">
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
+                </Link>
+                <Link
+                  to="/register"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-surface-container sm:min-h-0"
+                >
+                  Start free
                 </Link>
               </div>
-            </div>
 
-            {/* CSIT Track */}
-            <div className="feature-card md:col-span-4 rounded-xl p-6 flex flex-col justify-between group">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
-                    <span className="material-symbols-outlined text-xl" aria-hidden="true">code</span>
-                  </span>
-                  <span className="bg-surface-container-highest px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-secondary">
-                    B.Sc. CSIT
-                  </span>
+              <div className="mt-10 flex max-w-md items-center gap-4 border-t border-surface-variant pt-5 text-xs text-secondary sm:mt-14 sm:gap-5">
+                <div className="flex -space-x-2" aria-hidden="true">
+                  <span className="h-8 w-8 rounded-full border-2 border-background bg-[#1a1a1a]" />
+                  <span className="h-8 w-8 rounded-full border-2 border-background bg-[#7b7b7b]" />
+                  <span className="h-8 w-8 rounded-full border-2 border-background bg-[#d9d9d9]" />
                 </div>
-                <h3 className="font-headline text-xl font-bold text-primary">Computer Science &amp; IT</h3>
-                <p className="font-sans text-xs text-secondary leading-relaxed">
-                  Strengthen your core concepts with focused practice, full-length mocks, and instant explanations after every attempt.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-surface-variant mt-4 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-sm text-secondary" aria-hidden="true">download_for_offline</span>
-                <span className="font-semibold text-xs text-secondary">Practice anywhere, anytime</span>
+                <p><strong className="font-bold text-primary">50,000+</strong> focused attempts completed</p>
               </div>
             </div>
 
-            {/* Management Track (CMAT / BCA / BIT) */}
-            <div className="feature-card md:col-span-4 rounded-xl p-6 flex flex-col justify-between group">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
-                    <span className="material-symbols-outlined text-xl" aria-hidden="true">quiz</span>
-                  </span>
-                  <span className="bg-surface-container-highest px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-secondary">
-                    CMAT / BCA / BIT
-                  </span>
+            <div className="page-reveal page-reveal-delay-1 relative min-h-[420px] border border-border bg-surface-container-low p-3 sm:min-h-[480px] sm:p-8 lg:min-h-[620px]">
+              <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,rgba(0,0,0,0.035)_100%)] dark:bg-[linear-gradient(135deg,transparent_0%,rgba(255,255,255,0.04)_100%)]" />
+              <div className="relative flex h-full flex-col border border-border bg-surface-container-lowest">
+                <div className="flex items-center justify-between border-b border-border px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-secondary sm:px-6">
+                  <span>Mock test / Physics</span>
+                  <span>Question 18 / 50</span>
                 </div>
-                <h3 className="font-headline text-xl font-bold text-primary">CMAT, BCA &amp; BIT entrance</h3>
-                <p className="font-sans text-xs text-secondary leading-relaxed">
-                  Build speed and accuracy across verbal, quantitative, logical reasoning, and general awareness with realistic mock tests.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-surface-variant mt-4 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-sm text-secondary" aria-hidden="true">update</span>
-                <span className="font-semibold text-xs text-secondary">Aligned with the latest exam pattern</span>
-              </div>
-            </div>
-
-            {/* Analytics & Simulator Card */}
-            <div className="feature-card md:col-span-8 rounded-xl p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group">
-              <div className="space-y-4">
-                <span className="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
-                  <span className="material-symbols-outlined" aria-hidden="true">monitoring</span>
-                </span>
-                <h3 className="font-headline text-2xl font-bold text-primary">A smarter exam experience</h3>
-                <p className="font-sans text-sm text-secondary max-w-md leading-relaxed">
-                  Practice like it’s the real exam with timed sections, quick review tools, and saved answers that sync when you reconnect.
-                </p>
-                <div className="flex flex-wrap gap-4 pt-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
-                    <span className="material-symbols-outlined text-base" aria-hidden="true">timer</span>
-                    <span>Live countdown timer</span>
+                <div className="flex flex-1 flex-col justify-between gap-6 p-4 sm:gap-8 sm:p-8">
+                  <div>
+                    <div className="mb-6 flex items-center justify-between text-xs font-semibold text-secondary">
+                      <span>Time remaining</span>
+                      <span className="font-headline text-2xl font-black tabular-nums text-primary">42:18</span>
+                    </div>
+                    <div className="mb-8 h-1 w-full bg-surface-container-highest">
+                      <div className="h-full w-[36%] bg-primary" />
+                    </div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-secondary">Question 18</p>
+                    <h2 className="max-w-lg font-headline text-2xl font-bold leading-tight text-primary sm:text-3xl">
+                      Which principle best explains the relationship between force and acceleration?
+                    </h2>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
-                    <span className="material-symbols-outlined text-base" aria-hidden="true">leaderboard</span>
-                    <span>Rank &amp; score insights</span>
+                  <div className="grid gap-3">
+                    {answerOptions.map((option, index) => (
+                      <div
+                        key={option}
+                        className={`flex items-center gap-3 border p-3 text-sm font-medium ${index === 1 ? 'border-primary bg-primary text-on-primary' : 'border-border text-secondary'}`}
+                      >
+                        <span className={`flex h-7 w-7 items-center justify-center border text-xs font-bold ${index === 1 ? 'border-white bg-white text-primary' : 'border-border'}`}>
+                          {String.fromCharCode(65 + index)}
+                        </span>
+                        {option}
+                      </div>
+                    ))}
                   </div>
                 </div>
+                <div className="flex items-center justify-between border-t border-border px-4 py-3 text-xs font-semibold sm:px-6">
+                  <span className="text-secondary">Progress auto-saved</span>
+                  <span className="text-primary">Next question <ArrowUpRight className="ml-1 inline" size={14} aria-hidden="true" /></span>
+                </div>
+              </div>
+              <div className="absolute left-0 top-10 hidden -rotate-90 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-secondary sm:flex">
+                <span className="h-px w-12 bg-secondary" />
+                Exam simulation
+              </div>
+              <div className="absolute bottom-0 right-0 hidden items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-secondary sm:flex">
+                <span className="h-px w-12 bg-secondary" />
+                Focus / feedback
+              </div>
+              <div className="absolute bottom-12 left-4 hidden w-32 -rotate-6 bg-primary p-3 text-on-primary sm:block">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/60">Every attempt</p>
+                <p className="mt-2 font-headline text-xl font-bold leading-none">shows<br />the next step.</p>
+                <MoveUpRight className="mt-5 ml-auto" size={17} aria-hidden="true" />
               </div>
             </div>
           </div>
+
+          <div className="mt-6 flex items-center justify-between border-t border-surface-variant pt-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-secondary sm:mt-8 sm:text-[10px] sm:tracking-[0.2em]">
+            <span>Scroll to explore</span>
+            <ChevronDown size={16} aria-hidden="true" />
+            <span className="hidden sm:block">Quiet tools. Serious progress.</span>
+          </div>
         </section>
 
-        {/* Performance Statistics Grid */}
-        <section className="py-12 border-y border-surface-variant my-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="stat-tile rounded-2xl p-6 text-center space-y-2">
-              <span className="material-symbols-outlined text-2xl text-secondary" aria-hidden="true">assignment_turned_in</span>
-              <div className="font-headline text-3xl md:text-4xl font-black text-primary">50,000+</div>
-              <div className="font-sans text-xs font-semibold text-secondary uppercase tracking-wider">Mocks completed</div>
+        <section className="page-reveal page-reveal-delay-2 grid gap-8 border-t border-surface-variant py-20 lg:grid-cols-[0.7fr_1.3fr] lg:py-28">
+          <div>
+            <h2 className="max-w-sm font-headline text-4xl font-black leading-[0.92] tracking-[-0.03em] text-primary md:text-5xl">
+              Built around the way you actually prepare.
+            </h2>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-3">
+            <div className="border-t border-primary pt-4">
+              <Ruler size={19} strokeWidth={1.6} aria-hidden="true" />
+              <h3 className="mt-8 font-headline text-xl font-bold">Precise</h3>
+              <p className="mt-3 text-sm leading-6 text-secondary">Practice stays aligned to the subjects and patterns that matter for your target exam.</p>
             </div>
-            <div className="stat-tile rounded-2xl p-6 text-center space-y-2">
-              <span className="material-symbols-outlined text-2xl text-secondary" aria-hidden="true">target</span>
-              <div className="font-headline text-3xl md:text-4xl font-black text-primary">99.4%</div>
-              <div className="font-sans text-xs font-semibold text-secondary uppercase tracking-wider">Pattern match</div>
+            <div className="border-t border-primary pt-4">
+              <ShoppingBag size={19} strokeWidth={1.6} aria-hidden="true" />
+              <h3 className="mt-8 font-headline text-xl font-bold">Portable</h3>
+              <p className="mt-3 text-sm leading-6 text-secondary">Keep momentum when the connection drops with an experience built to work offline.</p>
             </div>
-            <div className="stat-tile rounded-2xl p-6 text-center space-y-2">
-              <span className="material-symbols-outlined text-2xl text-secondary" aria-hidden="true">cloud_off</span>
-              <div className="font-headline text-3xl md:text-4xl font-black text-primary">100%</div>
-              <div className="font-sans text-xs font-semibold text-secondary uppercase tracking-wider">Offline ready</div>
-            </div>
-            <div className="stat-tile rounded-2xl p-6 text-center space-y-2">
-              <span className="material-symbols-outlined text-2xl text-secondary" aria-hidden="true">school</span>
-              <div className="font-headline text-3xl md:text-4xl font-black text-primary">5</div>
-              <div className="font-sans text-xs font-semibold text-secondary uppercase tracking-wider">TU programs</div>
+            <div className="border-t border-primary pt-4">
+              <Sparkles size={19} strokeWidth={1.6} aria-hidden="true" />
+              <h3 className="mt-8 font-headline text-xl font-bold">Useful</h3>
+              <p className="mt-3 text-sm leading-6 text-secondary">Every attempt gives you a clearer next move, not another pile of information.</p>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="cta-panel py-12 mb-16 rounded-xl text-on-primary p-8 md:p-14 text-center shadow-lg">
-          <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-            <h2 className="font-headline text-3xl md:text-4xl font-black">Ready to raise your score?</h2>
-            <p className="font-sans text-sm text-surface-variant leading-relaxed">
-              Join TU aspirants who are preparing with realistic mock tests, instant insights, and the flexibility to practice whenever—and wherever—they study.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 pt-2">
-              <Link
-                to="/register"
-                className="bg-surface text-primary px-8 py-3.5 rounded-lg font-semibold hover:bg-surface-variant active:scale-[0.98] transition-all duration-300 hover:-translate-y-0.5 shadow flex items-center gap-2"
-              >
-                <span>Create your free account</span>
-                <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
-              </Link>
-              <Link
-                to="/exams"
-                className="btn-browse-mock transition-all duration-300 hover:-translate-y-0.5"
-              >
-                Explore mock tests
-              </Link>
-            </div>
+        <section className="mb-20 flex flex-col justify-between gap-8 bg-primary p-8 text-on-primary sm:p-12 lg:flex-row lg:items-end lg:p-16">
+          <div className="max-w-2xl">
+            <h2 className="font-headline text-4xl font-black leading-[0.9] tracking-[-0.03em] text-on-primary md:text-6xl">
+              Put your preparation in motion.
+            </h2>
           </div>
+          <Link
+            to="/exams"
+            className="group inline-flex shrink-0 items-center gap-4 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform duration-300 hover:-translate-y-1"
+          >
+            Find your track
+            <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:rotate-45" aria-hidden="true" />
+          </Link>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

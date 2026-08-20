@@ -32,7 +32,7 @@ const SyncStatus = ({
     if (autoSync && isOnline && queueSize > 0 && !syncing) {
       handleSync();
     }
-  }, [autoSync, isOnline, queueSize, syncing]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [autoSync, isOnline, queueSize, syncing]);
 
   // Handle manual sync
   const handleSync = async () => {

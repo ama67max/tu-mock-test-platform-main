@@ -12,22 +12,22 @@ function ExamTimer({ seconds, label = 'Time Remaining', className = '' }) {
 
   return (
     <div
-      className={`rounded-xl border p-4 shadow-sm transition-colors duration-150 sm:p-6 ${
+      className={`border p-4 transition-colors duration-150 sm:p-6 ${
         isLowTime
-          ? 'border-warning-600 bg-warning-50 text-warning-700'
-          : 'border-surface-variant bg-surface-container-lowest text-on-surface'
+          ? 'border-primary bg-surface-container-highest text-primary'
+          : 'border-border bg-surface-container-lowest text-on-surface'
       } ${className}`}
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
-          <Clock size={16} className={isLowTime ? 'text-warning-700 animate-pulse' : 'text-secondary'} />
+          <Clock size={16} className={isLowTime ? 'text-primary animate-pulse' : 'text-secondary'} />
           <span>{label}</span>
         </div>
 
         {isLowTime && (
-          <div className="flex items-center gap-2 rounded-lg border border-warning-600 bg-warning-100 px-3 py-1 text-xs font-bold text-warning-700">
+          <div className="flex items-center gap-2 border border-primary bg-primary px-3 py-1 text-xs font-bold text-on-primary">
             <AlertTriangle size={14} />
-            <span>Low time</span>
+            <span>Finish soon</span>
           </div>
         )}
       </div>

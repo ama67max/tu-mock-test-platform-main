@@ -118,7 +118,7 @@ export default function AdminExams() {
       </header>
 
       {/* Create Exam Form */}
-      <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm">
+      <div className="bg-surface-container-lowest border border-border p-6">
         <div className="mb-6 border-b border-surface-variant pb-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-secondary">New Entry</span>
           <h3 className="font-headline text-xl font-bold text-primary mt-1">Create New Exam</h3>
@@ -127,7 +127,7 @@ export default function AdminExams() {
       </div>
 
       {/* Exam List */}
-      <div className="bg-surface-container-lowest border border-surface-variant rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-surface-container-lowest border border-border overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-surface-variant">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Published</span>
@@ -154,7 +154,7 @@ export default function AdminExams() {
                   <span className="text-xs font-semibold uppercase tracking-wider text-secondary">{e.questionsCount ?? 0} Qs</span>
                   <button onClick={() => { setSelectedExamId(e.id); setDetailOpen(true); }} className="text-primary underline">Details</button>
                   <button onClick={() => openEdit(e)} className="px-2 py-1 border rounded text-sm">Edit</button>
-                  <button onClick={() => handleDelete(e)} className="text-red-600 text-sm">Delete</button>
+                  <button onClick={() => handleDelete(e)} className="text-primary text-sm underline-offset-4 hover:underline">Delete exam</button>
                 </div>
               </li>
             ))}

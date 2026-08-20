@@ -17,15 +17,15 @@ function ExamCard({
   const isPublished = exam.isPublished ?? true;
 
   return (
-    <div className="group relative rounded-lg border border-surface-variant bg-surface-container-lowest p-6 shadow-sm transition-all duration-300 hover:border-outline hover:shadow-sm">
+    <div className="group relative border border-border bg-surface-container-lowest p-6 transition-colors duration-300 hover:border-primary">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${
                 isPublished
-                  ? 'bg-success-50 text-success-700 border border-success-600'
-                  : 'bg-surface-container-low text-secondary border border-surface-variant'
+                  ? 'bg-primary text-on-primary border border-primary'
+                    : 'bg-surface-container-low text-secondary border border-border'
               }`}
             >
               {isPublished ? 'Published' : 'Draft'}
@@ -34,12 +34,12 @@ function ExamCard({
             {isCached ? (
               <span className="flex items-center gap-1 rounded-lg bg-primary px-2.5 py-1 text-xs font-semibold text-white border border-primary">
                 <CheckCircle2 size={12} />
-                <span>Offline Ready</span>
+                <span>Offline ready</span>
               </span>
             ) : (
               <span className="flex items-center gap-1 rounded-lg bg-surface-container-low px-2.5 py-1 text-xs font-medium text-secondary border border-surface-variant">
                 <WifiOff size={12} />
-                <span>Online Only</span>
+                <span>Online only</span>
               </span>
             )}
           </div>

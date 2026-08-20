@@ -6,8 +6,8 @@ function SkeletonRow() {
     <tr>
       <td colSpan="7" className="py-4">
         <div className="animate-pulse space-y-2">
-          <div className="h-3 bg-slate-900 rounded w-3/4" />
-          <div className="h-3 bg-slate-900 rounded w-1/2" />
+          <div className="h-3 bg-surface-container-highest w-3/4" />
+          <div className="h-3 bg-surface-container-highest w-1/2" />
         </div>
       </td>
     </tr>
@@ -27,8 +27,8 @@ function fmt(date) {
 export default function RecentAttempts({ attempts = [], loading = false, showUser = false, onView, className = '' }) {
   if (loading) {
     return (
-      <div className={`rounded-[24px] bg-slate-950/80 p-4 ${className}`}>
-        <table className="w-full text-sm text-slate-300">
+      <div className={`border border-border bg-surface-container-low p-4 ${className}`}>
+        <table className="w-full text-sm text-secondary">
           <tbody>
             <SkeletonRow />
             <SkeletonRow />
@@ -42,17 +42,17 @@ export default function RecentAttempts({ attempts = [], loading = false, showUse
 
   if (!Array.isArray(attempts) || attempts.length === 0) {
     return (
-      <div className={`rounded-[24px] bg-slate-950/80 p-6 text-center text-sm text-slate-400 ${className}`}>
-        No recent attempts
+      <div className={`border border-dashed border-border bg-surface-container-low p-6 text-center text-sm text-secondary ${className}`}>
+        Complete a mock test to see your recent activity.
       </div>
     );
   }
 
   return (
-    <div className={`rounded-[24px] bg-slate-950/80 overflow-x-auto ${className}`}>
-      <table className="min-w-full text-sm text-slate-200">
+    <div className={`overflow-x-auto border border-border bg-surface-container-low ${className}`}>
+      <table className="min-w-full text-sm text-primary">
         <thead>
-          <tr className="border-b border-white/10 text-left text-xs uppercase tracking-[0.24em] text-slate-400">
+          <tr className="border-b border-border text-left text-xs uppercase tracking-[0.18em] text-secondary">
             {showUser && <th className="px-4 py-3">User</th>}
             <th className="px-4 py-3">Exam</th>
             <th className="px-4 py-3">Score</th>
@@ -64,21 +64,21 @@ export default function RecentAttempts({ attempts = [], loading = false, showUse
         </thead>
         <tbody>
           {attempts.map((a) => (
-            <tr key={a.attemptId} className="border-b border-white/10 last:border-b-0">
-              {showUser && <td className="px-4 py-4 align-top text-slate-300">{a.user?.name || a.user?.id || '-'}</td>}
-              <td className="px-4 py-4 align-top text-slate-200">{a.examTitle || '-'}</td>
-              <td className="px-4 py-4 align-top text-slate-200">{typeof a.score === 'number' ? `${a.score}/${a.totalMarks ?? '-'}` : '-'}</td>
-              <td className="px-4 py-4 align-top text-slate-200">{a.status || '-'}</td>
-              <td className="px-4 py-4 align-top text-slate-300">{fmt(a.startedAt)}</td>
-              <td className="px-4 py-4 align-top text-slate-300">{a.submittedAt ? fmt(a.submittedAt) : '-'}</td>
+            <tr key={a.attemptId} className="border-b border-border last:border-b-0">
+              {showUser && <td className="px-4 py-4 align-top text-secondary">{a.user?.name || a.user?.id || '-'}</td>}
+              <td className="px-4 py-4 align-top text-primary">{a.examTitle || '-'}</td>
+              <td className="px-4 py-4 align-top text-primary">{typeof a.score === 'number' ? `${a.score}/${a.totalMarks ?? '-'}` : '-'}</td>
+              <td className="px-4 py-4 align-top text-primary">{a.status || '-'}</td>
+              <td className="px-4 py-4 align-top text-secondary">{fmt(a.startedAt)}</td>
+              <td className="px-4 py-4 align-top text-secondary">{a.submittedAt ? fmt(a.submittedAt) : '-'}</td>
               <td className="px-4 py-4 align-top">
                 <button
                   type="button"
                   onClick={() => onView && onView(a.attemptId)}
-                  className="text-sm font-semibold text-sky-300 transition hover:text-white"
+                  className="text-sm font-semibold text-primary underline-offset-4 transition hover:underline"
                   aria-label={`View attempt ${a.attemptId}`}
                 >
-                  View
+                  View scorecard
                 </button>
               </td>
             </tr>

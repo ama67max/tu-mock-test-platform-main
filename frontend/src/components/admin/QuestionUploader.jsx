@@ -58,13 +58,13 @@ export default function QuestionUploader({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white dark:bg-gray-800 rounded p-4">
+    <form onSubmit={handleSubmit} className="space-y-4 bg-surface-container p-4">
       <div>
-        <label className="block text-sm font-semibold text-gray-700">Category</label>
+        <label className="mb-1 block text-sm font-semibold text-primary">Category</label>
         <select
           value={selectedCategoryId || ''}
           onChange={(e) => onCategoryChange?.(e.target.value)}
-          className="w-full px-2 py-2 border rounded"
+          className="input-base h-11 w-full"
         >
           <option value="">Select category</option>
           {categories.map((category) => (
@@ -76,8 +76,8 @@ export default function QuestionUploader({
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-700">Question</label>
-        <textarea value={text} onChange={(e) => setText(e.target.value)} className="w-full px-2 py-2 border rounded" rows={4} />
+        <label className="mb-1 block text-sm font-semibold text-primary">Question</label>
+        <textarea value={text} onChange={(e) => setText(e.target.value)} className="input-base min-h-28 w-full resize-y" rows={4} />
       </div>
 
       <div className="grid grid-cols-1 gap-2">
@@ -87,18 +87,19 @@ export default function QuestionUploader({
             <input
               value={opt}
               onChange={(e) => handleOptionChange(idx, e.target.value)}
-              className="flex-1 px-2 py-1 border rounded"
+              className="input-base h-11 min-w-0 flex-1"
             />
-            <label className="text-sm whitespace-nowrap">Correct</label>
+            <label className="flex min-h-11 shrink-0 items-center gap-2 text-sm text-primary"><span>Correct</span>
             <input type="radio" name="correct" checked={correctIndex === idx} onChange={() => setCorrectIndex(idx)} />
+            </label>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
-          <label className="block text-sm font-semibold text-gray-700">Difficulty</label>
-          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="w-full px-2 py-2 border rounded">
+          <label className="mb-1 block text-sm font-semibold text-primary">Difficulty</label>
+          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="input-base h-11 w-full">
             <option value="EASY">EASY</option>
             <option value="MEDIUM">MEDIUM</option>
             <option value="HARD">HARD</option>
@@ -106,18 +107,18 @@ export default function QuestionUploader({
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700">Marks</label>
-          <input type="number" min="1" value={marks} onChange={(e) => setMarks(e.target.value)} className="w-full px-2 py-2 border rounded" />
+          <label className="mb-1 block text-sm font-semibold text-primary">Marks</label>
+          <input type="number" min="1" value={marks} onChange={(e) => setMarks(e.target.value)} className="input-base h-11 w-full" />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-700">Explanation (optional)</label>
-        <textarea value={explanation} onChange={(e) => setExplanation(e.target.value)} className="w-full px-2 py-2 border rounded" rows={3} />
+        <label className="mb-1 block text-sm font-semibold text-primary">Explanation (optional)</label>
+        <textarea value={explanation} onChange={(e) => setExplanation(e.target.value)} className="input-base min-h-24 w-full resize-y" rows={3} />
       </div>
 
       <div className="text-right">
-        <button type="submit" className="px-3 py-2 bg-indigo-600 text-white rounded font-semibold">
+        <button type="submit" className="min-h-11 bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary">
           Add Question
         </button>
       </div>

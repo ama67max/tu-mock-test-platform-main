@@ -9,6 +9,8 @@ const router = Router();
 
 router.get('/me', authMiddleware, userController.getMe);
 router.put('/me', authMiddleware, userController.updateMe);
+router.put('/profile', authMiddleware, userController.updateMe);
+router.post('/change-password', authMiddleware, userController.changePassword);
 
 // ── Admin User Management Routes ──────────────────────────────────────────────
 

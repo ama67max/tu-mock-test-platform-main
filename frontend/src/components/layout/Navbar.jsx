@@ -23,7 +23,7 @@ function getInitials(fullName = '') {
 
 function navLinkClasses({ isActive }) {
   return [
-    'px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-200',
+    'min-h-11 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-200',
     isActive
       ? 'text-primary bg-surface-container-high border-b-2 border-primary'
       : 'text-secondary hover:text-primary hover:bg-surface-container',
@@ -190,7 +190,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            className="inline-flex items-center justify-center rounded-lg p-2 text-secondary hover:text-primary hover:bg-surface-container transition-all focus:outline-none"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg p-2 text-secondary hover:text-primary hover:bg-surface-container transition-all focus:outline-none"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileMenuOpen}
           >

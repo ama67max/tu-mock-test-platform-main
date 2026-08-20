@@ -13,10 +13,32 @@ export default function UserTable({ users = [], loading = false, onToggleActive,
   }
 
   return (
-    <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded shadow-sm">
+    <div className="bg-surface-container-lowest">
+      <div className="space-y-3 p-3 md:hidden">
+        {users.map((u) => (
+          <article key={u.id} className="border border-surface-variant bg-surface-container p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="truncate text-sm font-bold text-primary">{u.fullName || u.name}</h3>
+                <p className="mt-1 break-words text-xs text-secondary">{u.email}</p>
+              </div>
+              <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-secondary">{u.role}</span>
+            </div>
+            <div className="mt-4 flex items-center justify-between gap-3 border-t border-surface-variant pt-3 text-xs">
+              <span className={u.isActive ? 'font-semibold text-primary' : 'font-semibold text-secondary'}>{u.isActive ? 'Active' : 'Inactive'}</span>
+              <div className="flex items-center gap-3">
+                <button onClick={() => onEdit && onEdit(u)} className="min-h-11 px-1 font-semibold text-primary underline-offset-4 hover:underline">Edit</button>
+                <button onClick={() => onToggleActive && onToggleActive(u.id)} className="min-h-11 px-1 font-semibold text-secondary hover:text-primary">Toggle</button>
+                <button onClick={() => onDelete && onDelete(u.id)} className="min-h-11 px-1 font-semibold text-secondary hover:text-primary">Delete</button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="hidden overflow-x-auto md:block">
       <table className="min-w-full text-sm">
         <thead>
-          <tr className="text-left text-xs text-gray-500 uppercase">
+          <tr className="text-left text-xs uppercase tracking-wider text-secondary">
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3">Email</th>
             <th className="px-4 py-3">Role</th>
@@ -26,20 +48,21 @@ export default function UserTable({ users = [], loading = false, onToggleActive,
         </thead>
         <tbody>
           {users.map((u) => (
-            <tr key={u.id} className="border-t border-gray-100 dark:border-gray-700">
+            <tr key={u.id} className="border-t border-surface-variant text-primary">
               <td className="px-4 py-3">{u.fullName || u.name}</td>
               <td className="px-4 py-3">{u.email}</td>
               <td className="px-4 py-3">{u.role}</td>
               <td className="px-4 py-3">{u.isActive ? 'Yes' : 'No'}</td>
               <td className="px-4 py-3">
-                <button onClick={() => onEdit && onEdit(u)} className="text-indigo-600 mr-3">Edit</button>
-                <button onClick={() => onToggleActive && onToggleActive(u.id)} className="text-sm mr-3">Toggle</button>
-                <button onClick={() => onDelete && onDelete(u.id)} className="text-red-600">Delete</button>
+                <button onClick={() => onEdit && onEdit(u)} className="mr-3 font-semibold text-primary underline-offset-4 hover:underline">Edit</button>
+                <button onClick={() => onToggleActive && onToggleActive(u.id)} className="mr-3 font-semibold text-secondary hover:text-primary">Toggle</button>
+                <button onClick={() => onDelete && onDelete(u.id)} className="font-semibold text-secondary hover:text-primary">Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

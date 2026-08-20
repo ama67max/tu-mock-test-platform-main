@@ -119,7 +119,7 @@ export default function ResultPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background text-primary flex items-center justify-center p-6">
-        <div className="max-w-md w-full rounded-2xl border border-surface-variant bg-surface-container-low p-8 text-center">
+        <div className="max-w-md w-full border border-border bg-surface-container-low p-8 text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-border-shared/20">
             <AlertTriangle size={20} className="text-primary" />
           </div>
@@ -143,7 +143,7 @@ export default function ResultPage() {
       {/* 60% — white canvas is the dominant surface the whole page sits on */}
       <div className="container mx-auto max-w-7xl px-4 py-10 lg:px-8">
         {/* Header — 30%: light zinc cards are the supporting surface layer */}
-        <div className="rounded-3xl border border-surface-variant bg-surface-container-low p-8">
+        <div className="border border-border bg-surface-container-low p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
@@ -164,7 +164,7 @@ export default function ResultPage() {
                 )}
               </div>
 
-              <h1 className="mt-2 text-4xl font-bold tracking-tight text-primary">Here's how you did</h1>
+              <h1 className="mt-2 text-4xl font-bold tracking-tight text-primary">Your score, broken down</h1>
               <p className="text-base text-secondary">
                 A full breakdown of your score, accuracy, and every question you answered.
               </p>
@@ -194,7 +194,7 @@ export default function ResultPage() {
         </div>
 
         <div className="mt-8 grid gap-6 md:grid-cols-4">
-          <div className="rounded-2xl border border-surface-variant bg-surface-container-low p-6">
+          <div className="border border-border bg-surface-container-low p-6">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-tertiary">Score</span>
               <Award className="text-primary/50" size={20} />
@@ -210,7 +210,7 @@ export default function ResultPage() {
             <p className="mt-2 text-xs text-secondary">Points earned across the exam</p>
           </div>
 
-          <div className="rounded-2xl border border-surface-variant bg-surface-container-low p-6">
+          <div className="border border-border bg-surface-container-low p-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-tertiary">Accuracy</span>
             <div className="mt-4 flex items-baseline gap-2">
               <span className="text-4xl font-bold text-primary">{stats.accuracy}%</span>
@@ -224,7 +224,7 @@ export default function ResultPage() {
             <p className="mt-2 text-xs text-secondary">Share of questions answered correctly</p>
           </div>
 
-          <div className="rounded-2xl border border-surface-variant bg-surface-container-low p-6">
+          <div className="border border-border bg-surface-container-low p-6">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-tertiary">Correct</span>
               <CheckCircle2 className="text-primary/60" size={20} />
@@ -235,7 +235,7 @@ export default function ResultPage() {
             <p className="mt-2 text-xs text-secondary">Answered correctly</p>
           </div>
 
-          <div className="rounded-2xl border border-surface-variant bg-surface-container-low p-6">
+          <div className="border border-border bg-surface-container-low p-6">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-tertiary">Incorrect</span>
               <XCircle className="text-tertiary" size={20} />
@@ -247,7 +247,7 @@ export default function ResultPage() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-3xl border border-surface-variant bg-surface-container-low p-8">
+        <div className="mt-8 border border-border bg-surface-container-low p-8">
           <div className="border-b border-surface-variant pb-6">
             <h2 className="text-2xl font-bold text-primary">Answer Review</h2>
             <p className="mt-1 text-sm text-secondary">See what you picked, what was correct, and why.</p>
@@ -257,7 +257,7 @@ export default function ResultPage() {
             {answers.map((a, idx) => (
               <div
                 key={a.questionId || idx}
-                className="rounded-2xl border border-surface-variant bg-surface-container-lowest p-6 transition-colors duration-150 hover:border-border-shared"
+                className="border border-border bg-surface-container-lowest p-6 transition-colors duration-150 hover:border-primary"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex-1 space-y-3">

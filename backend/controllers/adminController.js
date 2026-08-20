@@ -3,6 +3,13 @@ const analyticsService = require('../services/analyticsService');
 const { ApiResponse, ApiError } = require('../utils/apiResponse');
 const asyncHandler = require('../utils/asyncHandler');
 
+const csvValue = (value) => {
+  const stringValue = value == null ? '' : String(value);
+  return /[",\n]/.test(stringValue)
+    ? `"${stringValue.replace(/"/g, '""')}"`
+    : stringValue;
+};
+
 // ── Dashboard Overview ────────────────────────────────────────────────────────
 
 /**
@@ -38,6 +45,37 @@ const getOverview = asyncHandler(async (req, res) => {
   res.status(200).json(
     new ApiResponse(200, { stats, recentAttempts, recentUsers }, 'Overview fetched')
   );
+});
+
+const exportResults = asyncHandler(async (req, res) => {
+  const { examId } = req.query;
+  const attempts = await prisma.userAttempt.findMany({
+    where: {
+      ...(examId ? { examId } : {}),
+      status: { in: ['COMPLETED', 'TIME_UP'] },
+    },
+    include: {
+      user: { select: { fullName: true, email: true } },
+      exam: { select: { title: true } },
+    },
+    orderBy: { submittedAt: 'desc' },
+  });
+
+  const header = 'Attempt ID,Student,Exam,Score,Status,Submitted At';
+  const rows = attempts.map((attempt) => [
+    attempt.id,
+    `${attempt.user.fullName} <${attempt.user.email}>`,
+    attempt.exam.title,
+    attempt.score,
+    attempt.status,
+    attempt.submittedAt?.toISOString(),
+  ].map(csvValue).join(','));
+
+  res
+    .status(200)
+    .type('text/csv')
+    .set('Content-Disposition', 'attachment; filename="results.csv"')
+    .send([header, ...rows].join('\n'));
 });
 
 // ── Category CRUD ─────────────────────────────────────────────────────────────
@@ -153,6 +191,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
 
 module.exports = {
   getOverview,
+  exportResults,
   getCategories,
   createCategory,
   updateCategory,

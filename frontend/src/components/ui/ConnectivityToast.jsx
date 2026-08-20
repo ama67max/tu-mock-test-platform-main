@@ -59,7 +59,7 @@ const ConnectivityToast = ({
         <Wifi className="w-5 h-5" />
       );
     }
-  }, [isOnline]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isOnline]);
 
   // Position classes
   const positionClasses = {
