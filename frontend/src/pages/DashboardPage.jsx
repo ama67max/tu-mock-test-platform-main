@@ -52,7 +52,7 @@ function StatCard({ label, value, suffix, subtext, loading, delay = 0, icon, col
     <div 
       className={`
         relative overflow-hidden bg-surface-container-lowest 
-        border border-border p-5
+        rounded-lg border border-border p-5
         hover:border-primary transition-colors duration-300 ease-out
         group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
         transition-all duration-500
@@ -102,7 +102,7 @@ function SectionHeader({ eyebrow, title, action }) {
   return (
     <div className="mb-5 flex items-end justify-between">
       <div>
-        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-secondary/60 block mb-1">
+        <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.15em] text-secondary/60">
           {eyebrow}
         </span>
         <h2 className="font-headline text-xl font-bold text-primary tracking-tight">{title}</h2>
@@ -124,7 +124,7 @@ function ChartCard({ children, eyebrow, title, loading, delay = 0 }) {
   return (
     <div 
       className={`
-        bg-surface-container-lowest border border-border p-6
+        min-w-0 rounded-xl bg-surface-container-lowest border border-border p-4 shadow-sm sm:p-6
         hover:border-primary transition-colors duration-500
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
       `}
@@ -207,7 +207,10 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link to="/exams" className="btn-outline min-h-11 px-4 py-2.5 text-sm transition-transform duration-200 motion-safe:hover:-translate-y-0.5">
+              Browse mock exams
+            </Link>
             <div className={`
               bg-surface-container-highest px-4 py-2.5 rounded-xl flex items-center gap-2.5 
               border shadow-sm transition-all duration-300
@@ -235,7 +238,7 @@ export default function DashboardPage() {
 
         {/* ─── Empty State ───────────────────────────────────────── */}
         {hasNoData && (
-          <div className="mb-8 flex flex-col gap-5 border border-dashed border-surface-variant bg-surface-container-lowest/50 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="mb-8 flex flex-col gap-5 rounded-lg border border-dashed border-surface-variant bg-surface-container-lowest/50 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <span className="material-symbols-outlined mb-3 block text-3xl text-secondary/50">analytics</span>
               <h3 className="mb-1 font-headline text-lg font-bold text-primary">Your first baseline is waiting</h3>
@@ -292,7 +295,7 @@ export default function DashboardPage() {
         {/* ─── Bento Charts & History Layout ─────────────────────── */}
         <div className="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
           <div className="space-y-6">
-            <div className="grid gap-6 lg:grid-cols-2">
+            <div className="grid min-w-0 gap-6 lg:grid-cols-2">
               <ChartCard 
                 eyebrow="Score Trends" 
                 title="Progression Curve" 

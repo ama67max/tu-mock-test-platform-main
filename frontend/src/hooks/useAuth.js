@@ -15,6 +15,7 @@ export function useAuth() {
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
 
   useEffect(() => {
+    if (import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) return;
     if (!hasInitialized) {
       hasInitialized = true;
       initializeAuth();

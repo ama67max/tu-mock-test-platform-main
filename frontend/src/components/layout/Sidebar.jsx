@@ -21,7 +21,7 @@ function Sidebar() {
 
   return (
     <aside
-      className={`flex flex-col h-screen transition-all duration-300 bg-surface-container-low border-r border-surface-container-highest sticky top-0 shrink-0 ${
+      className={`sticky top-0 flex h-screen shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-low transition-all duration-300 ${
         isSidebarCollapsed ? 'w-16' : 'w-64'
       }`}
     >
@@ -47,7 +47,7 @@ function Sidebar() {
             title={isSidebarCollapsed ? link.label : undefined}
             className={({ isActive }) =>
               [
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
+                'flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-all duration-200',
                 isActive
                   ? 'bg-primary text-on-primary active:scale-[0.98]'
                   : 'text-secondary hover:bg-surface-container-high hover:text-primary active:scale-[0.98]',

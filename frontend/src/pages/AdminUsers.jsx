@@ -1,34 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import UserTable from '../components/admin/UserTable';
 import * as adminApi from '../api/adminApi';
 import AdminUserEditModal from '../components/admin/AdminUserEditModal';
+import { useAdminUsersData } from '../hooks/useAdminData';
 
 export default function AdminUsers() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let mounted = true;
-    async function load() {
-      setLoading(true);
-      try {
-        const res = await adminApi.getUsers({ page: 1, limit: 50 });
-        if (!mounted) return;
-        setUsers(res?.data || []);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    }
-    load();
-    return () => (mounted = false);
-  }, []);
+  const { users, isLoading: loading, refresh } = useAdminUsersData();
 
   async function handleToggle(id) {
     try {
       await adminApi.updateUser(id, { toggleActive: true });
-      setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, isActive: !u.isActive } : u)));
+      await refresh();
     } catch (e) {
       console.error(e);
     }
@@ -38,7 +20,7 @@ export default function AdminUsers() {
     if (!confirm('Delete user?')) return;
     try {
       await adminApi.deleteUser(id);
-      setUsers((prev) => prev.filter((u) => u.id !== id));
+      await refresh();
     } catch (e) {
       console.error(e);
     }
@@ -53,13 +35,13 @@ export default function AdminUsers() {
   };
 
   const handleSaved = (updatedUser) => {
-    setUsers((prev) => prev.map((u) => (u.id === updatedUser.id ? { ...u, ...updatedUser } : u)));
+    refresh();
   };
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-[1440px] space-y-6">
       {/* Header */}
-      <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-variant pb-6">
+      <header className="flex flex-col justify-between gap-4 rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm sm:flex-row sm:items-end sm:p-6">
         <div>
           <h2 className="font-headline text-3xl font-black text-primary">User Management</h2>
           <p className="font-sans text-sm text-secondary mt-1">
@@ -72,7 +54,7 @@ export default function AdminUsers() {
       </header>
 
       {/* User Table */}
-      <div className="bg-surface-container-lowest border border-border overflow-hidden">
+      <div className="overflow-hidden rounded-xl bg-surface-container-lowest border border-border shadow-sm">
         <UserTable users={users} loading={loading} onToggleActive={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
 

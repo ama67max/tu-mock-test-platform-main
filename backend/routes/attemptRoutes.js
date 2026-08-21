@@ -2,6 +2,8 @@ const { Router } = require('express');
 const attemptController = require('../controllers/attemptController');
 const validate = require('../middleware/validateMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
+const config = require('../config/env');
+const { requireVerifiedPhone } = require('../middleware/requireVerifiedPhone');
 const {
   startAttemptSchema,
   submitAnswerSchema,
@@ -30,6 +32,7 @@ router.post(
 
 router.post(
   '/finish',
+  ...(config.AUTH_PROVIDER === 'clerk' ? [requireVerifiedPhone] : []),
   validate({ body: finishAttemptSchema }),
   attemptController.finishAttempt
 );

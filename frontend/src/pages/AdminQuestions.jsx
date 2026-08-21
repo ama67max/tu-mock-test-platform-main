@@ -54,8 +54,8 @@ export default function AdminQuestions() {
   }
 
   return (
-    <div className="space-y-6">
-      <header className="border-b border-surface-variant pb-6">
+    <div className="mx-auto max-w-[1440px] space-y-6">
+      <header className="rounded-xl border border-border bg-surface-container-lowest p-5 shadow-sm sm:p-6">
         <h2 className="font-headline text-3xl font-black text-primary">Question Bank</h2>
         <p className="font-sans text-sm text-secondary mt-1">
           Upload, manage, and organize exam questions for TU mock test sets.
@@ -63,12 +63,12 @@ export default function AdminQuestions() {
       </header>
 
       {errors.length > 0 && (
-        <div className="border border-primary bg-surface-container-highest p-3 text-sm text-primary">
+        <div className="rounded-lg border border-primary bg-surface-container-highest p-3 text-sm text-primary">
           {errors.join(', ')}
         </div>
       )}
 
-      <div className="bg-surface-container-lowest border border-border p-6">
+      <div className="rounded-xl bg-surface-container-lowest border border-border p-4 shadow-sm sm:p-6">
         <div className="mb-6 border-b border-surface-variant pb-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Single Entry</span>
           <h3 className="font-headline text-xl font-bold text-primary mt-1">Add Question</h3>
@@ -81,7 +81,7 @@ export default function AdminQuestions() {
         />
       </div>
 
-      <div className="bg-surface-container-lowest border border-border p-6">
+      <div className="rounded-xl bg-surface-container-lowest border border-border p-4 shadow-sm sm:p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-surface-variant pb-4 mb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-secondary">Batch Import</span>

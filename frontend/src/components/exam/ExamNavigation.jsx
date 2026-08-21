@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 function ExamNavigation({
   questions = [],
@@ -43,7 +43,10 @@ function ExamNavigation({
   };
 
   return (
-    <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
+    <nav
+      aria-label="Exam question navigation"
+      className="rounded-lg border border-surface-variant bg-surface-container-lowest p-4 transition-colors duration-200 sm:p-6"
+    >
       <div className="flex items-center justify-between gap-4 border-b border-surface-variant pb-4">
         <div>
           <h3 className="text-xs font-bold uppercase tracking-wider text-secondary">Navigation</h3>
@@ -66,8 +69,9 @@ function ExamNavigation({
             key={question?._id || question?.id || index}
             type="button"
             onClick={() => onSelect?.(index)}
-            className={getButtonClass(index)}
-            title={`Question ${index + 1}`}
+            aria-label={`Question ${index + 1}${index === currentIndex ? ', current question' : ''}`}
+            aria-current={index === currentIndex ? 'step' : undefined}
+            className={`${getButtonClass(index)} min-h-11 min-w-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
           >
             {index + 1}
           </button>
@@ -92,7 +96,7 @@ function ExamNavigation({
           <span>Current</span>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 

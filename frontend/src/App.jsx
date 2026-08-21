@@ -20,10 +20,12 @@ const VagueGrid = lazy(() => import('./pages/VagueGrid'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminUsers = lazy(() => import('./pages/AdminUsers'));
 const AdminExams = lazy(() => import('./pages/AdminExams'));
+const AdminExamEditor = lazy(() => import('./pages/AdminExamEditor'));
 const AdminQuestions = lazy(() => import('./pages/AdminQuestions'));
 const AdminAnalytics = lazy(() => import('./pages/AdminAnalytics'));
 const IndexedDBDemo = lazy(() => import('./pages/IndexedDBDemo'));
 const OfflineDemo = lazy(() => import('./pages/OfflineDemo'));
+const VerifyPhonePage = lazy(() => import('./pages/VerifyPhonePage'));
 
 function PageLoader() {
   return (
@@ -42,6 +44,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-phone" element={<VerifyPhonePage />} />
           <Route path="/demo/indexeddb" element={<IndexedDBDemo />} />
           <Route path="/demo/offline" element={<OfflineDemo />} />
           <Route path="/vague-grid" element={<VagueGrid />} />
@@ -68,6 +71,7 @@ function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="exams" element={<AdminExams />} />
+          <Route path="exams/:examId/edit" element={<AdminExamEditor />} />
           <Route path="questions" element={<AdminQuestions />} />
           <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="iddb" element={<IndexedDBDemo />} />

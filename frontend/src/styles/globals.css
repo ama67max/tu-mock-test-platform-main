@@ -381,6 +381,19 @@
     animation-delay: 180ms;
   }
 
+  .exam-card-reveal {
+    opacity: 0;
+    animation: page-reveal 700ms cubic-bezier(.2,.9,.2,1) both;
+  }
+
+  .exam-card-reveal:nth-child(2n) {
+    animation-delay: 90ms;
+  }
+
+  .exam-card-reveal:nth-child(3n) {
+    animation-delay: 160ms;
+  }
+
   .formula-field {
     position: absolute;
     inset: 0;

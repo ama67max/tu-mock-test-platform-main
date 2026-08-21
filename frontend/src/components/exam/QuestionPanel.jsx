@@ -46,7 +46,7 @@ function QuestionPanel({
       : [];
 
   return (
-    <div className="border border-border bg-surface-container-lowest p-5 sm:p-7">
+    <div className="rounded-lg border border-border bg-surface-container-lowest p-5 sm:p-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-2">
           <span className="inline-flex border border-border bg-surface-container-highest px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-secondary">

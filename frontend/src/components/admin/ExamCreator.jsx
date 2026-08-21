@@ -1,6 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as adminApi from '../../api/adminApi';
 import LoadingSpinner from '../common/LoadingSpinner';
+
+export function normalizeQuestionResponse(response) {
+  const payload = response?.data?.data || response?.data || response;
+  const questions = Array.isArray(payload)
+    ? payload
+    : Array.isArray(payload?.questions)
+      ? payload.questions
+      : [];
+
+  return {
+    questions,
+    total: Number(payload?.total) || questions.length,
+    pages: Number(payload?.pages) || (questions.length ? 1 : 0),
+  };
+}
 
 export default function ExamCreator({ onSubmit, initial = {}, submitting = false }) {
   const [title, setTitle] = useState(initial.title || '');
@@ -24,6 +39,7 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
   const [showCreateCategory, setShowCreateCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [creatingCategory, setCreatingCategory] = useState(false);
+  const hasInitializedCategory = useRef(false);
 
   useEffect(() => {
     loadCategories();
@@ -33,9 +49,10 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
     if (categoryId) {
       // ensure primary category is included in source categories
       setQuestionSourceCategories((prev) => (prev && prev.length ? (prev.includes(categoryId) ? prev : [categoryId, ...prev]) : [categoryId]));
-      setQuestionIds([]);
-      // load questions from currently selected source categories (which will include primary)
-      loadQuestions(questionSourceCategories.length ? questionSourceCategories : [categoryId]);
+      if (hasInitializedCategory.current) {
+        setQuestionIds([]);
+      }
+      hasInitializedCategory.current = true;
     } else {
       setAvailableQuestions([]);
     }
@@ -49,7 +66,7 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
       return;
     }
     loadQuestions(questionSourceCategories);
-  }, [questionSourceCategories]);
+  }, [categoryId, questionSourceCategories]);
 
   async function loadCategories() {
     try {
@@ -71,12 +88,23 @@ export default function ExamCreator({ onSubmit, initial = {}, submitting = false
       const combined = [];
       for (const id of ids) {
         try {
-          const res = await adminApi.getQuestions({ categoryId: id, limit: 200 });
-          const payload = res?.data || res;
-          const questionList = Array.isArray(payload)
-            ? payload
-            : payload?.questions || payload?.data || [];
-          combined.push(...questionList);
+          const firstResponse = await adminApi.getQuestions({
+            categoryId: id,
+            page: 1,
+            limit: 100,
+          });
+          const firstPage = normalizeQuestionResponse(firstResponse);
+          combined.push(...firstPage.questions);
+
+          const totalPages = Math.max(firstPage.pages, 1);
+          for (let page = 2; page <= totalPages; page += 1) {
+            const pageResponse = await adminApi.getQuestions({
+              categoryId: id,
+              page,
+              limit: 100,
+            });
+            combined.push(...normalizeQuestionResponse(pageResponse).questions);
+          }
         } catch (innerErr) {
           console.warn('Failed to load questions for category', id, innerErr);
         }

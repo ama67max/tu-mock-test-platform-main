@@ -70,8 +70,8 @@ export default function PerformanceChart({
   }
 
   return (
-    <div className="rounded-[24px] p-3">
-      <ResponsiveContainer width="100%" height={height}>
+    <div className="h-[220px] min-w-0 rounded-lg p-1 sm:h-[280px] lg:h-[320px]">
+      <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 12, right: 18, left: 0, bottom: 6 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} />
           <XAxis
@@ -107,7 +107,7 @@ export default function PerformanceChart({
             labelFormatter={(label) => safeFormatDate(label, dateFormat)}
             formatter={(value, name) => [value, name === 'avgScore' ? 'Avg Score' : name === 'attempts' ? 'Attempts' : name]}
           />
-          <Legend wrapperStyle={{ color: chartColors.text, fontWeight: 700 }} />
+          <Legend wrapperStyle={{ color: chartColors.text, fontWeight: 700, fontSize: 11 }} />
 
           <Area
             type="monotone"

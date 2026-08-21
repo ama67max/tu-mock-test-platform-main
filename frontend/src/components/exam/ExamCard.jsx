@@ -17,7 +17,7 @@ function ExamCard({
   const isPublished = exam.isPublished ?? true;
 
   return (
-    <div className="group relative border border-border bg-surface-container-lowest p-6 transition-colors duration-300 hover:border-primary">
+    <article className="exam-card-reveal group relative flex h-full flex-col rounded-lg border border-border bg-surface-container-lowest p-6 transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-primary hover:shadow-md">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -66,7 +66,7 @@ function ExamCard({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-surface-variant">
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-surface-variant pt-4">
         <div>
           <p className="text-xs text-secondary">
             {exam.passingMarks ? `Passing Mark: ${exam.passingMarks}` : 'Ready to begin'}
@@ -95,7 +95,7 @@ function ExamCard({
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

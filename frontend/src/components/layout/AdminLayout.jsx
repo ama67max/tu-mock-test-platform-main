@@ -84,7 +84,7 @@ function AdminLayout() {
       )}
 
       {/* ── Main Content Area ───────────────────────────────────────────── */}
-      <div className="flex flex-1 flex-col overflow-auto min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col overflow-auto">
         {/* Sticky top bar */}
         <header className="sticky top-0 z-10 flex h-16 items-center justify-between bg-surface-container-lowest/95 backdrop-blur-sm border-b border-surface-variant px-4 sm:px-6">
           <div className="flex items-center gap-3">
@@ -126,7 +126,7 @@ function AdminLayout() {
         </header>
 
         {/* Page content */}
-        <div className="flex-1 p-4 sm:p-6 bg-background">
+        <div className="flex-1 bg-background p-3 sm:p-6 lg:p-8">
           <Outlet />
         </div>
       </div>

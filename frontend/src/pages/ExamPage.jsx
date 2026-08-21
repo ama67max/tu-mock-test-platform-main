@@ -232,7 +232,7 @@ function ExamPage() {
   if (initError) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background p-6 text-on-surface">
-        <div className="w-full max-w-md rounded-xl border border-surface-variant bg-surface-container-lowest p-6 text-center shadow-sm">
+        <div className="w-full max-w-md rounded-lg border border-surface-variant bg-surface-container-lowest p-6 text-center shadow-sm">
           <WifiOff className="mx-auto mb-4 h-10 w-10 text-primary" />
           <h2 className="text-subheading font-bold text-on-surface">Unavailable Offline</h2>
           <p className="mt-2 text-body text-secondary">{initError}</p>
@@ -256,11 +256,11 @@ function ExamPage() {
     <div className="min-h-screen bg-background text-on-surface">
       <OfflineIndicator variant="compact" position="top-right" showOnline={false} />
 
-      <main className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 border-b border-border pb-6 md:flex-row md:items-end">
+      <main aria-labelledby="exam-session-title" className="mx-auto max-w-[1280px] px-3 py-4 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm sm:mb-8 sm:p-6 md:flex-row md:items-end">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <span className="inline-flex border border-primary bg-primary px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-on-primary">
+              <span className="inline-flex rounded-full border border-primary bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-on-primary">
                 Mock test in progress
               </span>
 
@@ -277,7 +277,7 @@ function ExamPage() {
               )}
             </div>
 
-            <h1 className="font-headline text-heading font-bold text-primary">
+            <h1 id="exam-session-title" className="font-headline text-heading font-bold text-primary page-reveal">
               {examState.exam?.title || 'Mock Examination'}
             </h1>
             <p className="mt-1 text-body text-secondary">
@@ -289,6 +289,7 @@ function ExamPage() {
             <Button
               variant="secondary"
               size="sm"
+              className="min-h-11 w-full sm:w-auto"
               onClick={() => {
                 if (confirm('Are you sure you want to exit? Unsubmitted progress is stored locally.')) {
                   navigate('/exams');
@@ -307,7 +308,7 @@ function ExamPage() {
         )}
 
         <div className="mt-8 grid gap-6 xl:grid-cols-[1.4fr_0.85fr]">
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-5 page-reveal page-reveal-delay-1 sm:space-y-6">
             <ExamTimer seconds={examState.timeRemainingSeconds || 0} label="Time Remaining" />
 
             <QuestionPanel
@@ -320,27 +321,27 @@ function ExamPage() {
               onToggleReview={handleToggleReview}
             />
 
-            <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
+            <div className="rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <span className="text-xs font-bold uppercase tracking-wider text-secondary">
                   Question {examState.currentIndex + 1} of {examState.questions.length}
                 </span>
 
-                <div className="flex items-center gap-3">
+                <div className="flex w-full items-stretch gap-2 sm:w-auto sm:items-center sm:gap-3">
                   <Button
                     variant="secondary"
                     disabled={examState.currentIndex === 0}
                     onClick={() => examState.prevQuestion()}
                   >
                     <ChevronLeft size={16} />
-                    <span>Previous</span>
+                    <span className="hidden sm:inline">Previous</span>
                   </Button>
 
                   <Button
                     disabled={examState.currentIndex === examState.questions.length - 1}
                     onClick={() => examState.nextQuestion()}
                   >
-                    <span>Next</span>
+                    <span className="hidden sm:inline">Next</span>
                     <ChevronRight size={16} />
                   </Button>
                 </div>
@@ -359,7 +360,7 @@ function ExamPage() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-5 page-reveal page-reveal-delay-2 sm:space-y-6 xl:sticky xl:top-20 xl:self-start">
             <ExamNavigation
               questions={examState.questions}
               currentIndex={examState.currentIndex}
@@ -368,7 +369,7 @@ function ExamPage() {
               onSelect={examState.goToQuestion}
             />
 
-            <div className="border border-border bg-surface-container-lowest p-4 sm:p-6">
+            <div className="rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm sm:p-6">
               <div className="space-y-4">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-secondary">

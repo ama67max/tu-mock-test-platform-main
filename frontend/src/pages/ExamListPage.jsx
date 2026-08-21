@@ -130,11 +130,11 @@ function ExamListPage() {
     <div className="min-h-screen bg-background text-on-surface">
       <OfflineIndicator variant="compact" position="top-right" showOnline={false} />
 
-      <main className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main aria-labelledby="exam-library-title" className="max-w-[1200px] mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8 border-b border-surface-variant pb-6">
           <div>
-            <h1 className="font-headline text-3xl font-black text-primary">Available Mock Exams</h1>
+            <h1 id="exam-library-title" className="font-headline text-3xl font-black text-primary page-reveal">Available Mock Exams</h1>
             <p className="font-sans text-sm text-secondary mt-1">Choose an exam to start practice. Cached exams remain accessible even when disconnected.</p>
           </div>
 
@@ -147,9 +147,10 @@ function ExamListPage() {
 
         {/* Search & Cache Status Bar */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-          <div className="relative w-full sm:flex-1">
+          <div className="relative w-full sm:flex-1 page-reveal page-reveal-delay-1">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-secondary" size={18} />
             <input
+              aria-label="Search mock exams"
               type="text"
               placeholder="Search mock exams..."
               value={searchQuery}
@@ -182,7 +183,7 @@ function ExamListPage() {
             <LoadingSpinner size="lg" label="Loading mock exams..." />
           </div>
         ) : error ? (
-          <div className="mt-8 border border-primary bg-surface-container-highest p-8 text-center">
+          <div className="mt-8 rounded-lg border border-primary bg-surface-container-highest p-8 text-center">
             <p className="text-base text-primary">{error}</p>
             <button
               type="button"
@@ -193,7 +194,7 @@ function ExamListPage() {
             </button>
           </div>
         ) : filteredExams.length === 0 ? (
-          <div className="mt-8 border border-dashed border-surface-variant bg-surface-container-low p-8 text-center text-secondary sm:p-12">
+          <div className="mt-8 rounded-lg border border-dashed border-surface-variant bg-surface-container-low p-8 text-center text-secondary sm:p-12">
             <HardDriveDownload size={28} className="mx-auto mb-4 text-secondary/60" aria-hidden="true" />
             <p className="text-base font-medium text-primary">No exams found matching your query.</p>
             <p className="mx-auto mt-2 max-w-md text-sm leading-6">Published mock exams will appear here, and saved exams remain available when you are offline.</p>
@@ -206,7 +207,7 @@ function ExamListPage() {
             </button>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div aria-live="polite" className="grid gap-6 md:grid-cols-2">
             {filteredExams.map((exam) => {
               const examId = String(exam.id || exam._id);
               const isCached = cachedExamIds.has(examId);

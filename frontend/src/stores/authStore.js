@@ -7,6 +7,7 @@ export const useAuthStore = create((set, get) => ({
   accessToken: null,
   isAuthenticated: false,
   isInitializing: true,
+  tokenProvider: null,
 
   // ── Actions ──────────────────────────────────────────────────────────
   login: (user, accessToken) =>
@@ -28,6 +29,10 @@ export const useAuthStore = create((set, get) => ({
       accessToken,
       isAuthenticated: Boolean(accessToken),
     }),
+
+  setTokenProvider: (tokenProvider) => set({ tokenProvider }),
+
+  setInitializing: (isInitializing) => set({ isInitializing }),
 
   setUser: (user) => set({ user }),
 

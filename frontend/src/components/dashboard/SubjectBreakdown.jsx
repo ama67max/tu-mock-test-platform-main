@@ -59,9 +59,9 @@ export default function SubjectBreakdown({
   const sorted = [...data].sort((a, b) => b.avgScore - a.avgScore);
 
   return (
-    <div className="rounded-[24px] p-3">
-      <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={sorted} layout="vertical" margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
+    <div className="h-[260px] min-w-0 rounded-lg p-1 sm:h-[300px] lg:h-[320px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={sorted} layout="vertical" margin={{ top: 10, right: 24, left: 4, bottom: 10 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} />
           <XAxis
             type="number"
@@ -73,8 +73,9 @@ export default function SubjectBreakdown({
           <YAxis
             type="category"
             dataKey="subject"
-            width={180}
-            tick={{ fill: chartColors.text, fontSize: 12, fontWeight: 700 }}
+            width={96}
+            tickFormatter={(value) => String(value).length > 14 ? `${String(value).slice(0, 14)}...` : value}
+            tick={{ fill: chartColors.text, fontSize: 11, fontWeight: 700 }}
             tickLine={false}
             axisLine={false}
           />
@@ -85,7 +86,7 @@ export default function SubjectBreakdown({
             cursor={{ fill: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)' }}
             formatter={(value, name) => [value, name === 'avgScore' ? 'Avg Score' : 'Questions']}
           />
-          <Legend wrapperStyle={{ color: chartColors.text, fontWeight: 700 }} />
+          <Legend wrapperStyle={{ color: chartColors.text, fontWeight: 700, fontSize: 11 }} />
 
           <Bar dataKey="avgScore" name="Avg Score" fill={chartColors.score} barSize={20}>
             <LabelList dataKey="avgScore" position="right" formatter={(val) => `${val}%`} fill={chartColors.text} />

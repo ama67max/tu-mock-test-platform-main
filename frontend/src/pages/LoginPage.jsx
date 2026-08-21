@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import LoginForm from '../components/auth/LoginForm';
 import { useAuth } from '../hooks/useAuth';
+import { SignIn } from '@clerk/react';
 
 function LoginPage() {
   const { isAuthenticated, isInitializing } = useAuth();
@@ -36,7 +37,9 @@ function LoginPage() {
           </p>
         </div>
 
-        <LoginForm />
+        {import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ? (
+          <SignIn routing="path" path="/login" fallbackRedirectUrl="/dashboard" />
+        ) : <LoginForm />}
 
         <div className="mt-8 space-y-4 text-center">
           <div className="flex justify-center gap-4">

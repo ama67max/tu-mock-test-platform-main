@@ -1,8 +1,10 @@
 const dotenv = require('dotenv');
 const { z } = require('zod');
+const path = require('path');
+const { normalizeOrigin } = require('../utils/corsOrigin');
 
-// Load .env file into process.env
-dotenv.config();
+// Always load the backend env file, regardless of the shell's current directory.
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const envSchema = z.object({
   // Server
@@ -15,6 +17,18 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
+
+  // Authentication provider
+  AUTH_PROVIDER: z
+    .enum(['legacy', 'clerk'])
+    .default('legacy'),
+
+  CLERK_SECRET_KEY: z
+    .string()
+    .refine((value) => value.startsWith('sk_'), {
+      message: 'CLERK_SECRET_KEY must be a Clerk secret key beginning with sk_',
+    })
+    .optional(),
 
   // Database
   DATABASE_URL: z
@@ -59,6 +73,10 @@ const envSchema = z.object({
     .url()
     .default('http://localhost:5173'),
 
+  CLERK_AUTHORIZED_PARTIES: z
+    .string()
+    .default(''),
+
   // Rate Limiting
   RATE_LIMIT_WINDOW_MS: z
     .string()
@@ -81,9 +99,23 @@ const envSchema = z.object({
 // Parse and validate; throws ZodError on failure (crashes app intentionally)
 const parsed = envSchema.parse(process.env);
 
+if (parsed.AUTH_PROVIDER === 'clerk' && !parsed.CLERK_SECRET_KEY) {
+  throw new Error(
+    'CLERK_SECRET_KEY is required when AUTH_PROVIDER=clerk. Add the sk_test_ or sk_live_ key to backend/.env; the pk_ key belongs only in frontend/.env.'
+  );
+}
+
 // Freeze to prevent runtime mutation
 const config = Object.freeze({
   ...parsed,
+
+  clerkAuthorizedParties: [
+    parsed.FRONTEND_URL,
+    ...parsed.CLERK_AUTHORIZED_PARTIES.split(',').map((origin) => origin.trim()).filter(Boolean),
+    ...(parsed.NODE_ENV === 'development'
+      ? ['http://localhost:5173', 'http://127.0.0.1:5173']
+      : []),
+  ].map(normalizeOrigin).filter((origin, index, origins) => origin && origins.indexOf(origin) === index),
 
   // Convenience booleans
   isDevelopment: parsed.NODE_ENV === 'development',

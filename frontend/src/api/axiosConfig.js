@@ -15,7 +15,13 @@ const axiosInstance = axios.create({
 // ── Request Interceptor: attach access token ──────────────────────────────
 axiosInstance.interceptors.request.use(
   (config) => {
-    const { accessToken } = useAuthStore.getState();
+    const { accessToken, tokenProvider } = useAuthStore.getState();
+    if (tokenProvider) {
+      return Promise.resolve(tokenProvider()).then((token) => {
+        if (token) config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      });
+    }
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -48,8 +54,14 @@ axiosInstance.interceptors.response.use(
     const isAuthEndpoint =
       originalRequest?.url?.includes('/auth/refresh') ||
       originalRequest?.url?.includes('/auth/login');
+    const isClerkMode = Boolean(import.meta.env.VITE_CLERK_PUBLISHABLE_KEY)
+      || import.meta.env.VITE_AUTH_PROVIDER === 'clerk';
 
-    if (status !== 401 || isAuthEndpoint || originalRequest._retry) {
+    if (error.response?.data?.code === 'PHONE_VERIFICATION_REQUIRED') {
+      window.dispatchEvent(new CustomEvent('phone-verification-required'));
+    }
+
+    if (status !== 401 || isAuthEndpoint || originalRequest._retry || isClerkMode) {
       return Promise.reject(error);
     }
 

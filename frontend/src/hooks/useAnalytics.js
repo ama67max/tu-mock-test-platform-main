@@ -12,15 +12,9 @@ import {
   systemAnalyticsFetcher,
   categoryBreakdownFetcher,
 } from '../utils/fetchers';
+import SWR_CONFIG from './swrConfig';
 
 // ── SWR Configuration ────────────────────────────────────────────────────────
-const SWR_CONFIG = {
-  revalidateOnFocus: false,
-  revalidateOnReconnect: false,
-  dedupingInterval: 20000, // 20 seconds
-  shouldRetryOnError: false,
-};
-
 // ── useMyAnalytics Hook ───────────────────────────────────────────────────────
 
 /**
@@ -36,8 +30,6 @@ export function useMyAnalytics(options = {}) {
       ...SWR_CONFIG,
       // Refresh on reconnect since user might have submitted exam
       revalidateOnReconnect: true,
-      // Consider data fresh for 1 minute
-      staleTime: 60 * 1000,
       ...options,
     }
   );
@@ -65,8 +57,6 @@ export function useMyTrends(days = 30, options = {}) {
     () => myTrendsFetcher(days),
     {
       ...SWR_CONFIG,
-      // Trends are historical data - cache longer
-      staleTime: 5 * 60 * 1000,
       ...options,
     }
   );
@@ -96,9 +86,7 @@ export function useMyResults(params = {}, options = {}) {
     () => myResultsFetcher(params),
     {
       ...SWR_CONFIG,
-      // Results change when new attempts complete
       revalidateOnReconnect: true,
-      staleTime: 60 * 1000,
       ...options,
     }
   );
@@ -127,7 +115,6 @@ export function useSystemAnalytics(options = {}) {
     systemAnalyticsFetcher,
     {
       ...SWR_CONFIG,
-      staleTime: 5 * 60 * 1000,
       ...options,
     }
   );
@@ -153,7 +140,6 @@ export function useCategoryBreakdown(options = {}) {
     categoryBreakdownFetcher,
     {
       ...SWR_CONFIG,
-      staleTime: 5 * 60 * 1000,
       ...options,
     }
   );

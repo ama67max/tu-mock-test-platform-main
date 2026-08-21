@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import RegisterForm from '../components/auth/RegisterForm';
 import { useAuth } from '../hooks/useAuth';
+import { SignUp } from '@clerk/react';
 
 function RegisterPage() {
   const { isAuthenticated, isInitializing } = useAuth();
@@ -36,7 +37,9 @@ function RegisterPage() {
           </p>
         </div>
 
-        <RegisterForm />
+        {import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ? (
+          <SignUp routing="path" path="/register" fallbackRedirectUrl="/dashboard" />
+        ) : <RegisterForm />}
 
         <div className="mt-8 text-center">
           <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-secondary">

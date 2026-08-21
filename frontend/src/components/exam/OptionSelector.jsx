@@ -3,7 +3,7 @@ import { Check } from 'lucide-react';
 function OptionSelector({ value, label, checked = false, onChange, groupName = 'question-option', optionLetter = 'A' }) {
   return (
     <label
-      className={`group relative flex cursor-pointer items-start gap-4 border p-4 transition-colors duration-150 ease-out ${
+      className={`group relative flex min-h-11 cursor-pointer items-start gap-4 border p-4 transition-[background-color,border-color,transform] duration-200 ease-out motion-safe:hover:-translate-y-0.5 ${
         checked
           ? 'border-primary bg-primary text-on-primary shadow-sm'
           : 'border-border bg-surface-container-low hover:border-primary hover:bg-surface-container'

@@ -4,6 +4,7 @@ const cors = require('cors');
 const compression = require('compression');
 const config = require('./config/env');
 const logger = require('./config/logger');
+const { createOriginChecker } = require('./utils/corsOrigin');
 
 // ── Route Imports ─────────────────────────────────────────────────────────────
 const authRoutes = require('./routes/authRoutes');
@@ -28,7 +29,10 @@ app.set('trust proxy', 1);
 app.use(helmet());
 app.use(
   cors({
-    origin: config.FRONTEND_URL,
+    origin: createOriginChecker(config.clerkAuthorizedParties, {
+      allowGithubCodespaces: config.isDevelopment,
+      allowAllOrigins: config.isDevelopment,
+    }),
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

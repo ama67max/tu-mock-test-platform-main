@@ -48,6 +48,19 @@ cd frontend
 npm test
 ```
 
+Clerk authentication
+
+The application can use Clerk for Google, email, and phone authentication without changing the Prisma schema. Configure the backend and frontend variables from the example files:
+
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+```
+
+Set `AUTH_PROVIDER=clerk`, `CLERK_SECRET_KEY`, and `VITE_CLERK_PUBLISHABLE_KEY`. In the Clerk dashboard, enable the Google, email, and phone providers and configure the local and production origins. The backend verifies Clerk sessions and resolves the existing local user by verified email.
+
+Students can start an attempt and save answers before phone verification, but the backend rejects manual exam submission and all result/history/answer reads with `PHONE_VERIFICATION_REQUIRED` until Clerk reports a verified phone number. Automatic time-expiry finalization remains available for exam integrity; its result is still protected by the same verification gate.
+
 Contributing
 
 Follow the project's single-file task workflow: create a `.md` spec next to any new file, then implement the file and add tests.

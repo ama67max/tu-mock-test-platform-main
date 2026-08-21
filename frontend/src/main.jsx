@@ -5,8 +5,10 @@ import { Toaster } from 'react-hot-toast';
 import App from './App.jsx';
 import { GlobalLoadingOverlay } from './components/common/LoadingSpinner.jsx';
 import PWAInstallPrompt from './components/common/PWAInstallPrompt.jsx';
+import ClerkAuthBridge from './components/auth/ClerkAuthBridge.jsx';
 import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import './styles/globals.css';
+import { ClerkProvider } from '@clerk/react';
 
 // Initialize Service Worker for PWA
 import './utils/registerSW.js';
@@ -47,15 +49,30 @@ function ThemedToaster() {
   );
 }
 
+function AppProviders() {
+  const content = (
+    <ThemeProvider>
+      <App />
+      <GlobalLoadingOverlay />
+      <ThemedToaster />
+      <PWAInstallPrompt />
+    </ThemeProvider>
+  );
+
+  return import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+    ? (
+      <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+        <ClerkAuthBridge />
+        {content}
+      </ClerkProvider>
+    )
+    : content;
+}
+
 createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <App />
-        <GlobalLoadingOverlay />
-        <ThemedToaster />
-        <PWAInstallPrompt />
-      </ThemeProvider>
+      <AppProviders />
     </BrowserRouter>
   </React.StrictMode>
 );

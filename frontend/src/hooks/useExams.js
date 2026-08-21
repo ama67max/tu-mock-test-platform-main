@@ -5,19 +5,9 @@
 
 import useSWR from 'swr';
 import { examsFetcher, examDetailFetcher } from '../utils/fetchers';
+import SWR_CONFIG from './swrConfig';
 
 // ── SWR Configuration ────────────────────────────────────────────────────────
-const SWR_CONFIG = {
-  // Don't refetch on window focus (prevents unnecessary API calls)
-  revalidateOnFocus: false,
-  // Don't refetch on reconnect (we have Redis cache on backend)
-  revalidateOnReconnect: false,
-  // Deduplicate requests within this window
-  dedupingInterval: 30000, // 30 seconds
-  // Don't retry on error (let user handle it)
-  shouldRetryOnError: false,
-};
-
 // ── useExams Hook ─────────────────────────────────────────────────────────────
 
 /**
@@ -35,8 +25,6 @@ export function useExams(params = {}, options = {}) {
     () => examsFetcher(params),
     {
       ...SWR_CONFIG,
-      // Consider data fresh for 3 minutes
-      staleTime: 3 * 60 * 1000,
       ...options,
     }
   );
@@ -66,8 +54,6 @@ export function useExam(examId, options = {}) {
     () => examDetailFetcher(examId),
     {
       ...SWR_CONFIG,
-      // Consider exam details fresh for 5 minutes
-      staleTime: 5 * 60 * 1000,
       ...options,
     }
   );
@@ -102,8 +88,6 @@ export function useExamWithQuestions(examId, options = {}) {
     },
     {
       ...SWR_CONFIG,
-      // Questions shouldn't change during exam - cache for 10 minutes
-      staleTime: 10 * 60 * 1000,
       ...options,
     }
   );
@@ -145,6 +129,8 @@ export function useExamMutations() {
     refreshExam,
   };
 }
+
+export { SWR_CONFIG };
 
 export default {
   useExams,
